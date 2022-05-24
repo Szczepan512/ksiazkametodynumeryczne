@@ -1,0 +1,4 @@
+fp[0]=2*fp[1]-fp[2]
+fp[N-1]=2*fp[N-2]-fp[N-3]
+fpp[0]=2*fpp[1]-fpp[2]
+fpp[N-1]=2*fpp[N-2]-fpp[N-3]
