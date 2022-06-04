@@ -1,0 +1,73 @@
+
+\chapter*{Appendix B}
+\addcontentsline{toc}{chapter}{Appendix B}
+\section*{Glossary of Terms}
+\addcontentsline{toc}{section}{Glossary of Terms}
+
+Algorithm a set of steps used to solve a problem; frequently these are expressed in terms of a programming language.
+
+Analytical approach finding an exact, algebraic solution to a differential equation.
+
+Cell-center grid a grid with a point in the center of each cell. For instance, a cell-center grid ranging from 0 to 10 by steps of 1 would have points at $0.5$, $1.5, \ldots, 8.5,9.5$. Note that in this case, there are exactly as many points as cells (10 in this case).
+
+Cell-center grid with ghost points the same as a regular cell-center grid, but with one additional point at each end of the grid (with the same spacing as the rest). A cell-center grid with ghost points ranging from 0 to 10 by steps of 1 would have points at $-0.5,0.5, \ldots, 9.5,10.5$. Note that in this case, there are two more points than cells. This arrangement is useful when setting conditions on the derivative at a boundary.
+
+Cell-edge grid a grid with a point at the edge of each cell. For instance, a celledge grid ranging from 0 to 10 by steps of 1 would have points at $0,1, \ldots$, 9,10 . Note that in this case, there are actually $N-1$ cells (where $N$ is the number of points: 11 in this case). The discrepancy between the number of cell and number of points is commonly called the "fence post problem" because in a straight-line fence there is one more post than spaces between posts.
+
+Centered difference formula calculates derivatives on grids whereby the slope is calculated at a point centered between the two points where the function is evaluated. This is typically the best formula for the first derivative that uses only two values.
+$$
+f^{\prime}(x) \approx \frac{f(x+h)-f(x-h)}{2 h}
+$$
+Courant condition also called the Courant-Friedrichs-Lewy condition or the CFL condition, this condition gives the maximum time step for which an explicit algorithm remains stable. In the case of the Staggered-Leap Frog algorithm, the condition is $\tau>h / c$.
+
+Crank Nicolson method an implicit algorithm for solving differential equations, e.g. the diffusion equation, developed by Phyllis Nicolson and John Crank.
+Dirichlet boundary conditions boundary conditions where a value is specified at each boundary, e.g. if $0<x<10$ and the function value at $x=10$ is forced to be 40 .
+Dispersion the spreading-out of waves
+Eigenvalue problem the linear algebra problem of finding a vector $\mathbf{g}$ that obeys $\mathbf{A g}=\lambda \mathbf{g}$.
+
+Explicit algorithm an algorithm that explicitly use past and present values to calculate future ones (often in an iterative process, where the future values become present ones and the process is repeated). Explicit algorithms are typically easier to implement, but more unstable than implicit algorithms.
+Extrapolation approximating the value of a function past the known range of values, using at least two nearby points.
+
+Finite-difference method method that approximates the solution to a differential equation by replacing derivatives with equivalent difference equations.
+Forward difference formula a formula for calculating derivatives on grids whereby the slope is calculated at one of the points where the function is evaluated. This is typically less exact than the centered difference formula, although the two both become exact as $h$ goes to zero.
+$$
+f^{\prime}(x) \approx \frac{f(x+h)-f(x)}{h}
+$$
+
+Gauss-Seidel method a Successive Over-Relaxation technique with $w=1$.
+Generalized eigenvalue problem the problem of finding a vector $g$ that obeys $\mathbf{A g}=\lambda \mathbf{B g} .$
+Ghost points see "Cell-center grid with ghost points."
+Grid A division of either a spatial or temporal range (or both), used to numerically solve differential equations.
+
+Implicit algorithm an algorithm that use present and future values to calculate future ones (often in a matrix equation, whereby all function points at a given time level are calculated at once). Implicit algorithms are typically more difficult to implement, but more stable than explicit algorithms.
+Interpolation approximating the value of a function somewhere between two known points, possibly using additional surrounding points.
+
+Iteration repeating a calculation a number of times, usually until the error is smaller than a desired amount.
+
+Korteweg-deVries Equation a differential equation that describes the motion of a soliton.
+
+Lax-Wendroff algorithm an algorithm that uses a Taylor series in time to obtain a second-order accurate method
+
+Neumann boundary conditions boundary conditions where the derivative of the function is specified at each boundary, e.g. if $0<x<10$ and at $x=10$ the derivative $d x / d t$ is forced to be 13 .
+
+Resonance the point at which a system has a large steady-state amplitude with very little driving force.
+
+Roundoff an error in accuracy that occurs when dealing with fixed-point arithmetic on computers. This can introduce very large errors when subtracting two numbers that are nearly equal.
+
+Second derivative formula this is a centered formula for finding the second derivative on a grid:
+$$
+f^{\prime \prime}(x) \approx \frac{f(x+h)-2 f(x)+f(x-h)}{h^{2}}
+$$
+
+Staggered-Leap Frog an algorithm for solving differential equations (e.g. the wave equation) whereby the value of a function one time step into the future is found current and past values of the function. It suffers from the difficulty at the start of needing to know the function value prior to the initial conditions.
+
+Steady State solutions to differential equations in which the system reaches an equilibrium solution that continues on forever in the same fashion.
+
+Successive Over-Relaxation A way to shift the eigenvalues. More specifically, it is using a multiplier w to shift the eigenvalues., with $w>1$.
+
+Successive Over-Relaxation (SOR) An algorithm for solving a linear system such as $\mathbf{V}^{\text {new }}=\mathbf{L} \times \mathbf{V}^{\text {old }}+\mathbf{r}$ by iterations, by shifting the eigenvalues. This can be done via solving the equivalent problem of
+$$
+\mathbf{V}^{\text {new }}=w \times[\text { RHS of previous equation }]+(1-w) \times \mathbf{V}^{\text {old }} .
+$$
+For good choices of $w$, this can lead to much quicker convergence.
+Transients solutions to differential equations that are initially present but which quickly die out (due to damping), leaving only the steady-state behavior.

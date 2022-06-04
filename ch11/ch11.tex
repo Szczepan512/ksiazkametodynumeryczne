@@ -1,0 +1,430 @@
+
+\chapter*{One Dimensional Gas Dynamics}
+\addcontentsline{toc}{chapter}{One Dimensional Gas Dynamics}
+\section*{Simultaneously advancing $\rho$, $T$ , and $v$}
+\addcontentsline{toc}{section}{Simultaneously advancing $\rho$, $T$ , and $v$}
+Now we are going to use the implicit algorithm that we developed in the previous
+lab as a tool to solve the three nonlinear coupled partial differential equations
+of one-dimensional gas dynamics. These are the equations of one-dimensional
+sound waves in a long tube pointed in the x-direction, assuming that the tube is
+wide enough that friction with the walls doesn\rq t matter. \\ 
+The three equations we need to advance are the continuity equation
+\begin{equation}\label{eq:1101}
+\frac{\partial \rho}{\partial t}+\frac{\partial}{\partial x}(\rho v)=0
+\end{equation}
+the conservation of energy
+\begin{equation}\label{eq:1102}
+\frac{\partial T}{\partial t}+v \frac{\partial T}{\partial x}+(\gamma-1) T \frac{\partial v}{\partial x}=\frac{(\gamma-1) M \kappa}{k_{B}} \frac{1}{\rho} \frac{\partial^{2} T}{\partial x^{2}}
+\end{equation}
+and Newton\rq s second law
+\begin{equation}\label{eq:1103}
+\frac{\partial v}{\partial t}+v \frac{\partial v}{\partial x}=-\frac{1}{\rho} \frac{\partial P}{\partial x}+\frac{4 \mu}{3 \rho} \frac{\partial^{2} v}{\partial x^{2}}
+\end{equation}
+Here $\rho(x,t)$ is the density of the gas, $v(x,t)$ is the velocity of the gas, and $T(x,t)$ is
+the temperature of the gas. The pressure $P$ is given by the ideal gas law
+\begin{equation}\label{eq:1104}
+P=\frac{k_{B}}{M} \rho T
+\end{equation}
+Because of the nonlinearity of these equations and the fact that they are
+coupled we are not going to be able to write down a simple algorithm that will advance $\rho, T$ , and $v$ in time. But if we are creative we can combine simple methods
+that work for each equation separately into a stable and accurate algorithm for
+the entire set. We are going to show you one way to do it, but the computational
+physics literature is full of other ways, including methods that handle shock waves.
+This is still a very active and evolving area of research, especially for problems in
+2 and 3 dimensions.
+Let\rq s try a predictor-corrector approach similar to second-order Runge-Kutta (which you learned about back in 330 ) by first taking an approximate step in time of length $\tau$ to obtain predicted values for our variables one time step in the future. We'll refer to these first-order predictions for the future values as $\tilde{\rho}^{n+1}, \tilde{T}^{n+1}$, and $\tilde{v}^{n+1}$. In the predictor step we will treat $v$ as constant in time in Eq. \eqref{eq:1101} to predict $\tilde{\rho}^{n+1}$. Then we'll use $\tilde{\rho}^{n+1}$ to help us calculate $\tilde{T}^{n+1}$ using Eq. \eqref{eq:1102}, while still treating $v$ as fixed in time. Once these predicted values are obtained we can use them with Eq. \eqref{eq:1103} to obtain a predicted $\tilde{v}$. With all of these predicted future values of our variables in hand, we do another round of Crank-Nicolson on all three equations to step the solution forward in time. We can represent this procedure schematically as follows:\\
+Step 1 Use the old velocity $v^{n}$ as input for Eqn. \eqref{eq:1105} $\rightarrow$ Solve for the predicted density $\tilde{\rho}$.\\
+Step 2 Use $v^{n}$ and $\tilde{\rho}$ as inputs for Eqn. \eqref{eq:1102} $\rightarrow$ Solve for the predicted temperature $\tilde{T}$.\\
+Step 3 Use $\tilde{\rho}$ and $\tilde{T}$ as inputs for Eqn. \eqref{eq:1103} $\rightarrow$ Solve for the predicted velocity $\tilde{v}$.\\
+Step 4 Use $\tilde{v}$ as input for Eqn. \eqref{eq:1105} $\rightarrow$ Solve for the new density $\rho^{n+1}$.\\
+Step 5 Use $\tilde{v}$ and $\rho^{n+1}$ as inputs for Eqn. \eqref{eq:1102} $\rightarrow$ Solve for the new temperature $T^{n+1}$.\\
+Step 6 Use $\rho^{n+1}$ and $T^{n+1}$ as inputs for Eqn. \eqref{eq:1103} $\rightarrow$ Solve for the new velocity $v^{n+1}$.\\
+
+This procedure probably seems a bit nebulous at this point, so let\rq s go through it in more detail. First we\rq ll derive the Crank-Nicolson algorithms for our three equations, then we\rq ll show how to use these algorithms to solve the system using the predictor-corrector method.
+
+
+\section*{Continuity Equation}
+\addcontentsline{toc}{section}{Continuity Equation}
+Conservation of mass is governed by the continuity equation
+\begin{equation}\label{eq:1105}
+\frac{\partial \rho}{\partial t}+\frac{\partial}{\partial x}(\rho v)=0
+\end{equation}
+
+We can\rq t solve this equation directly because it has two unknowns ( $\rho$ and $v$ ). But if we assume that $v$ is known as we did in the last lab, then it is possible to solve the equation using Crank-Nicolson, as we did in the last lab. As usual for Crank-Nicolson, we forward difference in time and center difference in space to find
+\begin{equation}\label{eq:1106}
+\frac{\rho_{j}^{n+1}-\rho_{j}^{n}}{\tau}=-\frac{v_{j+1}^{n} \rho_{j+1}^{n}-v_{j-1}^{n} \rho_{j-1}^{n}}{2 h}
+\end{equation}
+Then we use time averaging to put the right side of the equation at the same time level as the left (i.e. at the $n+1 / 2$ time level):
+
+\begin{equation}\label{eq:1107}
+\rho_{j}^{n+1}-\rho_{j}^{n}=C_{1}\left(\rho_{j+1}^{n}+\rho_{j+1}^{n+1}\right)-C_{2}\left(\rho_{j-1}^{n}+\rho_{j-1}^{n+1}\right)
+\end{equation}
+where
+\begin{equation}\label{eq:1108}
+C_{1}=-\frac{\tau}{8 h}\left(v_{j+1}^{n}+v_{j+1}^{n+1}\right)
+\end{equation}
+\begin{equation}\label{eq:1109}
+C_{2}=-\frac{\tau}{8 h}\left(v_{j-1}^{n}+v_{j-1}^{n+1}\right)
+\end{equation}
+ Then we put the  $\rho^{n+1}$  terms on the left and the $\rho^{n}$ terms on the right: 
+
+\begin{equation}\label{eq:1110}
+C_{2} \rho_{j-1}^{n+1}+\rho_{j}^{n+1}-C_{1} \rho_{j+1}^{n+1}=-C_{2} \rho_{j-1}^{n}+\rho_{j}^{n}+C_{1} \rho_{j+1}^{n}
+\end{equation}
+Then we write these equations along with the boundary conditions in matrix form
+
+\begin{equation}\label{eq:1111}
+\mathbf{A} \rho^{n+1}=\mathbf{B} \rho^{n}
+\end{equation}
+which we solve using linear algebra techniques. For the algorithm represented by Eq. \eqref{eq:1111} to calculate $\rho^{n+1}$, we need to feed it values for $\rho^{n}, v^{n}$, and $v^{n+1}$. Since the inputs for these variables will be different in the predictor and the corrector steps, we need to invent some notation. We\rq ll refer to this Crank-Nicolson algorithm for stepping forward to find $\rho^{n+1}$ using the notation $S_{\rho}\left(\rho^{n}, v^{n}, v^{n+1}\right)$ so the variables the algorithm needs as inputs are explicitly shown.
+
+\section*{Conservation of energy}
+\addcontentsline{toc}{section}{Conservation of energy}
+
+The temperature of a gas is a macroscopic manifestation of the energy of the
+thermal motions of the gas molecules. The equation that enforces conservation
+of energy for our system is
+
+\begin{equation}\label{eq:1112}
+\frac{\partial T}{\partial t}+v \frac{\partial T}{\partial x}=-(\gamma-1) T \frac{\partial v}{\partial x}+D_{T} \frac{\partial^{2} T}{\partial x^{2}}
+\end{equation}
+where $\gamma$ is the ratio of specific heats in the gas: $\gamma=C_{p} / C_{\nu}$. This equation says that as the gas is moved along with the flow and squeezed or stretched, the energy is convected along with the flow and the pressure goes up and down adiabatically (that\rq s why $\gamma$ is in there). It also says that thermal energy diffuses due to thermal conduction. Thermal diffusion is governed by the diffusion-like term containing the thermal diffusion coefficient $D_{T}$ given in a gas by
+\begin{equation}\label{eq:1113}
+D_{T}=\frac{(\gamma-1) M \kappa}{k_{B} \rho}
+\end{equation}
+where $\kappa$ is the thermal conductivity, $M$ is the mass of a molecule of the gas, and where $k_{B}$ is Boltzmann\rq s constant.\\
+It is probably easier to conceptualize pressure waves rather than temperature waves. The ideal gas law gives us a way to calculate the pressure, given a density $\rho$ and a temperature $T$, so we\rq ll use the ideal gas law $P=n k_{B} T$ (where $n$ is the number of particles per unit volume) to calculate pressure $P$ once the density $\rho$ and temperature $T$ are known via
+\begin{equation}\label{eq:1114}
+P=\frac{k_{B}}{M} \rho T
+\end{equation}
+To find a predicted value for T one step in the future, we forward difference
+the time derivative and center difference the space derivatives to find
+
+\begin{equation}\label{eq:1115}
+\frac{T_{j}^{n+1}-T_{j}^{n}}{\tau}=-v_{j}^{n} \frac{T_{j+1}^{n}-T_{j-1}^{n}}{2 h}-(\gamma-1) T_{j}^{n} \frac{v_{j+1}^{n}-v_{j-1}^{n}}{2 h}+F \frac{1}{\rho_{j}^{n}} \frac{T_{j+1}^{n}-2 T_{j}^{n}+T_{j-1}^{n}}{h^{2}}
+\end{equation}
+where
+\begin{equation}\label{eq:1116}
+F=\frac{(\gamma-1) M \kappa}{k_{B}}
+\end{equation}
+We then rearrange Eq. \eqref{eq:1115} into a form that makes the upcoming algebra (and
+coding) more readable:
+\begin{equation}\label{eq:1117}
+\frac{T_{j}^{n+1}-T_{j}^{n}}{\tau}=T_{j-1}^{n} D_{1}+T_{j}^{n} D_{2}+T_{j+1}^{n} D_{3}
+\end{equation}
+where
+\begin{equation}\label{eq:1118}
+D_{1}=\frac{v_{j}^{n}}{2 h}+\frac{F}{\rho_{j}^{n} h^{2}}
+\end{equation}
+
+\begin{equation}\label{eq:1119}
+D_{2}=-(\gamma-1) \frac{v_{j+1}^{n}-v_{j-1}^{n}}{2 h}-\frac{2 F}{\rho_{j}^{n} h^{2}}
+\end{equation}
+\begin{equation}\label{eq:1120}
+D_{3}=-\frac{v_{j}^{n}}{2 h}+\frac{F}{\rho_{j}^{n} h^{2}}
+\end{equation}
+\paragraph*{P11.1}
+Finish deriving the Crank-Nicolson algorithm for $T^{n+1}$ by putting the righthand side of Eq. \eqref{eq:1117} at the $n+1 / 2$ time level. This means replacing $T^{n}$ terms with $\left(T^{n}+T^{n+1}\right) / 2$ in Eq. \eqref{eq:1117} and making the replacements $\rho^{n} \Rightarrow\left(\rho^{n}+\rho^{n+1}\right) / 2$ and $v^{n} \Rightarrow\left(v^{n}+v^{n+1}\right) / 2$ in $D_{1}, D_{2}$, and $D_{3}$. Then put your system of equations in the form
+\begin{equation*}
+\mathbf{A} T^{n+1}=\mathbf{B} T^{n}
+\end{equation*}
+and write out the coefficients in the $\mathbf{A}$ and $\mathbf{B}$ matrices so we can code them later.
+When you are finished with Problem $11.1$ you will have an algorithm for stepping $T$ forward in time. We'll refer to this algorithm as $S_{T}\left(T^{n}, v^{n}, v^{n+1}, \rho^{n}, \rho^{n+1}\right)$, so we explicitly see the variables that are required as inputs.
+\section*{Newton\rq s second law}
+\addcontentsline{toc}{section}{Newton\rq s second law}
+Finally, let\rq s consider Newton\rq s second law for this system in a form analogous to $a=F / m$ :
+
+\begin{equation}\label{eq:1121}
+\frac{\partial v}{\partial t}+v \frac{\partial v}{\partial x}=-\frac{1}{\rho} \frac{\partial P}{\partial x}+\frac{4 \mu}{3 \rho} \frac{\partial^{2} v}{\partial x^{2}}
+\end{equation}
+You should recognize the first term $d \nu / d t$ as acceleration, and we\rq ll discuss the origin of the other acceleration term in a minute. The first term on the right is the pressure force that pushes fluid from high pressure toward low pressure, with the pressure $P$ given by the ideal gas law in Eq. \eqref{eq:1114}. The second term on the right represents the force of internal friction called viscosity, and the parameter $\mu$ is referred to as the coefficient of viscosity. (Tar has high viscosity, water has medium viscosity, and air has almost none.) The $1 / \rho$ factor in the force terms represents the mass $m$ in $a=F / m$ (but of course we are working with mass density $\rho$ here).
+You may be unconvinced that the left side of Eq. \eqref{eq:1121} is acceleration. To become more convinced, let\rq s think about this situation more carefully. Newton\rq s second law does not apply directly to a location in space where there is a moving fluid. Newton\rq s second law is for particles that are moving through space, not for a location in space that is sitting still with fluid moving through it. This distinction is subtle, but important. Think, for instance, about a steady stream of honey falling out of a honey bear held over a warm piece of toast. If you followed a piece of honey along its journey from the spout down to the bread you would experience acceleration. But if you watched a piece of the stream at a specific location (say, $10 \mathrm{~cm}$ above the bread) you would see that the velocity of this part of the stream is constant in time: $\partial v / \partial t=0$. This is a strong hint that there is more to describing the acceleration of fluids through a region of space than just the local $\partial v / \partial t$ for a given location. You also need to compare the local velocity at your chosen point to the velocities at nearby points in space, which is what the $v \partial v / \partial x$ term does in the left side of Eq. \eqref{eq:1121}.
+Notice that Eq. \eqref{eq:1121} has a nonlinear term on the left: $v(\partial v / \partial x)$. There is no way to directly represent this nonlinear term using a linear matrix form like $\mathbf{A} v^{n+1}=\mathbf{B} v^{n}$, so we'll have to make an approximation. We\rq ll assume that the leading $v$ in the nonlinear term is somehow known and designate it as $\bar{v}$. (We\rq ll deal with finding something to use for $\bar{\nu}$ later.) With a forward time derivative and a centered space derivative, we have
+
+
+\begin{equation}\label{eq:1122}
+\begin{array}{r}
+\frac{v_{j}^{n+1}-v_{j}^{n}}{\tau}=-\bar{v}_{j}^{n}\left(\frac{v_{j+1}^{n}-v_{j-1}^{n}}{2 h}\right)-\frac{k_{B}}{M \rho_{j}^{n}}\left(\frac{\rho_{j+1}^{n} T_{j+1}^{n}-\rho_{j-1}^{n} T_{j-1}^{n}}{2 h}\right) \\
++\frac{4 \mu}{3 \rho_{j}^{n}}\left(\frac{v_{j+1}^{n}-2 v_{j}^{n}+v_{j-1}^{n}}{h^{2}}\right)
+\end{array}
+\end{equation}
+Again, we\rq ll rewrite the equations with named groups of expressions that don\rq t
+depend on $v$ so that our algebra is manageable:
+
+
+\begin{equation}\label{eq:1123}
+\frac{v_{j}^{n+1}-v_{j}^{n}}{\tau}=E_{0}+v_{j-1}^{n} E_{1}+v_{j}^{n} E_{2}+v_{j+1}^{n} E_{3}
+\end{equation}
+where
+
+\begin{equation}\label{eq:1124}
+E_{0}=-\frac{k_{B}}{M \rho_{j}^{n}}\left(\frac{\rho_{j+1}^{n} T_{j+1}^{n}-\rho_{j-1}^{n} T_{j-1}^{n}}{2 h}\right)
+\end{equation}
+\begin{equation}\label{eq:1125}
+E_{1}=\frac{\bar{v}_{j}^{n}}{2 h}+\frac{4 \mu}{3 \rho_{j}^{n} h^{2}}
+\end{equation}
+
+\begin{equation}\label{eq:1126}
+E_{2}=-\frac{8 \mu}{3 \rho_{j}^{n} h^{2}}
+\end{equation}
+
+\begin{equation}\label{eq:1127}
+E_{3}=-\frac{\bar{v}_{j}^{n}}{2 h}+\frac{4 \mu}{3 \rho_{j}^{n} h^{2}}
+\end{equation}
+
+\paragraph*{P11.2}
+Finish deriving the Crank-Nicolson algorithm for $v$ by making the replacements $v^{n} \Rightarrow\left(v^{n+1}+v^{n}\right) / 2$ the right-hand side of Eq. \eqref{eq:1123} and $\rho^{n} \Rightarrow$ $\left(\rho^{n}+\tilde{\rho}^{n+1}\right) / 2, T^{n} \Rightarrow\left(T^{n}+\tilde{T}^{n+1}\right) / 2$, and $\bar{v}^{n} \Rightarrow\left(\bar{v}^{n}+\bar{v}^{n+1}\right) / 2$ in $E_{0}, E_{1}, E_{2}$, and $E_{3}$. Show that your system of equations needs to be in the form
+
+\begin{equation*}
+\mathbf{A} v^{n+1}=\mathbf{B} v^{n}+E_{0}
+\end{equation*}
+where $E_{0}$ is a column vector. Write out the coefficients in the $\mathbf{A}$ and $\mathbf{B}$ matrices so you can code them later.
+
+We\rq ll refer to this $v$-stepping algorithm as $S_{v}\left(v^{n}, \bar{v}^{n}, \bar{v}^{n+1}, \rho^{n}, \rho^{n+1}, T^{n}, T^{n+1}\right)$, where, as usual, we explicitly show the variables that are required as inputs.
+\section*{Waves in a closed tube}
+\addcontentsline{toc}{section}{Waves in a closed tube}
+
+Now that you have algorithms for all three equations, we can restate the predictorcorrector algorithm using our newly-developed notation.
+Predictor Step: First we predict $\rho^{n+1}$ while treating $v$ as a constant:
+$$
+\tilde{\rho}^{n+1}=S_{\rho}\left(\rho^{n}, v^{n}, v^{n+1}=v^{n}\right)
+$$
+Then we predict $T^{n+1}$ using $\tilde{\rho}^{n+1}$, still treating $v$ as a constant
+$$
+\tilde{T}^{n+1}=S_{T}\left(T^{n}, v^{n}, v^{n+1}=v^{n}, \rho^{n}, \rho^{n+1}=\tilde{\rho}^{n+1}\right)
+$$
+Then we predict $v^{n+1}$ using $\tilde{\rho}^{n+1}$ and $\tilde{T}^{n+1}$, while treating $\bar{v}$ from the nonlinear term as a constant equal to the current $v$
+$$
+\tilde{v}^{n+1}=S_{v}\left(v^{n}, \bar{v}^{n}=v^{n}, \bar{v}^{n+1}=v^{n}, \rho^{n}, \rho^{n+1}=\tilde{\rho}^{n+1}, T^{n}, \tilde{T}^{n+1}\right)
+$$
+Corrector Step: Now that we have predicted values for each variable, we step $\rho$ forward using
+$$
+\rho^{n+1}=S_{\rho}\left(\rho^{n}, v^{n}, v^{n+1}=\tilde{v}^{n}\right)
+$$
+Then we step $T$ using
+$$
+T^{n+1}=S_{T}\left(T^{n}, v^{n}, v^{n+1}=\tilde{v}^{n}, \rho^{n}, \rho^{n+1}\right)
+$$
+And finally, we step $v$ forward using
+$$
+v^{n+1}=S_{v}\left(v^{n}, \bar{v}^{n}=v^{n}, \bar{v}^{n+1}=\tilde{v}^{n}, \rho^{n}, \rho^{n+1}, T^{n}, T^{n+1}\right)
+$$
+Now let\rq s put this algorithm into a script and use it to model waves in a tube of length $L=10 \mathrm{~m}$ with closed ends through which there is no flow of heat. For disturbances in air at sea level at $20^{\circ} \mathrm{C}$ we have temperature $T=293 \mathrm{~K}$, mass density $\rho=1.3 \mathrm{~kg} / \mathrm{m}^{3}$, adiabatic exponent $\gamma=1.4$, coefficient of viscosity $\mu=$ $1.82 \times 10^{-5} \mathrm{~kg} /(\mathrm{m} \cdot \mathrm{s})$, and coefficient of thermal conductivity $\kappa=0.024 \mathrm{~J} /(\mathrm{m} \cdot \mathrm{s} \cdot \mathrm{K})$. Boltzmann\rq s constant is $k_{B}=1.38 \times 10^{-23} \mathrm{~J} / \mathrm{K}$ and the mass of the molecules of the gas is $M=29 \times 1.67 \times 10^{-27} \mathrm{~kg}$ for air.
+
+\paragraph*{P11.3}
+\begin{enumerate}[label=(\alph*)]
+	\item As you might guess, debugging the algorithm that we just developed takes a while to debug because there are so many steps and so many terms to get typed accurately. (When we wrote the solution code, it took over an hour to track down two minus sign errors and a factor of two error.) We\rq d rather have you use the algorithm than beat your head on the wall debugging it, so below is the code that implements the algorithm. Go to the class web site now and download these files. Study them and make sure you understand how they work.
+	\item The one thing we haven\rq t included in the code is the boundary conditions. The ends are insulating, so we have
+	\begin{equation}\label{eq:1128}
+\partial T / \partial x=0
+\end{equation}
+at both ends. Because the wall ends are fixed and the gas can\rq t pass through these walls, the boundary conditions on the velocity are
+\begin{equation}\label{eq:1129}
+v(0, t)=v(L, t)=0
+\end{equation}
+Use this fact to obtain the following differential boundary condition
+on the density at the ends of the tube:
+
+\begin{equation}\label{eq:1130}
+\frac{\partial \rho}{\partial t}+\rho \frac{\partial v}{\partial x}=0 \quad \text { at } x=0 \text { and } x=L
+\end{equation}
+This condition simply says that the density at the ends goes up and
+down in obedience to the compression or rarefaction produced by the
+divergence of the velocity.
+Write down the finite difference form for all three of these boundary
+conditions. Make sure they are properly centered in time and space
+for a cell-center grid with ghost points. Then code these boundary
+conditions in the proper spots in the code.
+
+\end{enumerate}
+
+\paragraph*{P11.4}
+\begin{enumerate}[label=(\alph*)]
+\item Test the script by making sure that small disturbances travel at the sound speed $c=\sqrt{\frac{\gamma k_{B} T}{M}}$. To do this set $T$ and $\rho$ to their atmospheric values and set the velocity to 
+\begin{equation}\label{eq:1131}
+\frac{\partial \rho}{\partial t}+\rho \frac{\partial v}{\partial x}=0 \quad \text { at } x=0 \text { and } x=L
+\end{equation}
+with $v_{0}=c / 100$. If you look carefully at the deviation of the density from its atmospheric value you should see two oppositely propagating signals. Verify that they travel at the speed of sound.
+
+\item The predictor-corrector algorithm is not as stable as plain CrankNicolson. Vary the time step and find where it begins to be unstable. Then change $N$ and see how the stability threshold changes. Come up with an equation that estimates a limit on the step size in terms of $h$.
+
+\item Remove the effects of viscosity and thermal conduction by setting $\mu=0$ and $\kappa=0$. Increase the value of $v_{0}$ to $c / 10$ and beyond and watch how the pulses develop. You should see the wave pulses develop steep leading edges and longer trailing edges; you are watching a shock wave develop. But if you wait long enough you will see your shock wave develop ugly wiggles; these are caused by Crank-Nicolson\rq s failure to properly deal with shock waves.
+
+\item Repeat part (c) with non-zero $\mu$ and $\kappa$ and watch thermal conduction and viscosity widen the shock and prevent wiggles. Try artificially large values of $\mu$ and $\kappa$ as well as their actual atmospheric values.
+\end{enumerate}
+\begin{lstlisting}
+import Lab11Funcs as S
+import matplotlib.pyplot as plt
+import numpy as np
+
+# System Parameters
+L = 10.0 # Length of tube
+T0 = 293. # Ambient temperature
+rho0 = 1.3 # static density (sea level)
+
+# speed of sound
+c = np.sqrt(S.gamma * S.kB * T0 / S.M)
+
+# cell-center grid with ghost points
+N = 100
+h = L/N
+x = np.linspace(-.5*h,L+.5*h,N+2)
+
+# initial distributions
+rho = rho0 * np.ones_like(x)
+T = T0 * np.ones_like(x)
+v = np.exp(-200*(x/L-0.5)**2) * c/100
+
+tau = 1e-4
+tfinal = 0.1
+t = np.arange(0,tfinal,tau)
+
+skip = 5 #input(' Steps to skip between plots - ')
+
+for n in range(len(t)):
+
+	# Plot the current values before stepping
+	if n % skip == 0:
+		plt.clf()
+		plt.subplot(3,1,1)
+		plt.plot(x,rho)
+		plt.ylabel('rho')
+		plt.ylim(1.28, 1.32)
+		plt.title('time={:1.3f}'.format(t[n]))
+		plt.subplot(3,1,2)
+		plt.plot(x,T)
+		plt.ylabel('T')
+		plt.ylim(292,294)
+		plt.subplot(3,1,3)
+		plt.plot(x,v)
+		plt.ylabel('v')
+		plt.ylim(-4,4)
+		plt.xlabel('x')
+		plt.pause(0.1)
+		
+# 1. Predictor step for rho
+rhop = S.Srho(rho,v,v,tau,h)
+
+# 2. Predictor step for T
+Tp = S.ST(T,v,v,rho,rhop,tau,h)
+
+# 3. Predictor step for v
+vp = S.Sv(v,v,v,rho,rhop,T,Tp,tau,h)
+
+# 4. Corrector step for rho
+rhop = S.Srho(rho,v,vp,tau,h)
+
+# 5. Corrector step for T
+Tp = S.ST(T,v,vp,rho,rhop,tau,h)
+
+# 6. Corrector step for v
+v = S.Sv(v,v,vp,rho,rhop,T,Tp,tau,h)
+
+# Now put rho and T at the same time-level as v
+rho = rhop
+T = Tp
+\end{lstlisting}
+
+
+
+
+\begin{lstlisting}
+import numpy as np
+import scipy.linalg as la
+
+# Physical Constants
+gamma = 1.4 # Adiabatic Exponent
+kappa = 0.024 # Thermal conductivity
+kB = 1.38e-23 # Boltzman Constant
+M = 29*1.67e-27 # Mass of air molecule (Average)
+mu = 1.82e-5 # Coefficient of viscosity
+F = (gamma-1)*M*kappa/kB # a useful constant
+
+def Srho(rho,v,vp,tau,h):
+	# Step rho forward in time by using Crank-Nicolson
+	# on the continuity equation
+
+	N = len(rho)
+	A = np.zeros((N,N))
+	B = np.zeros_like(A)
+
+	# Load interior points
+	const = -tau/8/h
+	for j in range(1,N-1):
+		C1 = const * (v[j+1] + vp[j+1])
+		C2 = const * (v[j-1] + vp[j-1])
+		A[j,j-1] = C2
+		A[j,j] = 1
+		A[j,j+1] = -C1
+		B[j,j-1] = -C2
+		B[j,j] = 1
+		B[j,j+1] = C1
+	# Apply boundary condition
+	# Write your code here
+	
+	# Crank Nicolson solve to step rho in time
+	r = B@rho
+
+	return la.solve(A,r)
+
+def ST(T,v,vp,rho,rhop,tau,h):
+
+	N = len(T)
+	A = np.zeros((N,N))
+	B = np.zeros_like(A)
+
+	# Load interior points
+	for j in range(1,N-1):
+		D1 = (v[j] + vp[j])/(4*h) + 2*F/(rho[j]+rhop[j])/h**2
+		D2 = (-(gamma-1) * (v[j+1] + vp[j+1] - v[j-1] - vp[j-1] )/(4*h)
+			- 4*F/(rho[j] + rhop[j])/h**2 )
+		D3 = -(v[j] + vp[j])/(4*h) + 2*F/(rho[j]+rhop[j])/h**2
+		
+		A[j,j-1] = -0.5*D1
+		A[j,j] = 1/tau - 0.5*D2
+		A[j,j+1] = -0.5*D3
+		B[j,j-1] = 0.5*D1
+		B[j,j] = 1/tau + 0.5*D2
+		B[j,j+1] = 0.5*D3
+	# Apply boundary condition
+	# Insulating: dt/dx = 0
+	
+	# Write your code here
+	
+	# Crank Nicolson solve to step rho in time
+	
+	r = B@T
+	return la.solve(A,r)
+	
+def Sv(v,vbar,vbarp,rho,rhop,T,Tp,tau,h):
+	N = len(rho)
+	A = np.zeros((N,N))
+	B = np.zeros_like(A)
+	E0 = np.zeros_like(v)
+	
+	# Load interior points
+	for j in range(1,N-1):
+		E0[j] = (-kB/4/h/M/(rho[j]+rhop[j]) *
+			( (rho[j+1] + rhop[j+1]) * (T[j+1] + Tp[j+1])
+			- (rho[j-1] + rhop[j-1]) * (T[j-1] + Tp[j-1])) )
+		E1 = (vbar[j] + vbarp[j])/(4*h)+8*mu/3/h**2/(rho[j]+rhop[j])
+		E2 =-16*mu/3/h**2/(rho[j]+rhop[j])
+		E3 =-(vbar[j] + vbarp[j])/(4*h) +8*mu/3/h**2/(rho[j]+rhop[j])
+		
+		A[j,j-1] = -0.5*E1
+		A[j,j] = 1/tau - 0.5*E2
+		A[j,j+1] = -0.5*E3
+		B[j,j-1] = 0.5*E1
+		B[j,j] = 1/tau + 0.5*E2
+		B[j,j+1] = 0.5*E3
+		
+	# Apply boundary condition
+	# Fixed: v = 0
+
+	# Write your code here
+		
+		
+	# Crank Nicolson solve to step rho in time
+	r = B@v + E0
+	return la.solve(A,r)
+\end{lstlisting}

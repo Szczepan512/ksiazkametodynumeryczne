@@ -1,0 +1,69 @@
+
+\chapter*{Appendix A}
+\addcontentsline{toc}{chapter}{Appendix A}
+\section*{Anaconda Environments}
+\addcontentsline{toc}{section}{Anaconda Environments}
+With the large number of packages and libraries available for use with Python, it is not uncommon for them to conflict with each other. (Libraries are collections of packages.) Additionally, sometimes a package may work with one version of Python but not with another. To address these types of issues, Anaconda has implemented the ability to create and load "environments", and in fact that is one of the compelling reasons to use the Anaconda version of Python in research settings where multiple people may be sharing code with each other.\\
+
+An environment file is basically a list of all of the package versions that are desired for a given configuration, including the version of Python itself. By loading an environment file in Anaconda prior to running Python, the user tells Anaconda to force Python to use those specified versions. That way, for example, someone working on code can save his or her environment, send the environment file to a collaborator along with the code, and be sure that the collaborator will be able to run the code in the exact same way, with no version conflict errors or other unexpected behavior.\\
+
+Environments are created and loaded from the Anaconda Prompt, an app which was installed when you installed Anaconda. The Anaconda Prompt is a command line interface which lets you run commands related to Anaconda itself (as opposed to Python commands).\\
+
+Some of the details below may differ slightly based on your operating system. For simplicity we will assume a Windows machine. If you open the Anaconda Prompt from the Windows search menu, you should see the following text:\\
+\begin{lstlisting}
+(base) C:\Users \yourname>
+\end{lstlisting}
+where yourname is your Windows username. The (base) prompt means that it is using the default environment as opposed to a specially loaded one, and the given directory (i.e. C: $\backslash$ Us ers $\backslash$ yourname $>$ ) is the default working directory from which Anaconda will save and load files. After you load an environment, (base) will be replaced by the name of the environment.
+
+Environment files are often titled "environment.yml". To load an environment, first copy the environment.yml file into the working directory and type this into the command prompt:
+\begin{lstlisting}
+conda env create -f environment. yml
+\end{lstlisting}
+The -f option means the next word will be the filename. This command will cause Anaconda to download all of the packages which are specified inside the environment.yml file, with specific versions. It may take a while but is a one-time thing.After Anaconda finishes with that command you have an environment you can use! The name of the environment is specified inside the environment.yml, and Anaconda will let you know its name when it is finished, by generating a response like this [where "yourenvironment" is whatever name was specified inside the file]:
+\begin{lstlisting}
+# To activate this environment, use
+#
+# $ conda activate yourenvironment
+#
+# To deactivate an active environment, use
+#
+# $ conda deactivate
+\end{lstlisting}
+At this point you will be able to see that a new folder with the yourenvironment name has been created in your $\mathrm{C}: \backslash$ Users $\backslash$ yourname $\backslash$ Anaconda $3 \backslash$ envs directory, filled with lots of stuff you don't need to worry about. If you have multiple environments installed, you can check that directory to see them all.
+
+As the response indicates, to use the environment you should type this into the command prompt:
+\begin{lstlisting}
+conda activate yourenvironment
+\end{lstlisting}
+That tells Anaconda to start using the specified environment and the command prompt will now look like this:
+\begin{lstlisting}
+(yourenvironment) C: \Users $\backslash$ yourname>
+\end{lstlisting}
+For future usages, you can skip the conda env create command and just use the conda act ivat e command. As also indicated by the response, to go back to the default environment without exiting and restarting Anaconda, you would type in:
+\begin{lstlisting}
+conda deactivate
+\end{lstlisting}
+After activating an environment, type spyder into the Anaconda Prompt command line to start up Spyder using that environment. Note that starting Spyder via the Windows search menu at this point will still run Spyder with the default packages and default Python version, not with the new environment, so you do need to start Spyder via the Anaconda Prompt. Also, even though you may activate an environment which includes various packages, when running Python code you still need to use import packagename-type commands in your Python file. The difference is that when an environment is active, Python will import the specified version of the package as opposed to just the default version.\\
+
+If you would like to create your own environment, you can do so via the conda creat e command. As an example, to create an environment named "newenvironment" to run Python version 3.7.6 with the numpy, scipy, keras, tensorflow, and matplotlib packages, you would type the following into the command prompt:
+\begin{lstlisting}
+conda create -n newenvironment python=3.7.6 numpy scipy keras tensorflow matplotlib
+\end{lstlisting}
+The -n option indicates that the next word will be the name of the environment.
+The above command will create a new folder in the
+\begin{lstlisting}
+C:\Users\yourname\Anaconda3\envs
+\end{lstlisting}
+directory by the name of "newenvironment", and then that environment will thereafter be available for use via conda act ivate commands in the future.
+You might want to create an environment like this for yourself if, for example, you periodically want to use a package that requires a particular version of Python to run well. If you additionally need to specify a particular version of a package, you can do so by adding equals signs and numbers to the command, such as s cipy $=0.15 .0$ instead of just s c ipy. If you don't explicitly specify the version of a package, Anaconda will just use the latest version.\\
+
+To additionally create an environment.yml file you can share with others, make sure the desired environment is active, then type this command:\\
+
+\begin{lstlisting}
+conda env export > environment. yml
+\end{lstlisting}
+The environment.yml will be created in the working directory (overwriting any other environment.yml file which may be present, so be careful). Your colleagues will then be able to use that file to reproduce your environment on their own computers by running conda env create and conda activate commands as explained above.\\
+
+Incidentally, we have created an environment specifically to assist with version conflicts in Lab 13 using a conda create command similar to the example above, and the environment.yml file is available for download on our website. It creates an environment called pythonML which should allow you to run all of the machine learning examples from Lab $12 .$\\
+
+For more information on environments, see the documentation provided here.\\
