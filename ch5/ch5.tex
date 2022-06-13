@@ -58,8 +58,8 @@ from the current and previous values of $y_j$. To derive the algorithm put Eqs.\
 	y_j^{n+1} = 2y_j^n - y_j^{n-1} + \frac{c^2 \tau^2}{h^2}(y_{j+1}^n - 2y^n_j + y^n_{j-1})
 \end{equation}
 
-\paragraph*{P5.1} Derive Eq. \eqref{eq:56} using the approximate second derivative formulas. This is
-really simple, so just do it on paper.
+\begin{problem}\label{P5.1} Derive Eq. \eqref{eq:56} using the approximate second derivative formulas. This is
+really simple, so just do it on paper.\end{problem}
 Equation \eqref{eq:56} can only be used at interior spatial grid points because the
 $ j + 1 {or} j-1$  indices reach beyond the grid at the first and last grid points. The
 behavior of the solution at these two end points is determined by the boundary
@@ -108,9 +108,9 @@ known quantities:
 y_j^{-1} = Y^0_j - v_0(x_j)\tau + \frac{c^2 \tau^2}{2h^2}(y^0_{j+1}-2y^0_j+y^0_{j-1})
 \end{equation}
 
-\paragraph*{P5.2}Derive Eq. \eqref{eq:511} from Eqs. \eqref{eq:59} and \eqref{eq:510}. Again, just use paper and pencil.
-OK; we are now ready to code the staggered leapfrog algorithm.
-\paragraph*{P5.3}
+\begin{problem}\label{P5.2} Derive Eq. \eqref{eq:511} from Eqs. \eqref{eq:59} and \eqref{eq:510}. Again, just use paper and pencil.
+OK; we are now ready to code the staggered leapfrog algorithm.\end{problem}
+\begin{problem}\label{P5.3} 
 
 \begin{enumerate}[label=(\alph*)]
 \item Start by making a cell-centered $x$ grid with ghost points over the region
@@ -188,7 +188,7 @@ slinky, stretch it out, and whack it in the middle to verify that the math
 does the physics right.
 
 \end{enumerate}
-
+\end{problem}
 \section*{The damped wave equation}
 \addcontentsline{toc}{section}{The damped wave equation} 
 We can modify the wave equation to include damping of the waves using a linear
@@ -206,7 +206,7 @@ the values one step in the future:
 \begin{equation}\label{eq:514}
 y^{n+1}_j = \frac{1}{2+ \Upsilon \tau}(4y^n_j-2y^{n-1}_j+ \Upsilon \tau y^{n-1}_j + \frac{2c^2 \tau^2}{h^2}(y^n_{j+1} - 2y^n_j + y^n_{j-1}))
 \end{equation}
-\paragraph*{P5.4} 
+\begin{problem}\label{P5.4} 
 \begin{enumerate}[label=(\alph*)]
 	\item Derive Eq. \eqref{eq:514}.
 	\item Find a new formula for the initial value of yold using Eqs.\eqref{eq:59} and
@@ -226,6 +226,7 @@ it fits. Can you explain why the fit is as good as it is? (Hint: think about
 doing this problem via separation of variables.)
 
 \end{enumerate}
+\end{problem}
 	\marginpar{\includegraphics[width=\marginparwidth]{fig54}\captionof{figure}{The maximum amplitude of oscillation decays exponentially for the damped wave equation. (Problem $5.4(\mathrm{c})$ )}\label{fig:28}}
 \section*{The damped and driven wave equation}
 \addcontentsline{toc}{section}{The damped and driven wave equation} 
@@ -245,7 +246,7 @@ reflections to eventually die away. In the end, we are left with a steady-state
 oscillation of the string at the driving frequency $\omega$.
 Now that we have the computational tools to model the time evolution of the
 system, let\rq s watch this behavior.
-\paragraph*{P5.5}
+\begin{problem}\label{P5.5} 
 
 \begin{enumerate}[label=(\alph*)]
 \item Re-derive the staggered leapfrog algorithm to include both driving
@@ -276,4 +277,5 @@ Problem 3.2(a) (see Fig. 3.1).
 Then run again with $ \omega = 1080 $, which is close to a resonance, and again
 see the system come into steady oscillation at the driving frequency.
 \end{enumerate}
+\end{problem}
 	\marginpar{\includegraphics[width=\marginparwidth]{fig55 }\captionof{figure}{Snapshots of the evolution a driven and damped wave with $\omega=400$. As the transient behavior dies out, the oscillation goes to the resonant mode. To make the pictures more interesting, the string was not started from rest in these plots. (In Problem $5.5$ you start from rest for easier coding.]}\label{fig:29}}

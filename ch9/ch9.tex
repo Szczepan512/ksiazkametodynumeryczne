@@ -84,7 +84,7 @@ to the solution the error becomes smaller every iteration by the factor $−e^{-
 it is not a miracle—it is just a consequence of having this expansion technique
 result in an error multiplier that is less than 1 in magnitude.
 
-\paragraph*{P9.1}
+\begin{problem}\label{P9.1}
 Write a program to solve the equation $x = e^{−x}$ by iteration and verify that
 it converges. Then try solving this same equation the other way round:
 $x = −ln x$ and show that the algorithm doesn\rq t converge. If you were to
@@ -92,7 +92,7 @@ use the $\bar{x} +\delta$ analysis above for the logarithm equation, you\rq d fi
 multiplier is bigger than one. Our time is short today, so we won\rq t make you
 do this analysis now, but it is a good exercise if you want to look at it on
 your own time.
-
+\end{problem}
 
 \section*{Iteration method on Poisson\rq s equation}
 \addcontentsline{toc}{section}{Iteration method on Poisson\rq s equation}
@@ -200,10 +200,10 @@ for n in range(200):
 				+(V[j,k+1] + V[j,k-1])/hy2
 				+rho[j,k]) / denom
 \end{lstlisting}
-\paragraph*{P9.2}  Paste the code above into a program, run it, and watch the solution iterate.
+\begin{problem}\label{P9.2}  Paste the code above into a program, run it, and watch the solution iterate.
 Study the code, especially the part in the loop. When you understand the
 code, call a TA over and explain it to them to pass off this part.
-
+\end{problem}
 
 \section*{Successive over-relaxation}
 \addcontentsline{toc}{section}{Successive over-relaxation}
@@ -218,8 +218,8 @@ and change the iteration procedure in the following non-intuitive way:
 x_{n+1}=\omega e^{-x_{n}}+(1-\omega) x_{n}
 \end{equation}
 where $\omega$ is a number which is yet to be determined.
-\paragraph*{P9.3} Verify quickly on paper that even though Eq. \eqref{eq:912} looks quite different
-from Eq. \eqref{eq:911}, it is still solved by $x = e^{-x}$.
+\begin{problem}\label{P9.3}Verify quickly on paper that even though Eq. \eqref{eq:912} looks quite different
+from Eq. \eqref{eq:911}, it is still solved by $x = e^{-x}$.\end{problem}
 If we insert xn = x¯ + δn into this new equation and expand as before, the error
 changes as we iterate according to the following
 \begin{equation}\label{eq:913}
@@ -232,12 +232,13 @@ course, to choose $\omega$ this way we would have to know $\bar{x}$, but it is e
 that this possibility exists at all. All we have to do then is numerically experiment
 with the value of $\omega$ and see if we can improve the convergence.
 
-\paragraph*{P9.4} Write a program that accepts a value of $\omega$ and runs the iteration in Eq. \eqref{eq:912}.
+\begin{problem}\label{P9.4} Write a program that accepts a value of $\omega$ and runs the iteration in Eq. \eqref{eq:912}.
 Experiment with various values of $\omega$ until you find one that does the best
 job of accelerating the convergence of the iteration. You should find that
 the best $\omega$ is near 0.64, but it won’t give convergence in one step. See if you
 can figure out why not.\\
 Hint: Think about the approximations involved in obtaining Eq. \eqref{eq:913}. Specifically go back to the previous derivation and look for terms represented by dots.\\
+\end{problem}
 As you can see from Eq. \eqref{eq:913}, this modified iteration procedure shifts the
 error multiplier to a value that converges better. So now we can see how to
 improve Gauss-Seidel: we just use an $\omega$ multiplier like this:
@@ -280,14 +281,15 @@ where Lhs is the left-hand side of Eq. \eqref{eq:98} and Rhs is its right-hand s
 
 And what value should we choose for the error criterion so that we know when to quit? Well, our finite-difference approximation to the derivatives in Poisson\rq s equation is already in error by a relative amount of about $1 /\left(12 N^{2}\right)$, where $N$ is the smaller of $N_{x}$ and $N_{y}$. There is no point in driving $\epsilon$ below this estimate. For more details, and for other ways of improving the algorithm, see Numerical Recipes, Chapter $19 .$
 
-\paragraph*{P9.5}
+\begin{problem}\label{P9.5}
 Starting with the Gauss-Seidel example above, implement all of the improvements described above to write a full successive over-relaxation routine. Note that you will need to replace the $for$ loop on the variable $n$ into a while loop that is based on the error criterion. Also move the plot command out of the loop so it only executes once, after the solution has converged. (So that you don\rq t have to wait for a bunch of plots to be drawn.) Run your code for a spatial region of size $L_{x}=4$ in the x-dimension and $L_{y}=2$ the $\mathrm{y}$-dimension arranged as shown in Fig. 9.1. Use $\mathrm{Nx}=\mathrm{Ny}=30$ and several different values of $\omega$. Note that the boundary conditions on the potential $V(x, y)$ are $V\left(-L_{x} / 2, y\right)=V\left(L_{x} / 2, y\right)=1$ and $V(x, 0)=V\left(x, L_{y}\right)=0$. Set the error criterion to $10^{-4}$. Verify that the optimum value of $\omega$ given by Eq. \eqref{eq:916} is the best one to use.
-
+\end{problem}
 
 	\marginpar{\includegraphics[width=\marginparwidth]{fig91}\captionof{figure}{The electrostatic potential $V(x, y)$ with two sides grounded and two sides at constant potential.}\label{fig:43}}
 \section*{Some Different Geometries}
 \addcontentsline{toc}{section}{Some Different Geometries}
-\paragraph*{P9.6}
+
+\begin{problem}\label{P9.6}
 	\marginpar{\includegraphics[width=\marginparwidth]{fig92}\captionof{figure}{The potential $V(x, y)$ rom Problem 9.6(a).}\label{fig:44}}
 		\marginpar{\includegraphics[width=\marginparwidth]{fig93}\captionof{figure}{The potential $V(x, y)$ with zero-derivative boundary conditions on two sides (Problem 9.6(b).)}\label{fig:45}}
 \begin{enumerate}[label=(\alph*)]
@@ -303,3 +305,4 @@ Then you go through and set the elements of mask that you don't want SOR to chan
 \includegraphics[width=0.7\textwidth]{fig94}\captionof{figure}{The potential $V (x, y)$ for an electrostatic \rq\rq cage\lq\lq formed by
 grounding some interior points. (Problem 9.6(c).)}
 \end{enumerate}
+\end{problem}

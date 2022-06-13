@@ -123,12 +123,12 @@ D_{2}=-(\gamma-1) \frac{v_{j+1}^{n}-v_{j-1}^{n}}{2 h}-\frac{2 F}{\rho_{j}^{n} h^
 \begin{equation}\label{eq:1120}
 D_{3}=-\frac{v_{j}^{n}}{2 h}+\frac{F}{\rho_{j}^{n} h^{2}}
 \end{equation}
-\paragraph*{P11.1}
+\begin{problem}\label{P11.1}
 Finish deriving the Crank-Nicolson algorithm for $T^{n+1}$ by putting the righthand side of Eq. \eqref{eq:1117} at the $n+1 / 2$ time level. This means replacing $T^{n}$ terms with $\left(T^{n}+T^{n+1}\right) / 2$ in Eq. \eqref{eq:1117} and making the replacements $\rho^{n} \Rightarrow\left(\rho^{n}+\rho^{n+1}\right) / 2$ and $v^{n} \Rightarrow\left(v^{n}+v^{n+1}\right) / 2$ in $D_{1}, D_{2}$, and $D_{3}$. Then put your system of equations in the form
 \begin{equation*}
 \mathbf{A} T^{n+1}=\mathbf{B} T^{n}
 \end{equation*}
-and write out the coefficients in the $\mathbf{A}$ and $\mathbf{B}$ matrices so we can code them later.
+and write out the coefficients in the $\mathbf{A}$ and $\mathbf{B}$ matrices so we can code them later.\end{problem}
 When you are finished with Problem $11.1$ you will have an algorithm for stepping $T$ forward in time. We'll refer to this algorithm as $S_{T}\left(T^{n}, v^{n}, v^{n+1}, \rho^{n}, \rho^{n+1}\right)$, so we explicitly see the variables that are required as inputs.
 \section*{Newton\rq s second law}
 \addcontentsline{toc}{section}{Newton\rq s second law}
@@ -172,14 +172,14 @@ E_{2}=-\frac{8 \mu}{3 \rho_{j}^{n} h^{2}}
 E_{3}=-\frac{\bar{v}_{j}^{n}}{2 h}+\frac{4 \mu}{3 \rho_{j}^{n} h^{2}}
 \end{equation}
 
-\paragraph*{P11.2}
+\begin{problem}\label{P11.2}
 Finish deriving the Crank-Nicolson algorithm for $v$ by making the replacements $v^{n} \Rightarrow\left(v^{n+1}+v^{n}\right) / 2$ the right-hand side of Eq. \eqref{eq:1123} and $\rho^{n} \Rightarrow$ $\left(\rho^{n}+\tilde{\rho}^{n+1}\right) / 2, T^{n} \Rightarrow\left(T^{n}+\tilde{T}^{n+1}\right) / 2$, and $\bar{v}^{n} \Rightarrow\left(\bar{v}^{n}+\bar{v}^{n+1}\right) / 2$ in $E_{0}, E_{1}, E_{2}$, and $E_{3}$. Show that your system of equations needs to be in the form
 
 \begin{equation*}
 \mathbf{A} v^{n+1}=\mathbf{B} v^{n}+E_{0}
 \end{equation*}
 where $E_{0}$ is a column vector. Write out the coefficients in the $\mathbf{A}$ and $\mathbf{B}$ matrices so you can code them later.
-
+\end{problem}
 We\rq ll refer to this $v$-stepping algorithm as $S_{v}\left(v^{n}, \bar{v}^{n}, \bar{v}^{n+1}, \rho^{n}, \rho^{n+1}, T^{n}, T^{n+1}\right)$, where, as usual, we explicitly show the variables that are required as inputs.
 \section*{Waves in a closed tube}
 \addcontentsline{toc}{section}{Waves in a closed tube}
@@ -211,7 +211,7 @@ v^{n+1}=S_{v}\left(v^{n}, \bar{v}^{n}=v^{n}, \bar{v}^{n+1}=\tilde{v}^{n}, \rho^{
 $$
 Now let\rq s put this algorithm into a script and use it to model waves in a tube of length $L=10 \mathrm{~m}$ with closed ends through which there is no flow of heat. For disturbances in air at sea level at $20^{\circ} \mathrm{C}$ we have temperature $T=293 \mathrm{~K}$, mass density $\rho=1.3 \mathrm{~kg} / \mathrm{m}^{3}$, adiabatic exponent $\gamma=1.4$, coefficient of viscosity $\mu=$ $1.82 \times 10^{-5} \mathrm{~kg} /(\mathrm{m} \cdot \mathrm{s})$, and coefficient of thermal conductivity $\kappa=0.024 \mathrm{~J} /(\mathrm{m} \cdot \mathrm{s} \cdot \mathrm{K})$. Boltzmann\rq s constant is $k_{B}=1.38 \times 10^{-23} \mathrm{~J} / \mathrm{K}$ and the mass of the molecules of the gas is $M=29 \times 1.67 \times 10^{-27} \mathrm{~kg}$ for air.
 
-\paragraph*{P11.3}
+\begin{problem}\label{P11.3}
 \begin{enumerate}[label=(\alph*)]
 	\item As you might guess, debugging the algorithm that we just developed takes a while to debug because there are so many steps and so many terms to get typed accurately. (When we wrote the solution code, it took over an hour to track down two minus sign errors and a factor of two error.) We\rq d rather have you use the algorithm than beat your head on the wall debugging it, so below is the code that implements the algorithm. Go to the class web site now and download these files. Study them and make sure you understand how they work.
 	\item The one thing we haven\rq t included in the code is the boundary conditions. The ends are insulating, so we have
@@ -237,8 +237,8 @@ for a cell-center grid with ghost points. Then code these boundary
 conditions in the proper spots in the code.
 
 \end{enumerate}
-
-\paragraph*{P11.4}
+\end{problem}
+\begin{problem}\label{P11.4}
 \begin{enumerate}[label=(\alph*)]
 \item Test the script by making sure that small disturbances travel at the sound speed $c=\sqrt{\frac{\gamma k_{B} T}{M}}$. To do this set $T$ and $\rho$ to their atmospheric values and set the velocity to 
 \begin{equation}\label{eq:1131}
@@ -252,6 +252,7 @@ with $v_{0}=c / 100$. If you look carefully at the deviation of the density from
 
 \item Repeat part (c) with non-zero $\mu$ and $\kappa$ and watch thermal conduction and viscosity widen the shock and prevent wiggles. Try artificially large values of $\mu$ and $\kappa$ as well as their actual atmospheric values.
 \end{enumerate}
+\end{problem}
 \begin{lstlisting}
 import Lab11Funcs as S
 import matplotlib.pyplot as plt

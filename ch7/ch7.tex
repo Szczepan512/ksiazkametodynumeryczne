@@ -74,7 +74,7 @@ This algorithm has problems since the left side of Eq. \eqref{eq:79} is centered
 \begin{equation}\label{eq:710}
 T_{j}^{n+1}=T_{j}^{n}+\frac{D \tau}{h^{2}}\left(T_{j+1}^{n}-2 T_{j}^{n}+T_{j-1}^{n}\right)
 \end{equation}
-\paragraph*{P7.1}
+\begin{problem}\label{P7.1}
 	\marginpar{\includegraphics[width=\marginparwidth]{fig71}\captionof{figure}{Diffusion of the $n=$ 1 sine temperature distribution given in Problem 7.1(a).}\label{fig:32}}
 \begin{enumerate}[label=(\alph*)]
 \item 
@@ -114,6 +114,7 @@ than at the edge. Tell physically how you would impose both of these
 boundary conditions (specifying the value and specifying the derivative) on the watermelon and explain what the temperature history of
 the watermelon has to do with your plots of $T(x)$ vs. time.
 \end{enumerate}
+\end{problem}
 	\marginpar{\includegraphics[width=\marginparwidth]{fig72}\captionof{figure}{Diffusion of the Gaussian temperature distribution given in Problem 7.1 (c) with insulating boundary conditions.}\label{fig:32}}
 Even though this technique can give us OK results, the time step constraint for this
 method is onerous. The constraint is of the form $\tau < C h^2$, where $C$ is a constant.
@@ -137,7 +138,7 @@ they assume that you already know the future. To give you a better feel for what
 \begin{equation}\label{eq:713}
 \frac{dy}{dt	} = -y
 \end{equation}
-\paragraph*{P7.2}
+\begin{problem}\label{P7.2}
 \begin{enumerate}[label=(\alph*)]
 \item Write a program to solve this equation using Euler\rq s method:
 \begin{equation}\label{eq:714}
@@ -185,7 +186,7 @@ want to run the solution out to 10 seconds.
 
 	\marginpar{\includegraphics[width=\marginparwidth]{fig75}\captionof{figure}{The fully implicit method in $7.2(\mathrm{c})$ with $\tau=2.1$.}\label{fig:35}}
 \end{enumerate}
-
+\end{problem}
 \section*{The diffusion equation with Crank-Nicolson}
 \addcontentsline{toc}{section}{The diffusion equation with Crank-Nicolson} 
 	\marginpar{\includegraphics[width=\marginparwidth]{nicolson}\captionof{figure}{Phyllis Nicolson (1917-1968, English)}\label{fig:36}}
@@ -304,7 +305,7 @@ The matrix B just stays out of the way (is zero) in the top and bottom rows.
 \item  Once the matrices A and B are loaded, finding the new temperature inside the time loop is accomplished in the time loop by solving the matrix
 equation using the code fragment listed above.
 \end{itemize}
-\paragraph*{P7.3}
+\begin{problem}\label{P7.3}
 \begin{enumerate}[label=(\alph*)]
 \item Write program that implements the Crank-Nicolson algorithm with
 fixed-edge boundary conditions, $T(0) = 0$ and $T(L) = 0$. Test your
@@ -328,3 +329,4 @@ what happens. Zoom in on the plots early in time to see what happens
 in the first few grid points during the first few time steps.
 	\marginpar{\includegraphics[width=\marginparwidth]{fig76}\captionof{figure}{Solution to 7.3(c)}\label{fig:38}}
 \end{enumerate}
+\end{problem}

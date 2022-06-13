@@ -25,7 +25,8 @@ given $by^2$
 		We\rq ll use a coordinate system that defines $x = 0$ as the bottom of the chain and
 $x = L$ as the ceiling.		
 
-\paragraph*{P4.1}
+
+\begin{problem} \label{P4.1}
 Use the fact that a stationary hanging chain is in equilibrium to draw a
 free-body diagram for a link at an arbitrary $x$. Use this diagram to show that
 the tension in the chain as a function of $x$ is given by
@@ -37,7 +38,7 @@ is the acceleration of gravity. Then show that Eq. \eqref{eq:41} reduces to
 	\begin{equation}\label{eq:43}
 		 \frac{\partial^2 y}{\partial t^2} - g\frac{\partial}{\partial x}(x\frac{\partial y}{\partial x}) = 0
 				\end{equation}	
-				for a freely hanging chain.
+			for a freely hanging chain. \end{problem}
 			As in Lab 3, we now look for normal modes by separating the variables:
 $y(x,t) = f(x)\cos(\omega t)$. We then substitute this form for $y(x,t)$ into \eqref{eq:43} and simplify to obtain	
 		\begin{equation}\label{eq:44}
@@ -73,7 +74,8 @@ For $f^\prime (L) = 0$, a centered derivative around $x = L$ yields
 \begin{equation}\label{eq:47}
 		\frac{f_{N+1} + f_N}{h}=0
 				\end{equation}	
-				\paragraph*{P4.2}
+			
+\begin{problem} \label{P4.2}
 				\begin{enumerate}[label=(\alph*)]
 			\item	On paper, write out the discretized version of Eq. \eqref{eq:44} and put it in
 the form of a generalized eigenvalue problem
@@ -112,7 +114,7 @@ Verify that these values agree with the ω values from part (c).
 HINT: The $scipy.special$ library has a function $jn_zeros(n,i)$
 that will return the first $i$ values of $x$ for which $J_n(x)$ is zero.
 				\end{enumerate}
-				
+			\end{problem}		
 
 \section*{Quantum bound states}
 \addcontentsline{toc}{section}{Quantum bound states} 
@@ -151,7 +153,8 @@ variables in the problem. Since a is a length, $\xi$ is unitless, and since a is
 to the problem parameters, $\xi$ will typically have magnitudes around the size of 1.
 Let\rq s practice this procedure for the problem at hand.
 	\marginpar{\includegraphics[width=\marginparwidth]{fig45}\captionof{figure}{The probability distributions for the ground state and the first three excited states of the harmonic oscillator.}\label{fig:23}}
-\paragraph*{P4.3}  Substitute $x = \alpha \xi$ into Eq. \eqref{eq:411}, and then do some algebra to put the
+
+	\begin{problem} \label{P4.3}  Substitute $x = \alpha \xi$ into Eq. \eqref{eq:411}, and then do some algebra to put the
 equation in the form
 \begin{equation}\label{eq:412}
 -\frac{C}{2} \frac{d^{2} \psi}{d \xi^{2}}+\frac{1}{2} \xi^{2} \psi=\frac{E}{\bar{E}} \psi
@@ -175,12 +178,13 @@ The final scaled version of Schrödinger\rq s equation then becomes
 -\frac{1}{2} \frac{d^{2} \psi}{d \xi^{2}}+\frac{1}{2} \xi^{2} \psi=\epsilon \psi
 \end{equation}
 When you solve this equation and find results in terms of $\epsilon$ and $\xi$, you can
-use the equations above to translate them into real-world values of E and x.\\
+use the equations above to translate them into real-world values of E and x.\\ \end{problem}
 Now that Schrödinger\rq s equation is in dimensionless form, we are ready to
 solve it with out standard technique.
 
 
-\paragraph*{P4.4}
+
+\begin{problem} \label{P4.4}
 	\marginpar{\includegraphics[width=\marginparwidth]{fig46}\captionof{figure}{The probability distributions for the ground state and the first three excited states for the potential in Problem 4.5}\label{fig:24}}
 Discretize Eq. \eqref{eq:415} on paper. Then write a program to do this eigenvalue
 problem, similar to the other programs we\rq ve written recently. The boundary conditions are that both the value and derivative of $\psi$ should go to zero
@@ -207,7 +211,12 @@ so that the dimensionless energy eigenvalues $\epsilon_n$ are given by
 \end{equation}
 Verify that this formula for the bound state energies is correct for $n =
 0,1,2,3,4$
-\paragraph*{P4.5}
+
+\end{enumerate}
+\end{problem}
+
+\begin{problem} \label{P4.5}
+	\begin{enumerate}[label=(\alph*)]
 Now redo this entire problem, but with the harmonic oscillator potential
 replaced by
 \begin{equation}\label{eq:418}
@@ -234,3 +243,4 @@ Find the first 5 bound state energies by finding the first 5 values of $ \epsilo
 formula $E_n =  \epsilon_n \bar{E}$.
 
 \end{enumerate}
+\end{problem}

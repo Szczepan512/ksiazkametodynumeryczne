@@ -24,10 +24,10 @@ radius, $a_0 = 5.29×10^{−11}$), masses are measured in units of the electron 
 energies are measured in units of $E_0$ ($E_0 = \alpha^2mc^2 \approx 27 eV$), and time is measured
 in units of $t_0 (t_0 = 24.2 attoseconds)$. These base units are chosen so that the
 constants $\bar{h}$ and $m$ both have the numerical value of 1 (e.g. $m = 1m_e$ for an electron).
-\paragraph*{P8.1}
+\begin{problem}\label{P8.1}
 Use paper and pencil to derive a Crank-Nicolson algorithm to solve the
 Schr{\"o}dinger equation. It will probably be helpful to use the material in
-Lab 7 as a guide (beginning with Eq. \eqref{eq:715}). Make sure the $V(x)\psi$ term
+Lab 7 as a guide (beginning with Eq. \eqref{eq:715}). Make sure the $V(x)\psi$ term\end{problem}
 enters the algorithm correctly
 \section*{Particle in a box}
 \addcontentsline{toc}{section}{Particle in a box} 
@@ -42,7 +42,7 @@ be zero at these points:
 \psi(-L)=0 \quad ; \quad \psi(L)=0
 \end{equation}
 
-\paragraph*{P8.2}
+\begin{problem}\label{P8.2}
 \marginpar{\includegraphics[width=\marginparwidth]{fig83}\captionof{figure}{The probability density $|\psi(x)|^{2}$ of a particle that is initially more localized quickly spreads (Problem 8.2(d)).}\label{fig:40}}
 Modify one of your programs from Lab 7 to implement the Crank-Nicolson algorithm derived above for the case of a particle in a box with $L = 10$. Note we are doing quantum mechanics and the imaginary parts matter now. When assigning complex variables in NumPy, you use the engineering complex number $j$, like this:
 \begin{lstlisting}
@@ -96,7 +96,7 @@ value of $\sigma$ ) so the particle is more localized. Run the script and explai
 what you see in terms of quantum mechanics.
 
 
-\end{enumerate}
+\end{enumerate}\end{problem}
 \section*{Tunneling}
 \addcontentsline{toc}{section}{Tunneling} 
 	\marginpar{\includegraphics[width=\marginparwidth]{fig85}\captionof{figure}{he probability distribution $|\psi(x)|^{2}$ for a particle incident on a narrow potential barrier located just before $x=10$ with $\left.V_{0}\right\rangle\langle E\rangle$. Part of the wave tunnels through the barrier and part interferes with itself as it is reflected.}\label{fig:42}}
@@ -127,7 +127,7 @@ we compute the initial energy. Performing the integral, we find
 \end{equation}
 Since this is a conservative system, the energy should remain constant throughout
 the propagation.
-\paragraph*{P8.3}
+\begin{problem}\label{P8.3}
 \begin{enumerate}[label=(\alph*)]
 	\item Modify your script from Problem 8.2 so that it uses a computing region hat goes from $-2L$ to $3L$ and a potential
 \begin{equation}\label{eq:89}
@@ -149,3 +149,4 @@ part of this experiment, figure out a way to calculate what fraction of
 the particles make it through the barrier.
 
 \end{enumerate}
+\end{problem}

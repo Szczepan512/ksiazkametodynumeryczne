@@ -23,7 +23,8 @@ Unsupervised Learning: An algorithm that looks for patterns or groupings in a se
 
 Clustering: A type of unsupervised learning algorithm that separates similar data into groups or categories.
 
-\paragraph*{P13.1} Explain the machine learning concepts introduced above to a TA.
+
+\begin{problem}\label{P13.1} Explain the machine learning concepts introduced above to a TA.\end{problem}
 There are many, many more ideas in machine learning. You can take many full courses on the subject. But just to get the flavor of how this works, let\rq s tackle some specific problems using a common machine learning technique referred to as a neural network.
 
 
@@ -127,8 +128,9 @@ predicted_y = model.predict(x)
 print('For x={:f} the predicted y is: {:f}'.format(float(x),float(predicted_y)))
 \end{lstlisting}
 
-\paragraph*{P13.2}Execute the code above, and examine the output. Explain to the TA what
-the code does.
+
+\begin{problem}\label{P13.2}Execute the code above, and examine the output. Explain to the TA what
+the code does.\end{problem}
 
 
 
@@ -180,8 +182,9 @@ print('the predicted y (median value of home, in $1000s) is:
 print('and the actual y value was: {:f}'
 	.format(float(Y_validate[test_num])))
 \end{lstlisting}
-\paragraph*{P13.3} Execute the code above, and examine the output. Explain to the TA what
-the code does.
+
+\begin{problem}\label{P13.3} Execute the code above, and examine the output. Explain to the TA what
+the code does.\end{problem}
 
 
 \section*{Example 3: Predicting handwritten digits}
@@ -324,8 +327,9 @@ singleprediction = model.predict(np.array([singletest]))[0]
 print('The prediction for image {:d} is: {:d} '
 	.format(testimagenumber, singleprediction))
 \end{lstlisting}
-\paragraph*{P13.4} Execute the code above, and examine the output. Explain to the TA what
-the code does.
+
+\begin{problem}\label{P13.4} Execute the code above, and examine the output. Explain to the TA what
+the code does.\end{problem}
 
 \section*{Other resources}
 \addcontentsline{toc}{section}{Other resources}
@@ -368,8 +372,8 @@ X_train, X_validate, Y_train, Y_validate \
 You may want to print out any or all of the defined variables to see what you are
 working with.
 
-\paragraph*{P13.5} Develop a neural net which will learn to separate the irises based on the
-four characteristics, with training and validation accuracies both over 95 $\%$.
+\begin{problem}\label{P13.5} Develop a neural net which will learn to separate the irises based on the
+four characteristics, with training and validation accuracies both over 95 $\%$.\end{problem}
 Hint: This problem is much like Example 3 in that it's a classification problem. Here are some specific things you should do which are quite similar to that example:
 \begin{itemize}
 \item You\rq ll need to import the appropriate keras libraries.

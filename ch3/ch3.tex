@@ -3,11 +3,12 @@
 \addcontentsline{toc}{chapter}{The Wave Equation: Steady State and Resonance} 
 \section*{Python Mechanics}
 \addcontentsline{toc}{section}{Python Mechanics} 
-
-\paragraph*{P3.1} Work through Chapter 3 of Introduction to Python, where you will learn
+\begin{problem} \label{P3.1}
+ Work through Chapter 3 of Introduction to Python, where you will learn
 about user-defined functions and good commenting practices. For the
 remainder of the course, you will need to demonstrate good commenting
 practices in your code before your exercises will be passed off.
+\end{problem}
 \section*{Wave Equation}
 \addcontentsline{toc}{section}{Wave Equation} 
 
@@ -55,8 +56,8 @@ wave equation and carrying out the derivatives yields (after some rearrangement)
 				\end{equation}
 				This is just a two-point boundary value problem of the kind we studied in Lab 2,
 so we can solve it using our matrix technique.
-\paragraph*{P3.2}
-	\marginpar{\includegraphics[width=\marginparwidth]{fig31}\captionof{figure}{Solution to P3.2(a)}\label{fig:15}}
+\marginpar{\includegraphics[width=\marginparwidth]{fig31}\captionof{figure}{Solution to P3.2(a)}\label{fig:15}}
+\begin{problem} \label{P3.2}
 \begin{enumerate}[label=(\alph*)]
 	\item Write a program to solve Eq. \eqref{eq:33} for $N = 100$ points with $ \mu = 0.003,
 T = 127, L = 1.2$, and $\omega = 400$. All quantities are in SI units. Find the
@@ -77,6 +78,7 @@ returns the column vector representing $f(x)$
 from force), $h$, $\omega$, $T$ , and $\mu$. This function should construct the
 matrix, solve the matrix equation, and return $g(x)$.
 \end{enumerate}
+
 
 	\marginpar{\includegraphics[width=\marginparwidth]{fig32}\captionof{figure}{Photographs of the first three resonant modes for a string fixed at both ends.}\label{fig:16}}
 Save this library as “Lab3Funcs.py” and then write another program
@@ -107,6 +109,8 @@ as a function of ω to see the resonance behavior of this system. Describe what 
 				
 				
 \end{enumerate}
+\end{problem}
+
 				The height of the peaks in this Fig. 3.3 isn\rq t meaningful—the height of the
 actual peak is essentially infinite (since we don’t have any damping yet), while
 the height displayed on the plot is just a reflection of how closely our chosen
@@ -284,7 +288,7 @@ columns in the $vecs$ array so that they are sorted in ascending order.
 
 	\end{enumerate}
 	
-\paragraph*{P3.3}
+	\begin{problem} \label{P3.3}
 	\marginpar{\includegraphics[width=\marginparwidth]{fig34}\captionof{figure}{The first three eigenfunctions found in 3.3. The points are the numerical eigenfunctions and the line is the exact solution.}\label{fig:17}}
 
 	\begin{enumerate}[label=(\alph*)]
@@ -313,10 +317,12 @@ resonant values of $\lambda$. For each plot, choose a small range of frequencies
 should find very large amplitudes, indicating that you are right on the
 resonances.
 	\end{enumerate}
+\end{problem}
+
 	Finally let\rq s explore what happens to the eigenmode shapes when we change
 the boundary conditions.
 
-\paragraph*{P3.4}
+\begin{problem} \label{P3.4}
 	\marginpar{\includegraphics[width=\marginparwidth]{fig34}\captionof{figure}{The first three eigenfunctions for $3.4$ (a).}\label{fig:18}}
 \begin{enumerate}[label=(\alph*)]
 	\item Change your program from problem 3.3 to implement the boundary
@@ -341,3 +347,4 @@ problem with this boundary condition. The code snippet we gave you
 above will have trouble with the np.sqrt. You can just look at the
 values of $\omega^2$ instead
 \end{enumerate}
+\end{problem}

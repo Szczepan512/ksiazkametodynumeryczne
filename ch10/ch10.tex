@@ -12,7 +12,7 @@ This equation says that as the gas particles are moved by the flow velocity $v(x
 
 Boundary conditions for the continuity equation are a bit different than we\rq ve encountered to this point. This is a convection equation, meaning that if you stand at a point in the flow, the solution at your location arrives (is convected to you) from further \rq\rq upwind.\lq\lq This has a strong effect on the boundary conditions. Suppose, for instance, that the flow field $v(x)$ is always positive, meaning that the wind is blowing to the right. At the left-hand boundary it makes sense to specify $\rho$ because somehow you might arrange to feed density in at that point so that it can be convected across the grid. But at the right boundary it makes no sense at all to specify a boundary condition because when the solution arrives there we just want to let the wind blow it away. (An exception to this rule occurs if $v=0$ at the boundary. In this case there is no wind to blow the solution from anywhere and it would be appropriate to specify a boundary condition.) We\rq ll try several approaches to represent these boundary conditions.
 
-\paragraph*{P10.1}
+\begin{problem}\label{P10.1}
 Let\rq s start with something really simple and inaccurate just to see what can
 go wrong. If we use a nicely centered difference in $x$ and an inaccurate
 forward difference in $t$, we find
@@ -40,6 +40,7 @@ with $v_{0}=1$. At the left end use $\rho(0, t)=1$ and at the right end try the 
 
 \end{enumerate}
 Run this algorithm with these two boundary conditions enough times, and with small enough time steps, that you become convinced that $\rho(L, t)=1$ is wrong and that the entire algorithm is worthless because it is unstable.\\
+\end{problem}
 As you might guess from the previous problem, the diffusion equation's simple appearance can be deceiving; it is one of the most difficult equations to solve numerically in all of computational physics because stable methods tend to be inaccurate and accurate methods tend either to be unstable, or non-conservative (as time runs mass spontaneously disappears), or unphysical (mass density and/or pressure become negative.)\\
 Let\rq s try another method, known as the Lax-Wendroff method. The idea of the Lax-Wendroff algorithm is to use a Taylor series in time to obtain a second-order accurate method. Taylor expanding the density function in time gives us
 \begin{equation}\label{eq:106}
@@ -64,7 +65,7 @@ Finally, we subtract $ρ(x,t)$ from both sides and divide by $\tau$ to obtain
 \end{equation}
 If we interpret the left-hand side as a time derivative, the second term on the right looks essentially like the diffusion equation. Since the equation we are solving is pure convection, the appearance of diffusion is not good news, but at least this algorithm is better than the horrible one in 10.1. Notice also that the diffusion coefficient in Eq. \eqref{eq:101} is proportional to $\tau$ (stare at it until you can see that this is true), so if small time steps are being used diffusion won't hurt us too much.
 
-\paragraph*{P10.2}
+\begin{problem}\label{P10.2}
  Finite difference the expression in Eq. \eqref{eq:1010} assuming that $v(x) = v0 =
 const$, to find the Lax-Wendroff algorithm:
 \begin{equation}\label{eq:1011}
@@ -73,7 +74,7 @@ const$, to find the Lax-Wendroff algorithm:
 Change your script from $10.1$ to use the Lax-Wendroff algorithm. Again, use a cell-center grid with ghost points and about 400 grid points. Also use the same initial condition as in Problem $10.1$ and use the extrapolated boundary condition that just lets the pulse leave.\\
 Show that Lax-Wendroff works pretty well unless the time step exceeds a Courant condition. Also show that it has the problem that the peak density slowly decreases as the density bump moves across the grid. (To see this use a relatively coarse grid and a time step just below the stability constraint.\\
 Warning: do not run with $\tau=h / v_{0}$. If you do you will conclude that this algorithm is perfect, which is only true for this one choice of time step.) This problem is caused by the diffusive term in the algorithm, but since this diffusive term is the reason that this algorithm is not unstable like the one in 10.1, we suppose we should be grateful.
-
+\end{problem}
 \section*{Crank-Nicolson Again}
 \addcontentsline{toc}{section}{Crank-Nicolson Again}
 \marginpar{\includegraphics[width=\marginparwidth]{lax} \\ Peter Lax (b. 1926, American) Lax was the PhD advisor for Burton Wendroff.}
@@ -108,7 +109,8 @@ Then we write these equations along with the boundary conditions in matrix form
 \mathbf{A} \rho^{n+1}=\mathbf{B} \rho^{n}
 \end{equation}
 which we solve using linear algebra techniques. For this algorithm to calculate $\rho^{n+1}$, we need to feed it values for $\rho^{n}, v^{n}$, and $v^{n+1}$. For now, let\rq s side-step this issue by assuming that $v(x, t)$ is known, and a constant in time. In the next lab we\rq ll worry about advancing the velocity solution in parallel with the density.
-\paragraph*{P10.3}
+
+\begin{problem}\label{P10.3}
 
 	\marginpar{\includegraphics[width=\marginparwidth]{fig1001}\captionof{figure}{A pulse is convected across a region in which the convection velocity $v(x)$ is constant (Problem 10.3(b)).}\label{fig:46}}
 	\marginpar{\includegraphics[width=\marginparwidth]{fig1002}\captionof{figure}{A pulse is convected across a region in which the convection velocity $v(x)$ is decreasing. Note that the pulse narrows and grows, conserving mass. (Prob$\operatorname{lem} 10.3(\mathrm{c}))$}\label{fig:47}}
@@ -134,6 +136,7 @@ you will find that Crank-Nicolson fails at this seemingly simple task.
 \item For comparison, try the same step-function initial condition in your
 Lax-Wendroff script from Problem 10.2.
 \end{enumerate}
+\end{problem}
 Our Crank-Nicolson algorithm is both stable and conservative, but it only
 works well if the solution doesn\rq t become too steep. This is a severe limitation,
 since we are talking about gas dynamics here and shock waves routinely show up

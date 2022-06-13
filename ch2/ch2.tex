@@ -3,8 +3,9 @@
 \addcontentsline{toc}{chapter}{Differential Equations with Boundary Conditions}  
 \section*{More Python}
 \addcontentsline{toc}{section}{More Python}  
-\paragraph*{P2.1}Work through Chapter 2 of Introduction to Python, where you will learn about lists, loops, and logic.
 
+\begin{problem} \label{P2.1}Work through Chapter 2 of Introduction to Python, where you will learn about lists, loops, and logic.
+\end{problem}
 \section*{Initial conditions vs. boundary conditions}
 \addcontentsline{toc}{section}{Initial conditions vs. boundary conditions}  
 In Physics 330, we studied the behavior of systems where the initial conditions were specified and we calculated how the system evolved forward in time (e.g. the f light of a baseball given its initial position and velocity). In these cases we were able to use Matlab\rq s convenient built-in differential equation solvers to model the system. The situation becomes somewhat more complicated if instead of having initial conditions, a differential equation has boundary conditions specified at both ends of the interval (rather than just at the beginning). This seemingly simple change in the boundary conditions makes it hard to use canned ODE solvers like Matlab\rq s ode45. Fortunately, there are better ways to solve these systems.
@@ -77,7 +78,7 @@ where A is a matrix of coefficients, y the column vector of unknown y-values, an
 
 Convince yourself that Eq.\eqref{eq:25} is equivalent to Eqs. \eqref{eq:22} and  \eqref{eq:23} by mentally doing each row of the matrix multiply by tipping one row of the matrix up on end,dotting it into the column of unknowny-values, and setting it equal to the corresponding element in the column vector on the right. Once we have the finite-difference approximation to the differential equation in this matrix form $(Ay=b)$, a simple linear solve is all that is required to find the solution array $y_n$. NumPy can do this solve with the command linalg.solve(a,b).
 
-\paragraph*{P2.2}
+\begin{problem} \label{P2.2}
 \begin{enumerate}[label=(\alph*)]
 	\item  Setup a cell-edge grid with $N=30$ grid points, like this: 
 	\begin{lstlisting}	
@@ -97,9 +98,10 @@ Convince yourself that Eq.\eqref{eq:25} is equivalent to Eqs. \eqref{eq:22} and 
 
 		\item Now create a matrix A filled with zeros using np.zeros, and write a for loop to load A like the matrix in Eq. \eqref{eq:25} and do the linear solve to obtain $y_n$ and plot it on top of the exact solution with red dots ('r.') to see how closely the two agree. Experiment with larger values of N and plot the difference between the exact and approximate solutions to see how the error changes with N. We think you\rq ll be impressed at how well the numerical method works, if you use enough grid points.
 \end{enumerate}
+\end{problem}
 
 Let\rq s pause a moment to review how to apply this technique to solve a problem. First, write out the differential equation as a set of finite difference equations on a grid, as we did in Eq. \eqref{eq:22}. Then translate this set of finite difference equations (plus the boundary conditions) into a matrix form analogous to Eq. \eqref{eq:25}. Finally, build the matrix A and the column vector y in Python and solve for the vectory. Our example, Eq. \eqref{eq:21}, had only a second derivative, but first derivatives can be handled using the centered first derivative approximation, Eq. \eqref{eq:5}. Let\rq s practice this procedure for a couple more differential equations:
-\paragraph*{P2.3}
+\begin{problem} \label{P2.3}
 	\begin{enumerate}[label=(\alph*)]
 		\item Write out the finite difference equations on paper for the differential equation
 		\marginpar{\includegraphics[width=\marginparwidth]{fig10}\captionof{figure}{Solution to 2.3(a) with N =30 (dots) compared to the exact solution (line)}\label{fig:10}}
@@ -133,6 +135,7 @@ $x_j \approx 4.5$ can be found this way:
 	\end{lstlisting}
 	The int command rounds the result and casts it as an integer so you can use it to access a specific element.
 	\end{enumerate}
+\end{problem}
 	
 \section*{Derivative boundary conditions}
 \addcontentsline{toc}{section}{Derivative boundary conditions} 
@@ -144,7 +147,7 @@ of values. Consider the differential equation
 	\end{equation}
 	We can satisfy the boundary condition $y(0) = 0$ as before (just use $y_1 = 0$), but
 what do we do with the derivative condition at the other boundary?
-\paragraph*{P2.4}
+\begin{problem} \label{P2.4}
 	\marginpar{\includegraphics[width=\marginparwidth]{fig25}\captionof{figure}{The solution to $2.4$ (a) with $N=30$. The RMS difference from the exact solution is $8.8 \times 10^{-4}$}\label{fig:12}}
 \begin{enumerate}[label=(\alph*)]
 \item	A crude way to implement the derivative boundary condition is to use a forward difference formula for the last two points:
@@ -182,6 +185,7 @@ error:
 np.sqrt(np.mean((y-yexact)**2))
 \end{lstlisting}
 \end{enumerate}
+\end{problem}
 
 \section*{Nonlinear differential equations}
 \addcontentsline{toc}{section}{Nonlinear differential equations} 
@@ -194,7 +198,7 @@ Linear problems are not the whole story in physics, of course, but most of the
 problems we will do in this course are linear, so these finite-difference and matrix
 methods will serve us well in the labs to come.
 	\marginpar{\includegraphics[width=\marginparwidth]{fig27}\captionof{figure}{The solution to $2.5(\mathrm{~b})$.}\label{fig:14}}
-\paragraph*{P2.5}
+	\begin{problem} \label{P2.5}
 \begin{enumerate}[label=(\alph*)]
 \item Here is a simple example of a differential equation that isn\rq t linear:
 
@@ -229,3 +233,4 @@ rmserr = np.sqrt(np.mean(err[1:-2]**2))
 \end{lstlisting}
 because the end points don\rq t satisfy the differential equation. Use rmserr as your check condition.
 \end{enumerate}
+\end{problem}

@@ -70,8 +70,10 @@ b_{+}=\frac{1}{2 \tau}+\frac{3 \alpha}{2 h^{3}}-\frac{\left(\bar{y}_{-}+\bar{y}_
 \end{array}
 \end{equation}
 where $y_{-}=y_{j}$ and where $y_{+}=y_{j+1}$, the grid points on the left and the right of the $j+1 / 2$ spatial location (where we are centering).
-\paragraph*{P12.1}
+
+\begin{problem}\label{P12.1}
 Derive the formulas in Eq. \eqref{eq:1208} for the $a$ and $b$ coefficients using the finite-difference approximations to the three terms in the Korteweg-deVries equation given in Eqs. \eqref{eq:1203}-\eqref{eq:1205}.
+\end{problem}
 Now that the coefficients of $\mathbf{A}$ and $\mathbf{B}$ are determined we need to worry about how to load them so that the system will be periodic. For instance, in the first row of $A$ the entry $A_{1,1}$ is $a_{-}$, but $a_{--}$should be loaded to the left of this entry, which might seem to be outside of the matrix. But it really isn\rq t, because the system is periodic, so the point to the left of $j=1$ (which is also the point $j=(N+1)$ ) is the point $j-1=N$. The same thing happens in the last two rows of the matrices as well, where the subscripts $+$ and $++$ try to reach outside the matrix on the right. So correcting for these periodic effects makes the matrices $\mathbf{A}$ and $\mathbf{B}$ look like this:
 \begin{equation}\label{eq:1209}
 \begin{aligned}
@@ -96,8 +98,8 @@ b_{+} & b_{++} & 0 & 0 & \cdots & 0 & b_{--} & b_{-}
 \end{aligned}
 \end{equation}
 
-\paragraph*{P12.2}Discuss these matrices with a TA and convince the TA that this structure correctly models a periodic system (it may help to think about the computing grid as a circle with $x_{0}=x_{N}$.)
-
+\begin{problem}\label{P12.2}Discuss these matrices with a TA and convince the TA that this structure correctly models a periodic system (it may help to think about the computing grid as a circle with $x_{0}=x_{N}$.)
+\end{problem}
 \begin{equation}\label{eq:1210}
 \tilde{v}=v^{n}
 \end{equation}
@@ -117,7 +119,8 @@ All right, that\rq s it. You may have the feeling by now that this will all be a
 
 \section*{Solitons}
 \addcontentsline{toc}{section}{Solitons}
-\paragraph*{P12.3}
+
+\begin{problem}\label{P12.3}
 	\marginpar{\includegraphics[width=\marginparwidth]{fig1202}\captionof{figure}{A Gaussian pulse after 1 second of propagation by the Korteweg-deVries equation (Problem 12.3)}\label{fig:49}}
 
 \begin{enumerate}[label=(\alph*)]
@@ -125,15 +128,17 @@ All right, that\rq s it. You may have the feeling by now that this will all be a
 \item Now run (a) again, but with $\tau=0.1$, then yet again with $\tau=0.02$. Use $t_{\text {final }}=10$ for both runs and skip big enough that you can see the pulse moving on the screen. You should see the initial pulse taking off to the right, but leaving some bumpy stuff behind it as it goes. The trailing bumps don\rq t move as fast as the big main pulse, so it laps them and runs over them as it comes in again from the left side, but it still mostly maintains its shape. This pulse is a soliton. You should find that there is no point in choosing a very small time step; $\tau=0.1$ does pretty well.
 
 \end{enumerate}
-
+\end{problem}
 The standard \rq\rq lore \lq\lq in the field of solitons is that the moving bump you saw in problem $12.3$ is produced by a competition between the wave spreading caused by the third derivative in the Korteweg-deVries equation and the wave steepening caused by the $y \partial y / \partial x$ term. Let\rq s run $\mathrm{kdv}$. py in such a way that we can see the effect of each of these terms separately.
 
-\paragraph*{P12.4}
+
+\begin{problem}\label{P12.4}
 \begin{enumerate}[label=(\alph*)]
 \item Dispersion (wave-spreading) dominates: Run $\mathrm{kdv}$. py with $\alpha=0.1$, $y_{\max }=0.001, \tau=0.1$, and $t_{\text {final }}=10$. The small amplitude makes the nonlinear convection term $y \partial y / \partial x$ be so small that it doesn't matter; only the third derivative term matters. You should see the pulse fall apart into random pulses. This spreading is similar to what you saw when you solved Schrödinger's equation. Different wavelengths have different phase velocities, so the different parts of the spatial Fourier spectrum of the initial pulse get out of phase with each other as time progresses.
 \item Non-linear wave-steepening dominates: Run $\mathrm{kdv}$. py with $\alpha=0.01$, $y_{\max }=2, \tau=0.01$, and $t_{\text {final }}=10$. (If your solution develops short wavelength wiggles this is an invitation to use a smaller time step. The problem is that the predictor-correction algorithm we used on the nonlinear term is not stable enough, so we have a Courant condition in this problem.)
 Now it is the dispersion term that is small and we can see the effect of the non-linear convection term. Where $y$ is large the convection is rapid, but out in front where $y$ is small the convection is slower. This allows the fast peak to catch up with the slow front end, causing wave steepening. (An effect just like this causes ocean waves to steepen and then break at the beach.)
 \end{enumerate}
+\end{problem}
 The large pulse that is born out of our initial Gaussian makes it seem like
 there ought to be a single pulse that the system wants to find. This is, in fact the
 case. It was discovered that the following pulse shape is an exact solution of the
@@ -146,7 +151,8 @@ Korteweg-deVries equation:
 y(x, t)=\frac{12 k^{2} \alpha}{\cosh ^{2}\left(k\left(x-x_{0}-4 \alpha k^{2} t\right)\right)}
 \end{equation}
 where $x_0$ is the center of the pulse at time $t = 0$.
-\paragraph*{P12.5}
+
+\begin{problem}\label{P12.5}
 \begin{enumerate}[label=(\alph*)]
 \item Use Mathematica to show that this expression does indeed satisfy the
 Korteweg-deVries equation
@@ -157,11 +163,12 @@ c_{\text {soliton }}=4 \alpha k^{2}
 \end{equation}
 Verify by numerical experimentation that your soliton moves at this speed. To do this, you can just track the position of the maximum value (the NumPy function ar gmax can help you do this).
 \end{enumerate}
-\paragraph*{12.6}
+\end{problem}
+\begin{problem}\label{P12.6}
 One of the most interesting things about solitons is how two of them interact with each other. When we did the wave equation earlier you saw that left and right moving pulses passed right through each other. This happens because the wave equation is linear, so that the sum of two solutions is also a solution. The Korteweg-deVries equation is nonlinear, so simple superposition can't happen. Nevertheless, two soliton pulses do interact with each other in a surprisingly simple way.
 
 To see what happens keep $\alpha=0.1$, but modify your code from $12.5$ so that you have a soliton pulse with $k=1.5$ centered at $x=3 L / 4$ and another soliton pulse with $k=2$ centered at $x=L / 4$. Run for about 20 seconds and watch how they interact when the fast large amplitude pulse in the back catches up with the slower small amplitude pulse in the front. Is it correct to say that they pass through each other? If not, can you think of another qualitative way to describe their interaction?
-
+\end{problem}
 \begin{lstlisting}
 import matplotlib.pyplot as plt
 import numpy as np

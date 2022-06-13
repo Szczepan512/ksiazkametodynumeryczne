@@ -12,10 +12,10 @@
     Pretty soon you will be Python wizards. 
     
     
-    \paragraph*{P1.1}
-     Work through Chapter 1 of Introduction to Python. There you will learn the basics of how to write a Python program, howtodeclare anduseentities called NumPyarrays, and also learn some basic plotting techniques. 
-     With that Python knowledge underourbelts, let\rq s move on to begin our study of partial differential equations.
-   
+     \begin{problem} \label{P1.1}
+      Work through Chapter 1 of Introduction to Python. There you will learn the basics of how to write a Python program, howtodeclare anduseentities called NumPyarrays, and also learn some basic plotting techniques. 
+      With that Python knowledge underourbelts, let\rq s move on to begin our study of partial differential equations.
+    \end{problem}
 
     \section*{Spatial grids}
     \addcontentsline{toc}{section}{Spatial grids}
@@ -28,7 +28,7 @@
     We\rq ll encounter three basic types of spatial grids in this class. Figure \ref{fig:1} shows a graphical representation of these three types of spatial grids for the region 
     \begin{math}0\leqslant x \leqslant l \end{math} . We divide this region into spatial cells (the spaces between vertical lines) and functions are evaluated at N discrete grid points (the dots). In a celledge grid, the grid points are located at the edge of the cell. In a cell-center grid, the points are located in the middle of the cell. Another useful grid is a cell-center grid with ghost points. The ghost points (unfilled dots) are extra grid points on either side of the interval of interest and are useful when we need to consider the derivatives at the edge of a grid.
 
-    \paragraph*{P1.2}
+      \begin{problem} \label{P1.2}
     \begin{enumerate}[label=(\alph*)]
     
       \item  Write a Python program that creates a cell-edge spatial grid in the variable x as follows: 
@@ -57,7 +57,7 @@
        
 \item Build a cell-center grid with ghost points over the interval 0 $\geq$ x $\geq$ $\pi/2$ with 500 cells (502 grid points), and evaluate the function $f (x)=sinx$ on this grid. Now look carefully at the function values at the first two grid points and at the last two grid points. The function sinx has the property that $f(0) = 0$ and $f\prime(\pi/2) = 0$. The cell-center grid doesn\rq t have points at the ends of the interval, so these boundary conditions on the function need to be enforced using more than one point. Explain how the ghost points can be usedinconnectionwith interior points to specify both function-value boundary conditions andderivative-value boundary conditions.	    
     \end{enumerate}  
-    
+  \end{problem}
     \marginpar{\includegraphics[width=\marginparwidth]{fig3}\captionof{figure}{Plot from 1.2(b)}\label{fig:3}}
     
  		\section*{Interpolation and extrapolation}
@@ -71,7 +71,7 @@
   
     Once this line has been established it provides an approximation to the true function $y(x)$ that is pretty good in the neighborhood of the two data points. To linearly interpolate or extrapolate we simply evaluate Eq. \eqref{eq:1} at x values between or beyond $x_1$ and $x_2$.   
       
-     \paragraph*{P1.3} UseEq. \eqref{eq:1} to do the following special cases:
+    \begin{problem} \label{P1.3} UseEq. \eqref{eq:1} to do the following special cases:
      
      \begin{enumerate}[label=(\alph*)]
      
@@ -96,6 +96,7 @@
      	We will use both of these formulas during the course.
      	
      \end{enumerate}
+    \end{problem}
      \section*{Derivatives on grids}
     \addcontentsline{toc}{section}{Derivatives on grids}  
      
@@ -131,9 +132,9 @@ fpp[0]=2*fpp[1]-fpp[2]
 fpp[N-1]=2*fpp[N-2]-fpp[N-3]
 \end{lstlisting}
 
-\paragraph*{P1.4}
+\begin{problem} \label{P1.4}
 Create a cell-edge grid with N = 20 on the interval $0 \leq x \leq 5$. Load $f(x)$ with the Bessel function $J_0(x)$ and numerically differentiate it to obtain $f^\prime(x)$ and $f^\prime\prime(x)$. Then make overlaid plots of the numerical derivatives with the exact derivatives:
-
+\end{problem}
 
 \begin{equation*}
 \begin{split}
@@ -168,9 +169,11 @@ If we again neglect the higher-order terms, we can solve Eq. \eqref{eq:10} for t
 \end{equation}
 Notice that for the centered formula the error term is much smaller, only of order $h^2$. So if we decrease h in both the forward and centered difference formulas by a factor of 10, the forward difference error will decrease by a factor of 10, but the centered difference error will decrease by a factor of 100. This is the reason we try to use centered formulas whenever possible in this course.
 
-\paragraph*{P1.5}
+
+\begin{problem} \label{P1.5}
 Write a Python program to compute the forward and centered difference formulas for the first derivative of the function $f(x) = e^x $ at $x = 0$ with $h = 0.1, 0.01, 0.001$. Verify that the error estimates in Eqs. \eqref{eq:9} and \eqref{eq:11} agree with the numerical testing. Note that at $x =0$ the exact values of both $f^\prime$ and $f^{\prime\prime}$ are equal to $e^0 = 1$,so just subtract 1 from your numerical result to find the error.
 
+\end{problem}
 \marginpar{\includegraphics[width=\marginparwidth]{fig7}\captionof{figure}{Error in the forward and centered difference approximations to the first derivative and the centered difference formula for the second derivative as a function of h. Thefunction is $e^x$ and the approximations are evaluated for $x = 0$.}\label{fig:7}}
 
 In problem 1.5, you found that $h = 0.001$ in the centered-difference formula gives a better approximation than $h=0.01$. This trend might entice you to try to keep making h smaller and smaller to achieve any accuracy you want. This doesn\rq t work. Figure \ref{fig:7} shows a plot of the error you calculated in problem 1.5 as h continues to decrease (note the log scales). For the larger values of h, the errors track well with the predictions made by the Taylor\rq s series analysis. However, when h becomes too small, the error starts to increase. By about $h=10−16$, and sooner for the second derivative, the error is the same order as the derivative. Thereason for this behavior is that numbers in computers are represented with a finite number of significant digits. Most computational languages (including Python) use double precision variables, which have 15-digit accuracy.\footnote{A computer uses 64 bits to represent a double precision number. 53 bits are used to represent the significant digits. Thus the significant digit part can be any integer between 0 and 253 = 9007199254740992 (almost 16 digits). The exponent is represented by 11 bits. After you add the possibility of NaN and Inf, the exponent can be −308 to +308. This leaves 1 bit for the overall sign of the number. Extended precision uses more bits (memory) and computation time, so double precision is mostly the standard for computational physics.} This is normally plenty of precision, but look what happens in a subtraction problem where the two numbers are nearly the same:

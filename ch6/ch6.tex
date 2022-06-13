@@ -45,7 +45,7 @@ The argument $indexing='ij'$ in the meshgrid function switches the ordering
 of the elements in the resulting matrices from the matrix indexing convention
 $Z[row,col]$ to the function indexing convention $Z[x_i,y_y]$ for representing $Z(x_i, y_i)$.
 
-\paragraph*{P6.1} 
+\begin{problem}\label{P6.1} 
 
 \begin{enumerate}[label=(\alph*)]
 \item
@@ -62,7 +62,7 @@ f(x,y) = e^{-(x^2+y^2)} \cos(5\sqrt{x^2+y^2})
 \end{equation}
 Use the $plot_surface$ command to make a surface plot of this function. Properly label the $x$ and $y$ axes with the symbols $x$ and $y$, to get
 a plot like Fig. 6.2.
-\end{enumerate}
+\end{enumerate}\end{problem}
 There are a lot more options for plotting surfaces in Python, but we\rq ll let you
 explore those on your own. For now, let\rq s do some physics on a two-dimensional
 grid.
@@ -105,7 +105,7 @@ v_0(x_j,y_k)\approx \frac{z^{n+1}_{j,k}-z^{n-1}_{j,k}}{2\tau}
 \end{equation}
 to find an expression for the initial value of $z^{n-1}_{j,k}$ (i.e. $zold$) so we can get things
 started.
-\paragraph*{P6.2} 
+\begin{problem}\label{P6.2} 
 
 \begin{enumerate}[label=(\alph*)]
 	\item Derive the staggered leapfrog algorithm for the case of square cells
@@ -177,6 +177,7 @@ from the one-dimensional wave equation.
 
 
 \end{enumerate}
+\end{problem}
 \section*{Elliptic, hyperbolic, and parabolic PDEs}
 \addcontentsline{toc}{section}{Elliptic, hyperbolic, and parabolic PDEs}
 
@@ -259,6 +260,6 @@ parabolic, like the wave equation with damping?
 \end{equation}
 The rule is that the highest-order time derivative wins, so this equation needs
 hyperbolic boundary conditions
-\paragraph*{P6.3} Make sure you understand this material well enough that you are comfortable answering basic questions about PDE types and what types of
+\begin{problem}\label{P6.3}  Make sure you understand this material well enough that you are comfortable answering basic questions about PDE types and what types of
 boundary conditions go with them on a quiz and/or an exam. Then explain
-it to the TA to pass this problem off.
+it to the TA to pass this problem off.\end{problem}
