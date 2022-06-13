@@ -290,19 +290,19 @@ Starting with the Gauss-Seidel example above, implement all of the improvements 
 \addcontentsline{toc}{section}{Some Different Geometries}
 
 \begin{problem}\label{P9.6}
-	\marginpar{\includegraphics[width=\marginparwidth]{fig92}\captionof{figure}{The potential $V(x, y)$ rom Problem 9.6(a).}\label{fig:44}}
-		\marginpar{\includegraphics[width=\marginparwidth]{fig93}\captionof{figure}{The potential $V(x, y)$ with zero-derivative boundary conditions on two sides (Problem 9.6(b).)}\label{fig:45}}
+	\marginpar{\includegraphics[width=\marginparwidth]{fig92}\captionof{figure}{The potential $V(x, y)$ rom Problem \ref{P9.6}(a).}\label{fig:44}}
+		\marginpar{\includegraphics[width=\marginparwidth]{fig93}\captionof{figure}{The potential $V(x, y)$ with zero-derivative boundary conditions on two sides (Problem \ref{P9.6}(b).)}\label{fig:45}}
 \begin{enumerate}[label=(\alph*)]
 \item Modify your code to model a rectangular pipe with $V(x=-2, y)=-1$, $V(x=2, y)=1$, and the $y=0$ and $y=L_{y}$ edges held at $V=0$.
 \item Modify your code from (a) so that the boundary condition at the $x=$ $-L_{x} / 2$ edge of the computation region is $\partial V / \partial x=0$ and the boundary condition on the $y=L_{y}$ edge is $\partial V / \partial y=0$. You can do this problem either by changing your grid and using ghost points or by using a quadratic extrapolation technique (see Eq. \eqref{eq:210}). Both methods work fine, but note that you will need to enforce boundary conditions inside the main SOR loop now instead of just setting the values at the edges and then leaving them alone.
 You may discover that the script runs slower on this problem. See if you can make it run a little faster by experimenting with the value of $\omega$ that you use. Again, changing the boundary conditions can change the eigenvalues of the operator. (Remember that Eq. (9.16) only works for cell-edge grids with fixed-value boundary conditions, so it only gives a ballpark suggestion for this problem.)
-\item Study electrostatic shielding by going back to the boundary conditions of Problem 9.6(a), while grounding some points in the interior of the full computation region to build an approximation to a grounded cage. Allow some holes in your cage so you can see how fields leak in. First make a rectangular cage similar to Fig. 9.4, but then you can try other geometries.
+\item Study electrostatic shielding by going back to the boundary conditions of Problem \ref{P9.6}(a), while grounding some points in the interior of the full computation region to build an approximation to a grounded cage. Allow some holes in your cage so you can see how fields leak in. First make a rectangular cage similar to Fig. 9.4, but then you can try other geometries.
 You will need to be creative about how you build your cage and about how you make SOR leave your cage points grounded as it iterates. One thing that won\rq t work is to let SOR change all the potentials, then set the cage points back to $V=0$ before doing the next iteration. This takes forever to converge. It is much better to set them to zero and force SOR to never change them. An easy way to do this is to use a cell-edge grid with a mask. A mask is an array that you build that is the same size as $V$, initially defined to be full of ones like this
 \begin{lstlisting}
 mask = np.ones_like(V)
 \end{lstlisting}
 Then you go through and set the elements of mask that you don't want SOR to change to have a value of zero. (We'll let you figure out the logic to do this for the cage.) Once you have your mask built, you add an if statement to our code so that the SOR stuff inside the $j$ and $k$ for loops only changes a given point and updates the error if $\operatorname{mask}(j, k)$ is one. This logic assumes you have to set the values of $V$ for these points before the for loop execute, just like the boundary conditions. Using this technique you can calculate the potential for quite complicated shapes just by changing the mask array.
 \includegraphics[width=0.7\textwidth]{fig94}\captionof{figure}{The potential $V (x, y)$ for an electrostatic \rq\rq cage\lq\lq formed by
-grounding some interior points. (Problem 9.6(c).)}
+grounding some interior points. (Problem \ref{P9.6}(c).)}
 \end{enumerate}
 \end{problem}

@@ -135,7 +135,7 @@ boundary conditions explicitly
 an animation of the solution. Since it has been a couple of labs since
 we made an animation, here is a framework for the code to remind
 you of the basic animation commands:
-	\marginpar{\includegraphics[width=\marginparwidth]{fig51}\captionof{figure}{Snapshots of the evolution of a wave on a string with fixed ends and an initial displacement but no initial velocity. (See Problem 5.3(b))}\label{fig:25}}
+	\marginpar{\includegraphics[width=\marginparwidth]{fig51}\captionof{figure}{Snapshots of the evolution of a wave on a string with fixed ends and an initial displacement but no initial velocity. (See Problem \ref{P5.3}(b))}\label{fig:25}}
 \begin{lstlisting}
 ynew = np.zeros_like(y)
 j = 0
@@ -176,7 +176,7 @@ will be trying to avoid it all semester. This limit is called the CourantFriedri
 
 
 sometimes (unfairly) just the Courant condition
-	\marginpar{\includegraphics[width=\marginparwidth]{fig53}\captionof{figure}{ Snapshots of the evolution of a wave on a string with fixed ends and no initial displacement but with an initial velocity. (See Problem 5.3(f))}\label{fig:27}}
+	\marginpar{\includegraphics[width=\marginparwidth]{fig53}\captionof{figure}{ Snapshots of the evolution of a wave on a string with fixed ends and no initial displacement but with an initial velocity. (See Problem \ref{P5.3}(f))}\label{fig:27}}
 \item Change the boundary conditions so that $ \frac{\partial y}{\partial x} = 0 $ at each end and watch
 how the reflection occurs in this case.
 \item Change the initial conditions from initial displacement with zero
@@ -213,7 +213,7 @@ y^{n+1}_j = \frac{1}{2+ \Upsilon \tau}(4y^n_j-2y^{n-1}_j+ \Upsilon \tau y^{n-1}_
 \eqref{eq:514}. When you get the answer, ask your TA or instructor to check to
 see if you got it right.
 \item Modify your staggered leapfrog code to include damping with $ \Upsilon = 0.2$.
-Then run your animation with the initial conditions in Problem 5.3(c)
+Then run your animation with the initial conditions in Problem \ref{P5.3}(c)
 and verify that the waves damp away. You will need to run for about
 25 s and you will want to use a big skip factor so that you don\rq t have
 to wait forever for the run to finish. Include some code to record the
@@ -227,7 +227,7 @@ doing this problem via separation of variables.)
 
 \end{enumerate}
 \end{problem}
-	\marginpar{\includegraphics[width=\marginparwidth]{fig54}\captionof{figure}{The maximum amplitude of oscillation decays exponentially for the damped wave equation. (Problem $5.4(\mathrm{c})$ )}\label{fig:28}}
+	\marginpar{\includegraphics[width=\marginparwidth]{fig54}\captionof{figure}{The maximum amplitude of oscillation decays exponentially for the damped wave equation. (Problem \ref{P5.4} (c))}\label{fig:28}}
 \section*{The damped and driven wave equation}
 \addcontentsline{toc}{section}{The damped and driven wave equation} 
 Finally, let\rq s look at what happens when we add an oscillating driving force to our
@@ -251,12 +251,12 @@ system, let\rq s watch this behavior.
 \begin{enumerate}[label=(\alph*)]
 \item Re-derive the staggered leapfrog algorithm to include both driving
 and damping forces as in Eq. \eqref{eq:515}.
-\item Modify your code from Problem 5.4 to use this new algorithm. We\rq ll
+\item Modify your code from Problem \ref{P5.4} to use this new algorithm. We\rq ll
 have the string start from rest, so you don\rq t need to worry about finding
 yold. Just set $y = 0$ and $yold = 0$ and enter the time-stepping loop.
 This problem involves the physics of waves on a real guitar string,
 so we\rq ll need to use realistic values for our parameters. Use $T = 127$,
-$ \mu = 0.003$, and$ L = 1.2$ (in SI units) and remember that $ c = \sqrt{T / \mu}$. Use the same driving force as in Problem 3.2(a)
+$ \mu = 0.003$, and$ L = 1.2$ (in SI units) and remember that $ c = \sqrt{T / \mu}$. Use the same driving force as in Problem \ref{P3.2}(a)
 
 \begin{equation}\label{eq:516}
 f(x)= \begin{cases}0.73 & \text { if } 0.8 \leq x \leq 1 \\ 0 & \text { otherwise }\end{cases}
@@ -265,7 +265,7 @@ and set the driving frequency at $\omega = 400$. Choose a damping constant
 $\Upsilon$ that is the proper size to make the system settle down to steady state
 after 20 or 30 bounces of the string. (You will have to think about the
 value of  $\omega$ that you are using and about your damping rate result from
-problem 5.4 to decide which value of $\Upsilon$ to use to make this happen.)
+problem \ref{P5.4} to decide which value of $\Upsilon$ to use to make this happen.)
 Run the model long enough that you can see the transients die away
 and the string settle into the steady oscillation at the driving frequency.
 You may find yourself looking at a flat-line plot with no oscillation at
@@ -273,9 +273,9 @@ all. If this happens look at the vertical scale of your plot and remember
 that we are doing real physics here. If your vertical scale goes from −1
 to 1, you are expecting an oscillation amplitude of 1 meter on your
 guitar string. Compare the steady state mode to the shape found in
-Problem 3.2(a) (see Fig. 3.1).
+Problem \ref{P3.2}(a) (see Fig. \ref{fig3.1}).
 Then run again with $ \omega = 1080 $, which is close to a resonance, and again
 see the system come into steady oscillation at the driving frequency.
 \end{enumerate}
 \end{problem}
-	\marginpar{\includegraphics[width=\marginparwidth]{fig55 }\captionof{figure}{Snapshots of the evolution a driven and damped wave with $\omega=400$. As the transient behavior dies out, the oscillation goes to the resonant mode. To make the pictures more interesting, the string was not started from rest in these plots. (In Problem $5.5$ you start from rest for easier coding.]}\label{fig:29}}
+	\marginpar{\includegraphics[width=\marginparwidth]{fig55 }\captionof{figure}{Snapshots of the evolution a driven and damped wave with $\omega=400$. As the transient behavior dies out, the oscillation goes to the resonant mode. To make the pictures more interesting, the string was not started from rest in these plots. (In Problem \ref{P5.5} you start from rest for easier coding.]}\label{fig:29}}

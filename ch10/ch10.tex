@@ -112,7 +112,7 @@ which we solve using linear algebra techniques. For this algorithm to calculate 
 
 \begin{problem}\label{P10.3}
 
-	\marginpar{\includegraphics[width=\marginparwidth]{fig1001}\captionof{figure}{A pulse is convected across a region in which the convection velocity $v(x)$ is constant (Problem 10.3(b)).}\label{fig:46}}
+	\marginpar{\includegraphics[width=\marginparwidth]{fig1001}\captionof{figure}{A pulse is convected across a region in which the convection velocity $v(x)$ is constant (Problem \ref{P10.3}(b)).}\label{fig:46}}
 	\marginpar{\includegraphics[width=\marginparwidth]{fig1002}\captionof{figure}{A pulse is convected across a region in which the convection velocity $v(x)$ is decreasing. Note that the pulse narrows and grows, conserving mass. (Prob$\operatorname{lem} 10.3(\mathrm{c}))$}\label{fig:47}}
 \begin{enumerate}[label=(\alph*)]
 \item  Write a program that implements this algorithm, perhaps starting from one of your programs from the Schr{\"o}dinger equation lab. Work out how to implement the boundary conditions, $\rho(0, t)=1$ and $\rho(L, t)$ is just allowed to leave, by properly defining the top and bottom rows of the matrices $\mathbf{A}$ and $\mathbf{B}$. This involves multiplying $\mathbf{B} \rho^{n}$ to find an $r$-vector as you have done before.
@@ -134,7 +134,7 @@ density) by using as the initial condition
 The true solution of this problem just convects the step to the right;
 you will find that Crank-Nicolson fails at this seemingly simple task.
 \item For comparison, try the same step-function initial condition in your
-Lax-Wendroff script from Problem 10.2.
+Lax-Wendroff script from Problem \ref{P10.2}.
 \end{enumerate}
 \end{problem}
 Our Crank-Nicolson algorithm is both stable and conservative, but it only

@@ -102,8 +102,8 @@ plt.draw() # Request to draw the plot
 plt.pause(0.1) # Allow time to draw it
 		
 \end{lstlisting}
-	\marginpar{\includegraphics[width=\marginparwidth]{fig33}\captionof{figure}{Solution to problem 3.2(c).}\label{fig:16}}
-At certain frequencies, you should see distinct resonance modes appear as in Fig. 3.2.
+	\marginpar{\includegraphics[width=\marginparwidth]{fig33}\captionof{figure}{Solution to problem \ref{P3.2}(c).}\label{fig:16}}
+At certain frequencies, you should see distinct resonance modes appear as in Fig. \ref{fig3.2}.
 \item Modify your code from part (b) so that you find and record the maximum amplitude of $g(x)$ at each $\omega$. Then plot the maximum amplitude
 as a function of ω to see the resonance behavior of this system. Describe what the peaks in this plot mean.
 				
@@ -111,7 +111,7 @@ as a function of ω to see the resonance behavior of this system. Describe what 
 \end{enumerate}
 \end{problem}
 
-				The height of the peaks in this Fig. 3.3 isn\rq t meaningful—the height of the
+				The height of the peaks in this Fig. \ref{fig3.3} isn\rq t meaningful—the height of the
 actual peak is essentially infinite (since we don’t have any damping yet), while
 the height displayed on the plot is just a reflection of how closely our chosen
 frequencies happened to line up with the exact resonance frequency. Now we will
@@ -325,13 +325,13 @@ the boundary conditions.
 \begin{problem} \label{P3.4}
 	\marginpar{\includegraphics[width=\marginparwidth]{fig34}\captionof{figure}{The first three eigenfunctions for $3.4$ (a).}\label{fig:18}}
 \begin{enumerate}[label=(\alph*)]
-	\item Change your program from problem 3.3 to implement the boundary
+	\item Change your program from problem \ref{P3.3} to implement the boundary
 condition  \begin{equation*}
 		g^\prime(L) = 0
 				\end{equation*}
 				This boundary condition describes what happens if one end of the
 string is free to slide up and down rather than attached to a fixed
-position. Use the approximation you derived in problem 2.4(b) for the
+position. Use the approximation you derived in problem \ref{P2.4}(b) for the
 derivative $g^\prime(L)$ to implement this boundary condition, i.e
 \begin{equation*}
 		g^\prime(L) \approx \frac{1}{2h}g_{N-3} - \frac{2}{h}g_{N-2} + \frac{3}{2h}g_{N-1}
