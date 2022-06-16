@@ -32,13 +32,13 @@ the entire set. We are going to show you one way to do it, but the computational
 physics literature is full of other ways, including methods that handle shock waves.
 This is still a very active and evolving area of research, especially for problems in
 2 and 3 dimensions.
-Let\rq s try a predictor-corrector approach similar to second-order Runge-Kutta (which you learned about back in 330 ) by first taking an approximate step in time of length $\tau$ to obtain predicted values for our variables one time step in the future. We'll refer to these first-order predictions for the future values as $\tilde{\rho}^{n+1}, \tilde{T}^{n+1}$, and $\tilde{v}^{n+1}$. In the predictor step we will treat $v$ as constant in time in Eq. \eqref{eq:1101} to predict $\tilde{\rho}^{n+1}$. Then we'll use $\tilde{\rho}^{n+1}$ to help us calculate $\tilde{T}^{n+1}$ using Eq. \eqref{eq:1102}, while still treating $v$ as fixed in time. Once these predicted values are obtained we can use them with Eq. \eqref{eq:1103} to obtain a predicted $\tilde{v}$. With all of these predicted future values of our variables in hand, we do another round of Crank-Nicolson on all three equations to step the solution forward in time. We can represent this procedure schematically as follows:\\
-Step 1 Use the old velocity $v^{n}$ as input for Eqn. \eqref{eq:1105} $\rightarrow$ Solve for the predicted density $\tilde{\rho}$.\\
-Step 2 Use $v^{n}$ and $\tilde{\rho}$ as inputs for Eqn. \eqref{eq:1102} $\rightarrow$ Solve for the predicted temperature $\tilde{T}$.\\
-Step 3 Use $\tilde{\rho}$ and $\tilde{T}$ as inputs for Eqn. \eqref{eq:1103} $\rightarrow$ Solve for the predicted velocity $\tilde{v}$.\\
-Step 4 Use $\tilde{v}$ as input for Eqn. \eqref{eq:1105} $\rightarrow$ Solve for the new density $\rho^{n+1}$.\\
-Step 5 Use $\tilde{v}$ and $\rho^{n+1}$ as inputs for Eqn. \eqref{eq:1102} $\rightarrow$ Solve for the new temperature $T^{n+1}$.\\
-Step 6 Use $\rho^{n+1}$ and $T^{n+1}$ as inputs for Eqn. \eqref{eq:1103} $\rightarrow$ Solve for the new velocity $v^{n+1}$.\\
+Let\rq s try a predictor-corrector approach similar to second-order Runge-Kutta (which you learned about back in 330 ) by first taking an approximate step in time of length $\tau$ to obtain predicted values for our variables one time step in the future. We'll refer to these first-order predictions for the future values as $\tilde{\rho}^{n+1}, \tilde{T}^{n+1}$, and $\tilde{v}^{n+1}$. In the predictor step we will treat $v$ as constant in time in Eq. \ref{eq:1101} to predict $\tilde{\rho}^{n+1}$. Then we'll use $\tilde{\rho}^{n+1}$ to help us calculate $\tilde{T}^{n+1}$ using Eq. \ref{eq:1102}, while still treating $v$ as fixed in time. Once these predicted values are obtained we can use them with Eq. \ref{eq:1103} to obtain a predicted $\tilde{v}$. With all of these predicted future values of our variables in hand, we do another round of Crank-Nicolson on all three equations to step the solution forward in time. We can represent this procedure schematically as follows:\\
+Step 1 Use the old velocity $v^{n}$ as input for Eqn. \ref{eq:1105} $\rightarrow$ Solve for the predicted density $\tilde{\rho}$.\\
+Step 2 Use $v^{n}$ and $\tilde{\rho}$ as inputs for Eqn. \ref{eq:1102} $\rightarrow$ Solve for the predicted temperature $\tilde{T}$.\\
+Step 3 Use $\tilde{\rho}$ and $\tilde{T}$ as inputs for Eqn. \ref{eq:1103} $\rightarrow$ Solve for the predicted velocity $\tilde{v}$.\\
+Step 4 Use $\tilde{v}$ as input for Eqn. \ref{eq:1105} $\rightarrow$ Solve for the new density $\rho^{n+1}$.\\
+Step 5 Use $\tilde{v}$ and $\rho^{n+1}$ as inputs for Eqn. \ref{eq:1102} $\rightarrow$ Solve for the new temperature $T^{n+1}$.\\
+Step 6 Use $\rho^{n+1}$ and $T^{n+1}$ as inputs for Eqn. \ref{eq:1103} $\rightarrow$ Solve for the new velocity $v^{n+1}$.\\
 
 This procedure probably seems a bit nebulous at this point, so let\rq s go through it in more detail. First we\rq ll derive the Crank-Nicolson algorithms for our three equations, then we\rq ll show how to use these algorithms to solve the system using the predictor-corrector method.
 
@@ -76,7 +76,7 @@ Then we write these equations along with the boundary conditions in matrix form
 \begin{equation}\label{eq:1111}
 \mathbf{A} \rho^{n+1}=\mathbf{B} \rho^{n}
 \end{equation}
-which we solve using linear algebra techniques. For the algorithm represented by Eq. \eqref{eq:1111} to calculate $\rho^{n+1}$, we need to feed it values for $\rho^{n}, v^{n}$, and $v^{n+1}$. Since the inputs for these variables will be different in the predictor and the corrector steps, we need to invent some notation. We\rq ll refer to this Crank-Nicolson algorithm for stepping forward to find $\rho^{n+1}$ using the notation $S_{\rho}\left(\rho^{n}, v^{n}, v^{n+1}\right)$ so the variables the algorithm needs as inputs are explicitly shown.
+which we solve using linear algebra techniques. For the algorithm represented by Eq. \ref{eq:1111} to calculate $\rho^{n+1}$, we need to feed it values for $\rho^{n}, v^{n}$, and $v^{n+1}$. Since the inputs for these variables will be different in the predictor and the corrector steps, we need to invent some notation. We\rq ll refer to this Crank-Nicolson algorithm for stepping forward to find $\rho^{n+1}$ using the notation $S_{\rho}\left(\rho^{n}, v^{n}, v^{n+1}\right)$ so the variables the algorithm needs as inputs are explicitly shown.
 
 \section*{Conservation of energy}
 \addcontentsline{toc}{section}{Conservation of energy}
@@ -107,7 +107,7 @@ where
 \begin{equation}\label{eq:1116}
 F=\frac{(\gamma-1) M \kappa}{k_{B}}
 \end{equation}
-We then rearrange Eq. \eqref{eq:1115} into a form that makes the upcoming algebra (and
+We then rearrange Eq. \ref{eq:1115} into a form that makes the upcoming algebra (and
 coding) more readable:
 \begin{equation}\label{eq:1117}
 \frac{T_{j}^{n+1}-T_{j}^{n}}{\tau}=T_{j-1}^{n} D_{1}+T_{j}^{n} D_{2}+T_{j+1}^{n} D_{3}
@@ -124,7 +124,7 @@ D_{2}=-(\gamma-1) \frac{v_{j+1}^{n}-v_{j-1}^{n}}{2 h}-\frac{2 F}{\rho_{j}^{n} h^
 D_{3}=-\frac{v_{j}^{n}}{2 h}+\frac{F}{\rho_{j}^{n} h^{2}}
 \end{equation}
 \begin{problem}\label{P11.1}
-Finish deriving the Crank-Nicolson algorithm for $T^{n+1}$ by putting the righthand side of Eq. \eqref{eq:1117} at the $n+1 / 2$ time level. This means replacing $T^{n}$ terms with $\left(T^{n}+T^{n+1}\right) / 2$ in Eq. \eqref{eq:1117} and making the replacements $\rho^{n} \Rightarrow\left(\rho^{n}+\rho^{n+1}\right) / 2$ and $v^{n} \Rightarrow\left(v^{n}+v^{n+1}\right) / 2$ in $D_{1}, D_{2}$, and $D_{3}$. Then put your system of equations in the form
+Finish deriving the Crank-Nicolson algorithm for $T^{n+1}$ by putting the righthand side of Eq. \ref{eq:1117} at the $n+1 / 2$ time level. This means replacing $T^{n}$ terms with $\left(T^{n}+T^{n+1}\right) / 2$ in Eq. \ref{eq:1117} and making the replacements $\rho^{n} \Rightarrow\left(\rho^{n}+\rho^{n+1}\right) / 2$ and $v^{n} \Rightarrow\left(v^{n}+v^{n+1}\right) / 2$ in $D_{1}, D_{2}$, and $D_{3}$. Then put your system of equations in the form
 \begin{equation*}
 \mathbf{A} T^{n+1}=\mathbf{B} T^{n}
 \end{equation*}
@@ -137,9 +137,9 @@ Finally, let\rq s consider Newton\rq s second law for this system in a form anal
 \begin{equation}\label{eq:1121}
 \frac{\partial v}{\partial t}+v \frac{\partial v}{\partial x}=-\frac{1}{\rho} \frac{\partial P}{\partial x}+\frac{4 \mu}{3 \rho} \frac{\partial^{2} v}{\partial x^{2}}
 \end{equation}
-You should recognize the first term $d \nu / d t$ as acceleration, and we\rq ll discuss the origin of the other acceleration term in a minute. The first term on the right is the pressure force that pushes fluid from high pressure toward low pressure, with the pressure $P$ given by the ideal gas law in Eq. \eqref{eq:1114}. The second term on the right represents the force of internal friction called viscosity, and the parameter $\mu$ is referred to as the coefficient of viscosity. (Tar has high viscosity, water has medium viscosity, and air has almost none.) The $1 / \rho$ factor in the force terms represents the mass $m$ in $a=F / m$ (but of course we are working with mass density $\rho$ here).
-You may be unconvinced that the left side of Eq. \eqref{eq:1121} is acceleration. To become more convinced, let\rq s think about this situation more carefully. Newton\rq s second law does not apply directly to a location in space where there is a moving fluid. Newton\rq s second law is for particles that are moving through space, not for a location in space that is sitting still with fluid moving through it. This distinction is subtle, but important. Think, for instance, about a steady stream of honey falling out of a honey bear held over a warm piece of toast. If you followed a piece of honey along its journey from the spout down to the bread you would experience acceleration. But if you watched a piece of the stream at a specific location (say, $10 \mathrm{~cm}$ above the bread) you would see that the velocity of this part of the stream is constant in time: $\partial v / \partial t=0$. This is a strong hint that there is more to describing the acceleration of fluids through a region of space than just the local $\partial v / \partial t$ for a given location. You also need to compare the local velocity at your chosen point to the velocities at nearby points in space, which is what the $v \partial v / \partial x$ term does in the left side of Eq. \eqref{eq:1121}.
-Notice that Eq. \eqref{eq:1121} has a nonlinear term on the left: $v(\partial v / \partial x)$. There is no way to directly represent this nonlinear term using a linear matrix form like $\mathbf{A} v^{n+1}=\mathbf{B} v^{n}$, so we'll have to make an approximation. We\rq ll assume that the leading $v$ in the nonlinear term is somehow known and designate it as $\bar{v}$. (We\rq ll deal with finding something to use for $\bar{\nu}$ later.) With a forward time derivative and a centered space derivative, we have
+You should recognize the first term $d \nu / d t$ as acceleration, and we\rq ll discuss the origin of the other acceleration term in a minute. The first term on the right is the pressure force that pushes fluid from high pressure toward low pressure, with the pressure $P$ given by the ideal gas law in Eq. \ref{eq:1114}. The second term on the right represents the force of internal friction called viscosity, and the parameter $\mu$ is referred to as the coefficient of viscosity. (Tar has high viscosity, water has medium viscosity, and air has almost none.) The $1 / \rho$ factor in the force terms represents the mass $m$ in $a=F / m$ (but of course we are working with mass density $\rho$ here).
+You may be unconvinced that the left side of Eq. \ref{eq:1121} is acceleration. To become more convinced, let\rq s think about this situation more carefully. Newton\rq s second law does not apply directly to a location in space where there is a moving fluid. Newton\rq s second law is for particles that are moving through space, not for a location in space that is sitting still with fluid moving through it. This distinction is subtle, but important. Think, for instance, about a steady stream of honey falling out of a honey bear held over a warm piece of toast. If you followed a piece of honey along its journey from the spout down to the bread you would experience acceleration. But if you watched a piece of the stream at a specific location (say, $10 \mathrm{~cm}$ above the bread) you would see that the velocity of this part of the stream is constant in time: $\partial v / \partial t=0$. This is a strong hint that there is more to describing the acceleration of fluids through a region of space than just the local $\partial v / \partial t$ for a given location. You also need to compare the local velocity at your chosen point to the velocities at nearby points in space, which is what the $v \partial v / \partial x$ term does in the left side of Eq. \ref{eq:1121}.
+Notice that Eq. \ref{eq:1121} has a nonlinear term on the left: $v(\partial v / \partial x)$. There is no way to directly represent this nonlinear term using a linear matrix form like $\mathbf{A} v^{n+1}=\mathbf{B} v^{n}$, so we'll have to make an approximation. We\rq ll assume that the leading $v$ in the nonlinear term is somehow known and designate it as $\bar{v}$. (We\rq ll deal with finding something to use for $\bar{\nu}$ later.) With a forward time derivative and a centered space derivative, we have
 
 
 \begin{equation}\label{eq:1122}
@@ -173,7 +173,7 @@ E_{3}=-\frac{\bar{v}_{j}^{n}}{2 h}+\frac{4 \mu}{3 \rho_{j}^{n} h^{2}}
 \end{equation}
 
 \begin{problem}\label{P11.2}
-Finish deriving the Crank-Nicolson algorithm for $v$ by making the replacements $v^{n} \Rightarrow\left(v^{n+1}+v^{n}\right) / 2$ the right-hand side of Eq. \eqref{eq:1123} and $\rho^{n} \Rightarrow$ $\left(\rho^{n}+\tilde{\rho}^{n+1}\right) / 2, T^{n} \Rightarrow\left(T^{n}+\tilde{T}^{n+1}\right) / 2$, and $\bar{v}^{n} \Rightarrow\left(\bar{v}^{n}+\bar{v}^{n+1}\right) / 2$ in $E_{0}, E_{1}, E_{2}$, and $E_{3}$. Show that your system of equations needs to be in the form
+Finish deriving the Crank-Nicolson algorithm for $v$ by making the replacements $v^{n} \Rightarrow\left(v^{n+1}+v^{n}\right) / 2$ the right-hand side of Eq. \ref{eq:1123} and $\rho^{n} \Rightarrow$ $\left(\rho^{n}+\tilde{\rho}^{n+1}\right) / 2, T^{n} \Rightarrow\left(T^{n}+\tilde{T}^{n+1}\right) / 2$, and $\bar{v}^{n} \Rightarrow\left(\bar{v}^{n}+\bar{v}^{n+1}\right) / 2$ in $E_{0}, E_{1}, E_{2}$, and $E_{3}$. Show that your system of equations needs to be in the form
 
 \begin{equation*}
 \mathbf{A} v^{n+1}=\mathbf{B} v^{n}+E_{0}

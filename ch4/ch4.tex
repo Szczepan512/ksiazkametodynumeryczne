@@ -1,5 +1,5 @@
 
-\chapter*{The Hanging Chain and Quantum Bound States}
+\chapter*{The Hanging Chain and \\ Quantum Bound States}
 \addcontentsline{toc}{chapter}{The Hanging Chain and Quantum Bound States} 
 \section*{Resonance for a hanging chain}
 \addcontentsline{toc}{section}{Resonance for a hanging chain} 
@@ -30,27 +30,30 @@ $x = L$ as the ceiling.
 Use the fact that a stationary hanging chain is in equilibrium to draw a
 free-body diagram for a link at an arbitrary $x$. Use this diagram to show that
 the tension in the chain as a function of $x$ is given by
+\marginpar{\includegraphics[width=\marginparwidth]{fig42}\captionof{figure}{A cell-centered grid with ghost points. (The open circles are the ghost points.)}\label{fig:20}}		
+
 	\begin{equation}\label{eq:42}
 		T(x) = \mu g x
 				\end{equation}		
 				where $\mu$ is the linear mass density of the chain and $g = 9.8 m/s^2$
-is the acceleration of gravity. Then show that Eq. \eqref{eq:41} reduces to	
+is the acceleration of gravity. Then show that Eq. \ref{eq:41} reduces to	
 	\begin{equation}\label{eq:43}
 		 \frac{\partial^2 y}{\partial t^2} - g\frac{\partial}{\partial x}(x\frac{\partial y}{\partial x}) = 0
 				\end{equation}	
 			for a freely hanging chain. \end{problem}
 			As in Lab 3, we now look for normal modes by separating the variables:
-$y(x,t) = f(x)\cos(\omega t)$. We then substitute this form for $y(x,t)$ into \eqref{eq:43} and simplify to obtain	
+$y(x,t) = f(x)\cos(\omega t)$. We then substitute this form for $y(x,t)$ into \ref{eq:43} and simplify to obtain	
 		\begin{equation}\label{eq:44}
 		 x \frac{d^2 f}{dx^2}+\frac{df}{dx} = - \frac{\omega^2}{g}f
 				\end{equation}		
 				which is in eigenvalue form with $ \lambda = −\omega^2/g$ . The boundary condition at the
 ceiling is $f (L) = 0$ while the boundary condition at the bottom is obtained by
-taking the limit of Eq. \eqref{eq:44} as $x \rightarrow 0$ to find
+taking the limit of Eq. \ref{eq:44} as $x \rightarrow 0$ to find
+\marginpar{\includegraphics[width=\marginparwidth]{fig43}\captionof{figure}{The shape of the second mode of a hanging chain}\label{fig:21}}
+
 	\begin{equation}\label{eq:45}
 		f^\prime(x) = - \frac{\omega^2}{g}f(0) = \lambda f(0)
 				\end{equation}		
-			\marginpar{\includegraphics[width=\marginparwidth]{fig42}\captionof{figure}{A cell-centered grid with ghost points. (The open circles are the ghost points.)}\label{fig:20}}		
 				In the past couple labs we dealt with derivative boundary conditions by fitting
 a parabola to the last three points on the grid and then taking the derivative of
 the parabola (e.g. Problems \ref{P2.4}r(b) and \ref{P3.4}). This time we\rq ll handle the derivative
@@ -65,7 +68,6 @@ using a cell-centered grid with N physical grid points and two ghost points. \\
 With this grid there isn\rq t a grid point at each endpoint, but rather we have two
 grid points that straddle each endpoint. If the boundary condition specifies a
 value, like $f (L) = 0 $ in the problem at hand, we use a simple average like this:
-	\marginpar{\includegraphics[width=\marginparwidth]{fig43}\captionof{figure}{The shape of the second mode of a hanging chain}\label{fig:21}}
 \begin{equation}\label{eq:46}
 		\frac{f_{N+1} + f_N}{2}=0
 				\end{equation}	
@@ -77,31 +79,31 @@ For $f^\prime (L) = 0$, a centered derivative around $x = L$ yields
 			
 \begin{problem} \label{P4.2}
 				\begin{enumerate}[label=(\alph*)]
-			\item	On paper, write out the discretized version of Eq. \eqref{eq:44} and put it in
+			\item	On paper, write out the discretized version of Eq. \ref{eq:44} and put it in
 the form of a generalized eigenvalue problem
 \begin{equation}\label{eq:48}
 		Af = \lambda B f
 				\end{equation}
 					Remember that for the interior points, the matrix B is just the identity
 matrix with 1 on the main diagonal and zeros everywhere else. Decide on the values needed in the bottom rows of A and B to give the
-boundary condition in Eq. \eqref{eq:46} at $x = L$ (the ceiling) no matter what
+boundary condition in Eq. \ref{eq:46} at $x = L$ (the ceiling) no matter what
 $\lambda$ turns out to be.
 	\marginpar{\includegraphics[width=\marginparwidth]{fig44}\captionof{figure}{The shape of the third mode of a hanging chain}\label{fig:22}}
 \item Now let\rq s decide how to handle the derivative boundary condition at
-$x = 0$ (the bottom of the chain), given by Eq. \eqref{eq:45}. Since this condition
+$x = 0$ (the bottom of the chain), given by Eq. \ref{eq:45}. Since this condition
 is already in eigenvalue form we don\rq t load the top row of B with zeros.
-Instead we load A with the left operator $f^\prime (0)$ according to Eq. \eqref{eq:47}
-and B with the right operator $f(0)$  according to Eq. \eqref{eq:46}. Leave the
+Instead we load A with the left operator $f^\prime (0)$ according to Eq. \ref{eq:47}
+and B with the right operator $f(0)$  according to Eq. \ref{eq:46}. Leave the
 eigenvalue $ \lambda = − \omega ^ 2
 /g$ out of the top row of B since the matrix equation
 $Af = \lambda Bf$ already has the λ multiplying B. Write down the values
 needed in the top rows of A and B, perform the matrix multiplication
-for this row, and verify that your choices correctly produce Eq. \eqref{eq:45}.
+for this row, and verify that your choices correctly produce Eq. \ref{eq:45}.
 \item Write a program to load the matrices A and B with $L = 2 m$ (or the measured length if different). Then solve for the normal modes of vibration
 of a hanging chain. As in Lab 3, some of the eigenvectors are not physical because they don\rq t satisfy the boundary conditions; ignore them.
 Compare your numerical resonance frequencies to measurements
 made on the chain hanging from the ceiling in the classroom
-\item The analytic solution to Eq. \eqref{eq:44} without any boundary conditions is
+\item The analytic solution to Eq. \ref{eq:44} without any boundary conditions is
 \begin{equation*}
 		f(x) = c_1J_0(2\omega \sqrt{x / g}) + c_2 Y_0(2\omega \sqrt{2\omega \sqrt{x / g}})
 				\end{equation*}
@@ -129,7 +131,7 @@ i \bar{h} \frac{\partial \Psi}{\partial t} = - \frac{\bar{h}^{2}}{2 m} \frac{\pa
 		If we assume a separable solution of the form $\Psi(x,t) = \Psi(x)e^{
 −i Et/ħ}$
 and plug this
-into Eq. \eqref{eq:49}, we find the time-independent Schrödinger equation
+into Eq. \ref{eq:49}, we find the time-independent Schrödinger equation
 
 \begin{equation}\label{eq:410}
 -\frac{\bar{h}^{2}}{2 m} \frac{d^{2} \psi}{d x^{2}}+V(x) \psi=E \psi
@@ -154,7 +156,7 @@ to the problem parameters, $\xi$ will typically have magnitudes around the size 
 Let\rq s practice this procedure for the problem at hand.
 	\marginpar{\includegraphics[width=\marginparwidth]{fig45}\captionof{figure}{The probability distributions for the ground state and the first three excited states of the harmonic oscillator.}\label{fig:23}}
 
-	\begin{problem} \label{P4.3}  Substitute $x = \alpha \xi$ into Eq. \eqref{eq:411}, and then do some algebra to put the
+	\begin{problem} \label{P4.3}  Substitute $x = \alpha \xi$ into Eq. \ref{eq:411}, and then do some algebra to put the
 equation in the form
 \begin{equation}\label{eq:412}
 -\frac{C}{2} \frac{d^{2} \psi}{d \xi^{2}}+\frac{1}{2} \xi^{2} \psi=\frac{E}{\bar{E}} \psi
@@ -186,7 +188,7 @@ solve it with out standard technique.
 
 \begin{problem} \label{P4.4}
 	\marginpar{\includegraphics[width=\marginparwidth]{fig46}\captionof{figure}{The probability distributions for the ground state and the first three excited states for the potential in Problem \ref{P4.5} }\label{fig:24}}
-Discretize Eq. \eqref{eq:415} on paper. Then write a program to do this eigenvalue
+Discretize Eq. \ref{eq:415} on paper. Then write a program to do this eigenvalue
 problem, similar to the other programs we\rq ve written recently. The boundary conditions are that both the value and derivative of $\psi$ should go to zero
 at $\xi$ = $\infty +$. Since you\rq ve scaled the problem, it makes sense to choose a
 cell-edge grid that goes from $\xi =  - 5$ to $\xi  = 5$, or some other similar pair

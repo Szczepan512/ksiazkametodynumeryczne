@@ -1,10 +1,9 @@
 
-\chapter*{The 2-D Wave Equation With Staggered Leapfrog}
+\chapter*{The 2-D Wave Equation With \\ Staggered Leapfrog}
 \addcontentsline{toc}{chapter}{The 2-D Wave Equation With Staggered Leapfrog} 
 \section*{Two dimensional grids}
 \addcontentsline{toc}{section}{Two dimensional grids} 
 
-	\marginpar{\includegraphics[width=\marginparwidth]{fig61}\captionof{figure}{Two types of 2-D grids.}\label{fig:29}}
 In this lab we will do problems in two spatial dimensions, $x$ and $y$, so we need
 to spend a little time thinking about how to represent 2-D grids. For a simple
 rectangular grid where all of the cells are the same size, 2-D grids are pretty
@@ -16,6 +15,8 @@ grid we\rq ll usually want ghost point outside the region of interest so we can 
 boundary conditions right. \\ NumPy has a nice way of creating rectangular two-dimensional grids using
 the meshgrid command. You can create 2-d rectangle defined by $x \in [a,b]$ and
 $y \in [c,d]$ and then plot a function on that grid this way:
+\marginpar{\includegraphics[width=\marginparwidth]{fig61}\captionof{figure}{Two types of 2-D grids.}\label{fig:29}}
+
 \begin{lstlisting}
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
@@ -41,11 +42,13 @@ plt.xlabel('x')
 plt.ylabel('y')
 fig.colorbar(surf)
 \end{lstlisting}
+
 The argument $indexing='ij'$ in the meshgrid function switches the ordering
 of the elements in the resulting matrices from the matrix indexing convention
 $Z[row,col]$ to the function indexing convention $Z[x_i,y_y]$ for representing $Z(x_i, y_i)$.
 
 \begin{problem}\label{P6.1} 
+	\marginpar{\includegraphics[width=\marginparwidth]{fig62}\captionof{figure}{Plot from Problem \ref{P6.1}. The graphic in this figure was created with Matlab. Python\rq s graphics engine is sort of privative in comparison to Matlab\rq s, so you won\rq t get something quite so nice. In particular, getting the scaling right is painful in Python.}\label{fig:30}}
 
 \begin{enumerate}[label=(\alph*)]
 \item
@@ -57,6 +60,7 @@ in the $x$ direction, whereas with $Z(x_i, y_i)$ we have a different convention.
 we didn\rq t come up with it. Sorry.) We recommend that you use the
 $indexing='ij'$ convention, as it tends to more readable code for representing $Z(x_i, y_i)$.
 \item  Using this 2 - D grid, evaluate the following function of $x$ and $y$:
+
 \begin{equation}\label{eq:61}
 f(x,y) = e^{-(x^2+y^2)} \cos(5\sqrt{x^2+y^2})
 \end{equation}
@@ -70,7 +74,6 @@ grid.
 \addcontentsline{toc}{section}{The two-dimensional wave equation}
 
 
-	\marginpar{\includegraphics[width=\marginparwidth]{fig62}\captionof{figure}{Plot from Problem \ref{P6.1}. The graphic in this figure was created with Matlab. Python\rq s graphics engine is sort of privative in comparison to Matlab\rq s, so you won\rq t get something quite so nice. In particular, getting the scaling right is painful in Python.}\label{fig:30}}
 The wave equation for transverse waves on a rubber sheet is
 \begin{equation}\label{eq:62}
 \mu \frac{\partial^2 z}{\partial t^2} = \sigma (\frac{\partial^2 z}{\partial x^2} + \frac{\partial^2 z}{\partial y^2} )
@@ -97,7 +100,7 @@ derivatives can be approximated as
 \frac{\partial^2 z}{\partial y^2} \approx \frac{z^{n}_{j,k+1}-2z^n_{j,k}+z^{n}_{j,k-1}}{h^2_y} )
 \end{equation}
 where $h_x$ and $h_y$ are the grid spacings in the $x$ and $y$ dimensions. We insert these
-three equations into Eq. \eqref{eq:62} to get an expression that we can solve for z at the
+three equations into Eq. \ref{eq:62} to get an expression that we can solve for z at the
 next time (i.e. $z^{n+1}_{j,k} $). Then we use this expression along with the discrete version
 of the initial velocity condition
 \begin{equation}\label{eq:66}
@@ -125,6 +128,8 @@ This initial condition doesn\rq t strictly satisfy the boundary conditions,
 so you should pin the edges to zero.
 Getting the animation to work can be tricky, so here is a framework of
 code for the animation loop:
+\marginpar{\includegraphics[width=\marginparwidth]{fig63}\captionof{figure}{A wave on a rubber sheet with fixed edges.}\label{fig:31}}
+
 \begin{lstlisting}
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
@@ -148,7 +153,6 @@ plt.ylabel('y')
 plt.draw()
 plt.pause(0.1)
 \end{lstlisting}
-	\marginpar{\includegraphics[width=\marginparwidth]{fig63}\captionof{figure}{A wave on a rubber sheet with fixed edges.}\label{fig:31}}
 Run the simulation long enough that you see the effect of repeated
 reflections from the edges.
 \item You will find that this two-dimensional problem has a Courant condition similar to the one-dimensional case, but with a factor out front:
@@ -165,7 +169,7 @@ This also happens for the three-dimensional wave equation. But
 something completely different happens for an even number of dimensions; you should be able to see it in your plot by looking at the
 behavior of $z(0,0,t)$ before the first reflection comes back.
 \item Finally, change the initial conditions so that the sheet is initially flat
-but with the initial velocity given by the Gaussian pulse of Eq. \eqref{eq:67}.
+but with the initial velocity given by the Gaussian pulse of Eq. \ref{eq:67}.
 In one dimension when you pulse the system like this the string at
 the point of application of the pulse moves up and stays up until
 the reflection comes back from the ends of the system. (We did this
@@ -231,7 +235,7 @@ time and to specify the initial conditions $y(x,0)$ and $\partial y(x,t)/ \parti
 Parabolic boundary conditions are similar to hyperbolic ones, but with one difference. Think about a thermally-conducting bar with its ends held at fixed
 temperatures. Once again, surrounding-type boundary conditions are inappropriate because we don\rq t want to specify the future. So as in the hyperbolic case,
 we can specify conditions at the ends of the bar, but we also want to give initial conditions at $t = 0$. For thermal diffusion we specify the initial temperature
-$T (x,0)$, but that\rq s all we need; the \rq\rq velocity\lq\lq $\partial T / \partial t$ is determined by Eq. \eqref{eq:611},
+$T (x,0)$, but that\rq s all we need; the \rq\rq velocity\lq\lq $\partial T / \partial t$ is determined by Eq. \ref{eq:611},
 so it makes no sense to give it as a separate boundary condition. Summarizing:
 for parabolic equations we specify end conditions and a single initial condition
 $T (x,0)$ rather than the two required by hyperbolic equations. \\ 

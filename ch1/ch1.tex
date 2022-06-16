@@ -69,9 +69,9 @@
     y - y_1 = \frac{(y_2-y_1)}{(x_2-x_1)}(x-x_1) 
 \end{equation}  
   
-    Once this line has been established it provides an approximation to the true function $y(x)$ that is pretty good in the neighborhood of the two data points. To linearly interpolate or extrapolate we simply evaluate Eq. \eqref{eq:1} at x values between or beyond $x_1$ and $x_2$.   
+    Once this line has been established it provides an approximation to the true function $y(x)$ that is pretty good in the neighborhood of the two data points. To linearly interpolate or extrapolate we simply evaluate Eq. \ref{eq:1} at x values between or beyond $x_1$ and $x_2$.   
       
-    \begin{problem} \label{P1.3} UseEq. \eqref{eq:1} to do the following special cases:
+    \begin{problem} \label{P1.3} UseEq. \ref{eq:1} to do the following special cases:
      
      \begin{enumerate}[label=(\alph*)]
      
@@ -104,7 +104,7 @@
 		\begin{equation} \label{eq:4}
 			f/prime(x) \approx \frac{f(x+h) - f(x)}{h}
 		\end{equation}		     
-     The word 	$''$ forward	$''$  refers to the way this formula reaches forward from $x$ to $x+h$ to calculate the slope. The exact derivative represented by Eq.\eqref{eq:4} in the limit that h approaches zero. However, wecan\rq t make h arbitrarily small when we represent a function on agrid because $(i)$ the number of cells needed to represent a region of space becomes infinite ash goes to zero; and $(ii)$ computers represent numbers with a finite number of significant digits so the subtraction in the numerator of Eq.\eqref{eq:4} loses accuracy when the two function values are very close. But given these limitation we want to be as accurate as possible, so we want to use the best derivative formulas available. The forward difference formula isn’t one of them.The best first derivative formula that uses only two function values is usually the centered difference formula:
+     The word 	$''$ forward	$''$  refers to the way this formula reaches forward from $x$ to $x+h$ to calculate the slope. The exact derivative represented by Eq.\ref{eq:4} in the limit that h approaches zero. However, wecan\rq t make h arbitrarily small when we represent a function on agrid because $(i)$ the number of cells needed to represent a region of space becomes infinite ash goes to zero; and $(ii)$ computers represent numbers with a finite number of significant digits so the subtraction in the numerator of Eq.\ref{eq:4} loses accuracy when the two function values are very close. But given these limitation we want to be as accurate as possible, so we want to use the best derivative formulas available. The forward difference formula isn’t one of them.The best first derivative formula that uses only two function values is usually the centered difference formula:
      \begin{equation} \label{eq:5}
      	f\prime(x) \approx \frac{f(x+h)-f(x-h)}{2h} 
      \end{equation}
@@ -113,7 +113,7 @@
 \begin{equation} \label{eq:6}
 	f\prime\prime(x) \approx \frac{f(x+h) - 2f(x)+f(x-h)}{h^2}
 \end{equation}
-We will derive both of these formulas later, but for now we just want you to understand how to use them. The colon operator provides a compact way to evaluate Eqs. \eqref{eq:5} and \eqref{eq:6} on a grid. Unfortunately for those of you familiar with Matlab, Python$'$ s colon operator acts a little differently from Matlab$'$ s in that the last index is not included in the range, as we noted in the tutorial. If the function we want to take the derivative of is stored in an array f, we can calculate the centered first derivative like this (remember that Python array indexes are zero-based):
+We will derive both of these formulas later, but for now we just want you to understand how to use them. The colon operator provides a compact way to evaluate Eqs. \ref{eq:5} and \ref{eq:6} on a grid. Unfortunately for those of you familiar with Matlab, Python$'$ s colon operator acts a little differently from Matlab$'$ s in that the last index is not included in the range, as we noted in the tutorial. If the function we want to take the derivative of is stored in an array f, we can calculate the centered first derivative like this (remember that Python array indexes are zero-based):
 \begin{lstlisting}
 fp = np.zeros_like(f)
 fp[1:N-1]=(f[2:N]-f[0:N-2])/(2*h)
@@ -124,13 +124,14 @@ fpp = np.zeros_like(f)
 fpp[1:N-1]=(f[2:N]-2*f[1:N-1]+f[0:N-2])/h**2
 \end{lstlisting}
 
-The variable h is the spacing between grid points and N is the number of grid points. Study this code (focus on the indexing) until you are convinced that it represents Eqs. \eqref{eq:5} and \eqref{eq:6} correctly. \\The derivative at the first and last points on the grid can\rq t be calculated with Eqs.  \eqref{eq:5} and \eqref{eq:6} since there are not grid points on both sides of the endpoints. Instead, we extrapolate the interior values of the two derivatives to the end points. If we use linear extrapolation then we just need two nearby points, and the formulas for the derivatives at the end points are found using Eq. \eqref{eq:2}
+The variable h is the spacing between grid points and N is the number of grid points. Study this code (focus on the indexing) until you are convinced that it represents Eqs. \ref{eq:5} and \ref{eq:6} correctly. \\The derivative at the first and last points on the grid can\rq t be calculated with Eqs.  \ref{eq:5} and \ref{eq:6} since there are not grid points on both sides of the endpoints. Instead, we extrapolate the interior values of the two derivatives to the end points. If we use linear extrapolation then we just need two nearby points, and the formulas for the derivatives at the end points are found using Eq. \ref{eq:2}
 \begin{lstlisting}
 fp[0]=2*fp[1]-fp[2] 
 fp[N-1]=2*fp[N-2]-fp[N-3] 
 fpp[0]=2*fpp[1]-fpp[2] 
 fpp[N-1]=2*fpp[N-2]-fpp[N-3]
 \end{lstlisting}
+\marginpar{\includegraphics[width=\marginparwidth]{fig6}\captionof{figure}{Plots from 1.4}\label{fig:6}}
 
 \begin{problem} \label{P1.4}
 Create a cell-edge grid with N = 20 on the interval $0 \leq x \leq 5$. Load $f(x)$ with the Bessel function $J_0(x)$ and numerically differentiate it to obtain $f^\prime(x)$ and $f^\prime\prime(x)$. Then make overlaid plots of the numerical derivatives with the exact derivatives:
@@ -142,7 +143,6 @@ Create a cell-edge grid with N = 20 on the interval $0 \leq x \leq 5$. Load $f(x
 			f^{\prime\prime} = \frac{1}{2}(-J_0(x)+J_2(x))	
 			\end{split}
 \end{equation*}
-\marginpar{\includegraphics[width=\marginparwidth]{fig6}\captionof{figure}{Plots from 1.4}\label{fig:6}}
 
 \section*{Errors in the approximate derivative formulas}
 \addcontentsline{toc}{section}{Errors in the approximate derivative formulas}  
@@ -151,19 +151,20 @@ We\rq ll conclude this lab with a look at where the approximate derivative formu
 \begin{equation}\label{eq:7}
 	f(x+h) = f(x) + f^\prime(x)h+\frac{1}{2}f^{\prime\prime}(x)h^2 + ... + f^{(n)}(x)\frac{h^n}{n!} + ...
 \end{equation}
-Let\rq s use this series to understand the forward difference approximation to $f^\prime(x)$. If we apply the Taylor expansion to the $f(x+h)$ term in Eq. \eqref{eq:4} , we get
+Let\rq s use this series to understand the forward difference approximation to $f^\prime(x)$. If we apply the Taylor expansion to the $f(x+h)$ term in Eq. \ref{eq:4} , we get
 \begin{equation}\label{eq:8}
 \frac{f(x+h) - f(x)}{h}= \frac{[f(x)+f^\prime(x)h+\frac{1}{2}f^{\prime\prime}(x)h^2+...]-f(x)}{h}
 \end{equation}
-The higher order terms in the expansion (represented by the dots) are smaller than the $f^{\prime\prime}$ term because they are all multiplied by higher powers of h (which we assumetobesmall). If we neglect these higher order terms, we can solve Eq. \eqref{eq:8} for the exact derivative $f^{\prime}(x)$ to find
+The higher order terms in the expansion (represented by the dots) are smaller than the $f^{\prime\prime}$ term because they are all multiplied by higher powers of h (which we assumetobesmall). If we neglect these higher order terms, we can solve Eq. \ref{eq:8} for the exact derivative $f^{\prime}(x)$ to find
 \begin{equation}\label{eq:9}
 f^\prime(x) \approx \frac{f(x+h)-f(x)}{h}-\frac{h}{2}f^{\prime\prime}(x)
 \end{equation}
-FromEq. \eqref{eq:9} we see that the forward difference does indeed give the first derivative back, but it carries an error term which is proportional to h. But if h is small enough then the contribution from the term containing $f^{\prime\prime}(x)$ will be too small to matter and we will have a good approximation to $f^\prime(x)$. For the centered difference formula, we use Taylor expansions for both $f(x+h)$ and $f(x−h)$in Eq. \eqref{eq:5} to write
-\begin{equation} \label{eq:10}
-	\frac{f(x+h)-f(x-h)}{2h} = \frac{[f(x)+f^\prime(x)h+f^{\prime\prime}(x)\frac{h^2}{2}+f^{\prime\prime\prime}(x)\frac{h3}{6}+...]}{2h}-\frac{[f(x)-f^\prime(x)h+f^{\prime\prime}(x)\frac{h^2}{2}-f^{\prime\prime\prime}(x)\frac{h3}{6}+...]}{2h}
-\end{equation}
-If we again neglect the higher-order terms, we can solve Eq. \eqref{eq:10} for the exact derivative $f^\prime(x)$. This time, we find that the $f^{\prime\prime}$ terms exactly cancel to give
+FromEq. \ref{eq:9} we see that the forward difference does indeed give the first derivative back, but it carries an error term which is proportional to h. But if h is small enough then the contribution from the term containing $f^{\prime\prime}(x)$ will be too small to matter and we will have a good approximation to $f^\prime(x)$. For the centered difference formula, we use Taylor expansions for both $f(x+h)$ and $f(x−h)$in Eq. \ref{eq:5} to write
+\begin{align} \label{eq:10}
+	\frac{f(x+h)-f(x-h)}{2h} = \frac{[f(x)+f^\prime(x)h+f^{\prime\prime}(x)\frac{h^2}{2}+f^{\prime\prime\prime}(x)\frac{h3}{6}+...]}{2h}- \\ 
+  \frac{[f(x)-f^\prime(x)h+f^{\prime\prime}(x)\frac{h^2}{2}-f^{\prime\prime\prime}(x)\frac{h3}{6}+...]}{2h}
+\end{align}
+If we again neglect the higher-order terms, we can solve Eq. \ref{eq:10} for the exact derivative $f^\prime(x)$. This time, we find that the $f^{\prime\prime}$ terms exactly cancel to give
 \begin{equation} \label{eq:11}
 	f^\prime \approx \frac{f(x+h) - f(x-h)}{2h} - \frac{h^2}{6} f^{\prime\prime\prime}(x) 
 \end{equation}
@@ -171,7 +172,7 @@ Notice that for the centered formula the error term is much smaller, only of ord
 
 
 \begin{problem} \label{P1.5}
-Write a Python program to compute the forward and centered difference formulas for the first derivative of the function $f(x) = e^x $ at $x = 0$ with $h = 0.1, 0.01, 0.001$. Verify that the error estimates in Eqs. \eqref{eq:9} and \eqref{eq:11} agree with the numerical testing. Note that at $x =0$ the exact values of both $f^\prime$ and $f^{\prime\prime}$ are equal to $e^0 = 1$,so just subtract 1 from your numerical result to find the error.
+Write a Python program to compute the forward and centered difference formulas for the first derivative of the function $f(x) = e^x $ at $x = 0$ with $h = 0.1, 0.01, 0.001$. Verify that the error estimates in Eqs. \ref{eq:9} and \ref{eq:11} agree with the numerical testing. Note that at $x =0$ the exact values of both $f^\prime$ and $f^{\prime\prime}$ are equal to $e^0 = 1$,so just subtract 1 from your numerical result to find the error.
 
 \end{problem}
 \marginpar{\includegraphics[width=\marginparwidth]{fig7}\captionof{figure}{Error in the forward and centered difference approximations to the first derivative and the centered difference formula for the second derivative as a function of h. Thefunction is $e^x$ and the approximations are evaluated for $x = 0$.}\label{fig:7}}

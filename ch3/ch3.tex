@@ -22,7 +22,7 @@ sinusoidally in time, the wave equation can be written as
 				
 		where $y(x,t)$ is the lateral displacement of the string as a function of position
 and time, assuming that $y(x,t) ≪ L.$
-1 We have written Eq. \eqref{eq:31} in the form of
+1 We have written Eq. \ref{eq:31} in the form of
 Newton\rq s second law, $F = ma$. The “ma” part is on the left of the equation, except
 that $\mu$ is not the mass, but rather the linear mass density (mass per length). This
 means that the right side should have units of force/length, and it does because
@@ -59,7 +59,7 @@ so we can solve it using our matrix technique.
 \marginpar{\includegraphics[width=\marginparwidth]{fig31}\captionof{figure}{Solution to P3.2(a)}\label{fig:15}}
 \begin{problem} \label{P3.2}
 \begin{enumerate}[label=(\alph*)]
-	\item Write a program to solve Eq. \eqref{eq:33} for $N = 100$ points with $ \mu = 0.003,
+	\item Write a program to solve Eq. \ref{eq:33} for $N = 100$ points with $ \mu = 0.003,
 T = 127, L = 1.2$, and $\omega = 400$. All quantities are in SI units. Find the
 steady-state amplitude associated with the driving force density:
 \begin{equation}\label{eq:34}
@@ -103,7 +103,7 @@ plt.pause(0.1) # Allow time to draw it
 		
 \end{lstlisting}
 	\marginpar{\includegraphics[width=\marginparwidth]{fig33}\captionof{figure}{Solution to problem \ref{P3.2}(c).}\label{fig:16}}
-At certain frequencies, you should see distinct resonance modes appear as in Fig. \ref{fig3.2}.
+At certain frequencies, you should see distinct resonance modes appear as in Fig. \ref{fig:32}.
 \item Modify your code from part (b) so that you find and record the maximum amplitude of $g(x)$ at each $\omega$. Then plot the maximum amplitude
 as a function of ω to see the resonance behavior of this system. Describe what the peaks in this plot mean.
 				
@@ -111,7 +111,7 @@ as a function of ω to see the resonance behavior of this system. Describe what 
 \end{enumerate}
 \end{problem}
 
-				The height of the peaks in this Fig. \ref{fig3.3} isn\rq t meaningful—the height of the
+				The height of the peaks in this Fig. \ref{fig:33} isn\rq t meaningful—the height of the
 actual peak is essentially infinite (since we don’t have any damping yet), while
 the height displayed on the plot is just a reflection of how closely our chosen
 frequencies happened to line up with the exact resonance frequency. Now we will
@@ -121,8 +121,8 @@ the differential equation over and over again.
 \section*{Resonance and the eigenvalue problem}
 \addcontentsline{toc}{section}{Resonance and the eigenvalue problem} 
 The essence of resonance is that at certain frequencies a large steady-state amplitude is obtained with a very small driving force. To find these resonant frequencies
-we seek solutions of Eq. \eqref{eq:33} for which the driving force is zero. With $f(x) = 0$,
-Eq. \eqref{eq:33} takes on the form
+we seek solutions of Eq. \ref{eq:33} for which the driving force is zero. With $f(x) = 0$,
+Eq. \ref{eq:33} takes on the form
 
 \begin{equation}\label{eq:35}
 		Tg^{\prime\prime}(x) + \mu \omega ^ 2 g(x) = 0 \ ; \ g(0) = 0, g(L) = 0
@@ -135,11 +135,11 @@ Eq. \eqref{eq:33} takes on the form
 				\begin{equation}\label{eq:37}
 		Ag =\lambda g
 				\end{equation}
-				where A is a linear operator (the second derivative on the left side of Eq. \eqref{eq:36} )
+				where A is a linear operator (the second derivative on the left side of Eq. \ref{eq:36} )
 and $\lambda$ is the eigenvalue $(−\mu \omega^2 / T )$.
-Equation \eqref{eq:36} is easily solved analytically, and its solutions are just the familiar
+Equation \ref{eq:36} is easily solved analytically, and its solutions are just the familiar
 sine and cosine functions. The boundary condition $g (0) = 0$ tells us to try a sine
-function form, $g (x) = g_0 \sin(kx)$. If we substitute this form into Eq. \eqref{eq:36} , we find
+function form, $g (x) = g_0 \sin(kx)$. If we substitute this form into Eq. \ref{eq:36} , we find
 that it works, provided that k satisfies k = $\omega \sqrt{\frac{\mu}{ T}}$ . We the have
 		\begin{equation}\label{eq:38}
 		g(x) = g_0\sin(\omega \sqrt{\frac{\mu}{T}x})
@@ -147,13 +147,13 @@ that it works, provided that k satisfies k = $\omega \sqrt{\frac{\mu}{ T}}$ . We
 				where $g_0$ is the arbitrary amplitude. When we apply the boundary condition
 $g(L) = $0, we find that the resonant frequencies take on discrete values given by
 \begin{equation}\label{eq:39}
-		\omega = n \frac{\pi}{L}\sqrt{\frac{T}{\mu}}
-				\end{equation}	
+						\omega = n \frac{\pi}{L}\sqrt{\frac{T}{\mu}}
+					\end{equation}
 				where $n$ is an integer. Each value of $n$ gives a specific resonance frequency from
-Eq. \eqref{eq:39} and a corresponding spatial mode $g(x)$ given by Eq. \eqref{eq:38}
+Eq. \ref{eq:39} and a corresponding spatial mode $g(x)$ given by Eq. \ref{eq:38}
 For this simple example we were able to do the eigenvalue problem analytically, but when the differential equation is not so simple we will need to do the
 eigenvalue calculation numerically. Let\rq s see practice the numerical calculations
-in this case where we know the answer. Rewriting Eq. \eqref{eq:35} in matrix form using
+in this case where we know the answer. Rewriting Eq. \ref{eq:35} in matrix form using
 finite differences, as we learned to do in the last lab, yields
 \begin{equation}\label{eq:310}
 		Ag = \lambda g
@@ -198,17 +198,17 @@ because without
 $g_0$ and
 $g_{N-1}$, we don\rq t have an eigenvalue problem (i.e.
 $g$ on left
-side of Eq. \eqref{eq:311} is not the same as
+side of Eq. \ref{eq:311} is not the same as
 $g$ on the right side). \\ 
 The simplest way to deal with this question-mark problem and to also handle
-the boundary conditions is to change the form of Eq. \eqref{eq:37} to the slightly more
+the boundary conditions is to change the form of Eq. \ref{eq:37} to the slightly more
 complicated form of a generalized eigenvalue problem, like this:
 \begin{equation}\label{eq:312}
 		Ag = \lambda Bg
 				\end{equation}
 
 where $B$ is another matrix, whose elements we will choose to make the boundary
-conditions come out right. To see how this is done, here is the generalized modification of Eq. \eqref{eq:311} with $B$ and the top and bottom rows of A chosen to apply the boundary conditions
+conditions come out right. To see how this is done, here is the generalized modification of Eq. \ref{eq:311} with $B$ and the top and bottom rows of A chosen to apply the boundary conditions
 $g (0) = 0$ and $g(L)= 0$:
 \begin{equation}
 \left[\begin{array}{cccccc}
@@ -253,11 +253,11 @@ g_{N-1}
 Note that B is just the identity matrix (made with NumPy\rq s $np.identity(N)$)
 except that the first and last rows are completely filled with zeros. Take a minute
 to do the matrix multiplications corresponding the first and last rows and verify
-that they correctly give $g_0 = 0$ and $g_{N−1} = 0$ no matter what the eigenvalue $\lambda$ turns
+that they correctly give $g_0 = 0$ and $g_{N - 1} = 0$ no matter what the eigenvalue $\lambda$ turns
 out to be \\ 
 	To numerically solve the generalized eigenvalue problem you do the following:
 	\begin{enumerate}
-		\item Load a NumPy array $A$ with the matrix on the left side of Eq. \eqref{eq:313} and an
+		\item Load a NumPy array $A$ with the matrix on the left side of Eq. \ref{eq:312} and an
 array $B$ with the matrix on the right side.
 \item Use SciPy\rq s generalized eigenvalue and eigenvector command:
 \begin{lstlisting}
@@ -268,7 +268,7 @@ which returns the eigenvalues $\lambda$ as the entries of the matrix vals and th
 eigenvectors as the columns of the square matrix vecs. These column
 in this array are the amplitude functions $g_n = g(x_n)$ associated with each
 eigenvalue on the grid $x_n$.
-\item Convert eigenvalues $\lambda$ to frequencies via $\omega^2 = −T \lambda/\mu$, sort the squared
+\item Convert eigenvalues $\lambda$ to frequencies via $\omega^2 = - T \lambda/\mu$, sort the squared
 frequencies in ascending order, like this.
 \begin{lstlisting}
 import numpy as np
@@ -293,20 +293,20 @@ columns in the $vecs$ array so that they are sorted in ascending order.
 
 	\begin{enumerate}[label=(\alph*)]
 	\item  Write a program to numerically find the eigenvalues and eigenvectors
-of Eq. \eqref{eq:35} using the procedure outlined above. Use $N = 30, \mu = 0.003,
+of Eq. \ref{eq:35} using the procedure outlined above. Use $N = 30, \mu = 0.003,
 T = 127,$ and $L = 1.2$. Write a loop that plots each of the eigenvectors.
 You will find two infinite eigenvalues together with odd-looking eigenvectors that don\rq t satisfy the boundary conditions. These two show up
 because of the two rows of the B matrix that are filled with zeros. They
 are numerical artifacts with no physical meaning, so just ignore them.
 The eigenvectors of the higher modes start looking jagged. These
 must also be ignored because they are poor approximations to the
-continuous differential equation in Eq. \eqref{eq:35}.
+continuous differential equation in Eq. \ref{eq:35}.
 	\item A few of the smooth eigenfunctions are very good approximations.
 Plot the eigenfunctions corresponding to $n = 1,2,3$ and compare them
-with the exact solutions in Eq. \eqref{eq:38}. Since the modes include an
+with the exact solutions in Eq. \ref{eq:38}. Since the modes include an
 arbitrary scaling $g_0$, you won\rq t find the amplitudes match unless you
 choose an appropriate value for $g_0$. Calculate the exact values for $\lambda$
-using Eq. \eqref{eq:39} and compare them with the numerical eigenvalues.
+using Eq. \ref{eq:39} and compare them with the numerical eigenvalues.
 Now compare your numerical eigenvalues for the $n = 20$ mode with
 the exact solution. What is the trend in the accuracy of the eigenvalue
 method?

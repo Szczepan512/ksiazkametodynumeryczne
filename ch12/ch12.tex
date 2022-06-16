@@ -13,29 +13,29 @@ equation you can see the convective behavior we studied in Lab 10, but the last
 term, with its rather odd third derivative, is something new. We will be studying
 this equation in this laboratory.
 
-\section*{Numerical solution for the Korteweg-deVries equation}
+\section*{Numerical solution for the \\ Korteweg-deVries equation}
 \addcontentsline{toc}{section}{Numerical solution for the Korteweg-deVries equation}
 We will begin our study of the Korteweg-deVries equation by using Crank-Nicolson to finite difference it on a grid so that we can explore its behavior by numerical experimentation. The first step is to define a grid, and since we want to be able to see the waves travel for a long time we will copy the trough at Lagoon and make our computing region be a closed loop. We can do this by choosing an interval from $x=0$ to $x=L$, as usual, but then we will make the system be periodic by declaring that $x=0$ and $x=L$ are actually the same point, as would be the case in a circular trough. We will subdivide this region into $N$ subintervals and let $h=L / N$ and $x_{j}=(j-1) h$, so that the grid is cell-edge. Normally such a cell-edge grid would have $N+1$ points, but ours doesn't because the last point $(j=N)$ is just a repeat of the first point: $x_{N}=x_{0}$, because our system is periodic.\\
-We now do the usual Crank-Nicolson differencing, where we evaluate each term in the equation at time level $n+1 / 2$. The last term in Eq. \eqref{eq:1201} has a third derivative, so we\rq ll need a reasonable approximation for the third derivative. Suppose you have function values $f(x-3 h / 2), f(x-h / 2), f(x+h / 2)$, and $f(x+$ $3 h / 2)$. A good way to do this is to write down four Taylor's series up to the fifth derivative for the function at these four points and then solve this system of four equations to find expressions for $f(x), f^{\prime}(x), f^{\prime \prime}(x)$, and $f^{\prime \prime \prime}(x)$. This procedure yields the approximate formula
+We now do the usual Crank-Nicolson differencing, where we evaluate each term in the equation at time level $n+1 / 2$. The last term in Eq. \ref{eq:1201} has a third derivative, so we\rq ll need a reasonable approximation for the third derivative. Suppose you have function values $f(x-3 h / 2), f(x-h / 2), f(x+h / 2)$, and $f(x+$ $3 h / 2)$. A good way to do this is to write down four Taylor's series up to the fifth derivative for the function at these four points and then solve this system of four equations to find expressions for $f(x), f^{\prime}(x), f^{\prime \prime}(x)$, and $f^{\prime \prime \prime}(x)$. This procedure yields the approximate formula
 
 \begin{equation}\label{eq:1202}
 f^{\prime \prime \prime}(x) \approx \frac{f(x+3 h / 2)-3 f(x+h / 2)+3 f(x-h / 2)-f(x-3 h / 2)}{h^{3}}
 \end{equation}
 
-along with an error term on the order of $h^{2}$. When we time average Eq. \eqref{eq:1202}, we find
+along with an error term on the order of $h^{2}$. When we time average Eq. \ref{eq:1202}, we find
 
 \begin{equation}\label{eq:1203}
 \alpha \frac{\partial^{3} y}{\partial x^{3}}=\frac{\alpha}{2 h^{3}}\left(y_{j+2}^{n+1}-3 y_{j+1}^{n+1}+3 y_{j}^{n+1}-y_{j-1}^{n+1}+y_{j+2}^{n}-3 y_{j+1}^{n}+3 y_{j}^{n}-y_{j-1}^{n}\right)
 \end{equation}
-	\marginpar{\includegraphics[width=\marginparwidth]{korteweg}\\ Diederik Korteweg (1848-1941, Dutch)}
-		\marginpar{\includegraphics[width=\marginparwidth]{vries}\\ Gustav de Vries (1866-1934, Dutch) Diederik Korteweg was Gustav\rq s dissertation advisor.}
 
-Look closely at Eq. \eqref{eq:1203} and also at Eq. \eqref{eq:1202} to convince yourself that they are not centered on a grid point, but at spatial location $j+1 / 2$. The use of this third derivative formula thus adds a new twist to the usual Crank-Nicolson differencing: we will evaluate each term in the equation not only at time level $n+1 / 2$, but also at spatial location $j+1 / 2$ (at the center of each subinterval) so that the first and third derivative terms are both properly centered. This means that we will be using a cell-edge grid, but that the spatial finite differences will be cell centered.
-With this wrinkle in mind, we can write the first term in Eq. \eqref{eq:1201} at time level $n+1 / 2$ and space location $j+1 / 2$ as
+Look closely at Eq. \ref{eq:1203} and also at Eq. \ref{eq:1202} to convince yourself that they are not centered on a grid point, but at spatial location $j+1 / 2$. The use of this third derivative formula thus adds a new twist to the usual Crank-Nicolson differencing: we will evaluate each term in the equation not only at time level $n+1 / 2$, but also at spatial location $j+1 / 2$ (at the center of each subinterval) so that the first and third derivative terms are both properly centered. This means that we will be using a cell-edge grid, but that the spatial finite differences will be cell centered.
+With this wrinkle in mind, we can write the first term in Eq. \ref{eq:1201} at time level $n+1 / 2$ and space location $j+1 / 2$ as
 
 \begin{equation}\label{eq:1204}
 \frac{\partial y}{\partial t}=\frac{1}{2 \tau}\left(y_{j}^{n+1}+y_{j+1}^{n+1}-y_{j}^{n}-y_{j+1}^{n}\right)
 \end{equation}
+\marginpar{\includegraphics[width=\marginparwidth]{korteweg}\\ Diederik Korteweg (1848-1941, Dutch)}
+\marginpar{\includegraphics[width=\marginparwidth]{vries}\\ Gustav de Vries (1866-1934, Dutch) Diederik Korteweg was Gustav\rq s dissertation advisor.}
 
 Now we have have to decide what to do about the nonlinear convection term $y \partial y / \partial x$. We will assume that the leading $y$ is known somehow by designating it as $\bar{y}$ and decide later how to properly estimate its value. Recalling again that we need to evaluate at time level $n+1 / 2$ and space location $j+1 / 2$, the non-linear term becomes
 
@@ -43,8 +43,8 @@ Now we have have to decide what to do about the nonlinear convection term $y \pa
 y \frac{\partial y}{\partial x}=\frac{\bar{y}_{j+1}+\bar{y}_{j}}{4 h}\left(y_{j+1}^{n+1}-y_{j}^{n+1}+y_{j+1}^{n}-y_{j}^{n}\right)
 \end{equation}
 
-For now, we\rq ve ignored the problem that the derivative in Eq. \eqref{eq:1205} is centered in time at $n+1 / 2$ while the $\bar{y}$ term isn't. We\rq ll have to deal with this issue later.
-Each of these approximations in Eqs. \eqref{eq:1203}-\eqref{eq:1205} is now substituted into Eq. \eqref{eq:1201}, the $y^{n+1}$ terms are gathered on the left side of the equation and the $y^{n}$ terms are gathered on the right, and then the coefficients of the matrices $\mathbf{A}$ and $\mathbf{B}$ are read off to put the equation in the form
+For now, we\rq ve ignored the problem that the derivative in Eq. \ref{eq:1205} is centered in time at $n+1 / 2$ while the $\bar{y}$ term isn't. We\rq ll have to deal with this issue later.
+Each of these approximations in Eqs. \ref{eq:1203}-\ref{eq:1205} is now substituted into Eq. \ref{eq:1201}, the $y^{n+1}$ terms are gathered on the left side of the equation and the $y^{n}$ terms are gathered on the right, and then the coefficients of the matrices $\mathbf{A}$ and $\mathbf{B}$ are read off to put the equation in the form
 \begin{equation}\label{eq:1206}
 \mathbf{A} y^{n+1}=\mathbf{B} y^{n}
 \end{equation}
@@ -72,7 +72,7 @@ b_{+}=\frac{1}{2 \tau}+\frac{3 \alpha}{2 h^{3}}-\frac{\left(\bar{y}_{-}+\bar{y}_
 where $y_{-}=y_{j}$ and where $y_{+}=y_{j+1}$, the grid points on the left and the right of the $j+1 / 2$ spatial location (where we are centering).
 
 \begin{problem}\label{P12.1}
-Derive the formulas in Eq. \eqref{eq:1208} for the $a$ and $b$ coefficients using the finite-difference approximations to the three terms in the Korteweg-deVries equation given in Eqs. \eqref{eq:1203}-\eqref{eq:1205}.
+Derive the formulas in Eq. \ref{eq:1208} for the $a$ and $b$ coefficients using the finite-difference approximations to the three terms in the Korteweg-deVries equation given in Eqs. \ref{eq:1203}-\ref{eq:1205}.
 \end{problem}
 Now that the coefficients of $\mathbf{A}$ and $\mathbf{B}$ are determined we need to worry about how to load them so that the system will be periodic. For instance, in the first row of $A$ the entry $A_{1,1}$ is $a_{-}$, but $a_{--}$should be loaded to the left of this entry, which might seem to be outside of the matrix. But it really isn\rq t, because the system is periodic, so the point to the left of $j=1$ (which is also the point $j=(N+1)$ ) is the point $j-1=N$. The same thing happens in the last two rows of the matrices as well, where the subscripts $+$ and $++$ try to reach outside the matrix on the right. So correcting for these periodic effects makes the matrices $\mathbf{A}$ and $\mathbf{B}$ look like this:
 \begin{equation}\label{eq:1209}
@@ -134,6 +134,8 @@ The standard \rq\rq lore \lq\lq in the field of solitons is that the moving bump
 
 \begin{problem}\label{P12.4}
 \begin{enumerate}[label=(\alph*)]
+	\marginpar{\includegraphics[width=\marginparwidth]{fig1203}\captionof{figure}{ Dispersion dominates (Problem \ref{P12.4}(a).): after 3 seconds of time.}\label{fig:50}}
+
 \item Dispersion (wave-spreading) dominates: Run $\mathrm{kdv}$. py with $\alpha=0.1$, $y_{\max }=0.001, \tau=0.1$, and $t_{\text {final }}=10$. The small amplitude makes the nonlinear convection term $y \partial y / \partial x$ be so small that it doesn't matter; only the third derivative term matters. You should see the pulse fall apart into random pulses. This spreading is similar to what you saw when you solved Schrödinger's equation. Different wavelengths have different phase velocities, so the different parts of the spatial Fourier spectrum of the initial pulse get out of phase with each other as time progresses.
 \item Non-linear wave-steepening dominates: Run $\mathrm{kdv}$. py with $\alpha=0.01$, $y_{\max }=2, \tau=0.01$, and $t_{\text {final }}=10$. (If your solution develops short wavelength wiggles this is an invitation to use a smaller time step. The problem is that the predictor-correction algorithm we used on the nonlinear term is not stable enough, so we have a Courant condition in this problem.)
 Now it is the dispersion term that is small and we can see the effect of the non-linear convection term. Where $y$ is large the convection is rapid, but out in front where $y$ is small the convection is slower. This allows the fast peak to catch up with the slow front end, causing wave steepening. (An effect just like this causes ocean waves to steepen and then break at the beach.)
@@ -144,8 +146,6 @@ there ought to be a single pulse that the system wants to find. This is, in fact
 case. It was discovered that the following pulse shape is an exact solution of the
 Korteweg-deVries equation:
 
-	\marginpar{\includegraphics[width=\marginparwidth]{fig1203}\captionof{figure}{ Dispersion dominates (Problem \ref{P12.4}(a).): after 3 seconds of time.}\label{fig:50}}
-	\marginpar{\includegraphics[width=\marginparwidth]{fig1204}\captionof{figure}{ Steepening dominates (Problem \ref{P12.4}(b) . ): after $0.5$ seconds of time.}\label{fig:51}}
 
 \begin{equation}\label{eq:1214}
 y(x, t)=\frac{12 k^{2} \alpha}{\cosh ^{2}\left(k\left(x-x_{0}-4 \alpha k^{2} t\right)\right)}
@@ -166,6 +166,7 @@ Verify by numerical experimentation that your soliton moves at this speed. To do
 \end{problem}
 \begin{problem}\label{P12.6}
 One of the most interesting things about solitons is how two of them interact with each other. When we did the wave equation earlier you saw that left and right moving pulses passed right through each other. This happens because the wave equation is linear, so that the sum of two solutions is also a solution. The Korteweg-deVries equation is nonlinear, so simple superposition can't happen. Nevertheless, two soliton pulses do interact with each other in a surprisingly simple way.
+\marginpar{\includegraphics[width=\marginparwidth]{fig1204}\captionof{figure}{ Steepening dominates (Problem \ref{P12.4}(b) . ): after $0.5$ seconds of time.}\label{fig:51}}
 
 To see what happens keep $\alpha=0.1$, but modify your code from \ref{P12.5} so that you have a soliton pulse with $k=1.5$ centered at $x=3 L / 4$ and another soliton pulse with $k=2$ centered at $x=L / 4$. Run for about 20 seconds and watch how they interact when the fast large amplitude pulse in the back catches up with the slower small amplitude pulse in the front. Is it correct to say that they pass through each other? If not, can you think of another qualitative way to describe their interaction?
 \end{problem}

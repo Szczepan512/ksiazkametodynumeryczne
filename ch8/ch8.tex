@@ -27,7 +27,7 @@ constants $\bar{h}$ and $m$ both have the numerical value of 1 (e.g. $m = 1m_e$ 
 \begin{problem}\label{P8.1}
 Use paper and pencil to derive a Crank-Nicolson algorithm to solve the
 Schr{\"o}dinger equation. It will probably be helpful to use the material in
-Lab 7 as a guide (beginning with Eq. \eqref{eq:715}). Make sure the $V(x)\psi$ term\end{problem}
+Lab 7 as a guide (beginning with Eq. \ref{eq:715}). Make sure the $V(x)\psi$ term\end{problem}
 enters the algorithm correctly
 \section*{Particle in a box}
 \addcontentsline{toc}{section}{Particle in a box} 
@@ -43,7 +43,6 @@ be zero at these points:
 \end{equation}
 
 \begin{problem}\label{P8.2}
-\marginpar{\includegraphics[width=\marginparwidth]{fig83}\captionof{figure}{The probability density $|\psi(x)|^{2}$ of a particle that is initially more localized quickly spreads (Problem 8.2(d)).}\label{fig:40}}
 Modify one of your programs from Lab 7 to implement the Crank-Nicolson algorithm derived above for the case of a particle in a box with $L = 10$. Note we are doing quantum mechanics and the imaginary parts matter now. When assigning complex variables in NumPy, you use the engineering complex number $j$, like this:
 \begin{lstlisting}
 a = 1.0 + 0.5j
@@ -54,7 +53,7 @@ hold complex values, like this:
 A = np.zeros((N,N),dtype=np.complex_)
 B = np.zeros_like(A,dtype=np.complex_)
 \end{lstlisting}
-\marginpar{\includegraphics[width=\marginparwidth]{fig84}\captionof{figure}{The expectation position of the particle in Fig. 8.3 as time progresses.}\label{fig:41}}
+
 \begin{enumerate}[label=(\alph*)]
 	\item  Write a script to solve the time-dependent Schr{\"o}dinger equation using
 Crank-Nicolson. We find that a cell-edge grid is easiest, but you can
@@ -64,7 +63,7 @@ wave packet of width $\sigma$ and momentum $p$:
 \begin{equation}\label{eq:84}
 \psi(x, 0)=\frac{1}{\sqrt{\sigma \sqrt{\pi}}} e^{i p x / \bar{h}} e^{-x^{2} /\left(2 \sigma^{2}\right)}
 \end{equation}
-with $p = 2\pi$ and $\sigma = 2$. (Remember that $ \bar{h}$ in \eqref{eq:84} has the numerical
+with $p = 2\pi$ and $\sigma = 2$. (Remember that $ \bar{h}$ in \ref{eq:84} has the numerical
 value of 1 in our units.) This initial condition does not exactly satisfy
 the boundary conditions, but it is very close. Check to see how far
 off it is at the boundary, and decide how the sizes of $L$ and σ must
@@ -74,6 +73,8 @@ bounce back and forth in the well. Plot the real part of $\psi$ as an animation 
 plot an animation of $\psi * \psi$  so that you can visualize the probability
 distribution of the particle. Try switching the sign of $p$ and see what
 happens.
+\marginpar{\includegraphics[width=\marginparwidth]{fig83}\captionof{figure}{The probability density $|\psi(x)|^{2}$ of a particle that is initially more localized quickly spreads (Problem 8.2(d)).}\label{fig:40}}
+
 \item Verify by doing a numerical integral that $\psi(x,0)$ in the formula given
 above is properly normalized. Then run the script and check that
 the wave packet stays properly normalized, even though the wave
@@ -99,7 +100,6 @@ what you see in terms of quantum mechanics.
 \end{enumerate}\end{problem}
 \section*{Tunneling}
 \addcontentsline{toc}{section}{Tunneling} 
-	\marginpar{\includegraphics[width=\marginparwidth]{fig85}\captionof{figure}{he probability distribution $|\psi(x)|^{2}$ for a particle incident on a narrow potential barrier located just before $x=10$ with $\left.V_{0}\right\rangle\langle E\rangle$. Part of the wave tunnels through the barrier and part interferes with itself as it is reflected.}\label{fig:42}}
 Now we will allow the pulse to collide with a with a non-infinite potential barrier
 of height $V_0$ and width $\delta x = 0.02L$, and study what happens. Classically, the
 answer is simple: if the particle has a kinetic energy less than $V_0$ it will be unable
@@ -112,6 +112,8 @@ To see how the classical picture is modified in quantum mechanics we must
 first compute the energy of our pulse so we can compare it to the height of the
 barrier. The quantum mechanical formula for the expectation value of the energy
 is
+\marginpar{\includegraphics[width=\marginparwidth]{fig84}\captionof{figure}{The expectation position of the particle in Fig. 8.3 as time progresses.}\label{fig:41}}
+
 \begin{equation}\label{eq:86}
 \langle E\rangle=\int_{-\infty}^{\infty} \psi^{*} H \psi d x
 \end{equation}
@@ -119,7 +121,7 @@ where $\psi^∗$ is the complex conjugate of $\psi$ and where
 \begin{equation}\label{eq:87}
 H \psi=-\frac{\bar{h}^{2}}{2 m} \frac{\partial^{2} \psi}{\partial x^{2}}+V(x) \psi(x)
 \end{equation}
-In our case the initial wave function $\psi(x,0)$ given by Eq. \eqref{eq:84} is essentially zero at
+In our case the initial wave function $\psi(x,0)$ given by Eq. \ref{eq:84} is essentially zero at
 the location of the potential barrier, so we may take $V(x) = 0$ in the integral when
 we compute the initial energy. Performing the integral, we find
 \begin{equation}\label{eq:88}
@@ -147,6 +149,7 @@ particles still come back. (2) Experiment with the width of your barrier
 and see what its effect is on how many particles tunnel through. As
 part of this experiment, figure out a way to calculate what fraction of
 the particles make it through the barrier.
+\marginpar{\includegraphics[width=\marginparwidth]{fig85}\captionof{figure}{he probability distribution $|\psi(x)|^{2}$ for a particle incident on a narrow potential barrier located just before $x=10$ with $\left.V_{0}\right\rangle\langle E\rangle$. Part of the wave tunnels through the barrier and part interferes with itself as it is reflected.}\label{fig:42}}
 
 \end{enumerate}
 \end{problem}

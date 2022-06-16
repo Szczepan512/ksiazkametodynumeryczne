@@ -41,7 +41,7 @@ Both of these initial conditions are necessary because the wave equation is seco
 order in time, just like Newton\rq s second law, so initial displacement and velocity
 must be specified at each point to find a unique solution.
 To numerically solve the classical wave equation via staggered leapfrog we
-approximate both the temporal and spatial derivatives in Eq.\eqref{eq:51} with centered
+approximate both the temporal and spatial derivatives in Eq.\ref{eq:51} with centered
 finite differences, like this:
 \begin{equation}\label{eq:55}
 \begin{aligned}
@@ -53,14 +53,14 @@ In this notation, spatial position is indicated by a subscript $j$, referring to
 points $x_j$, while position in time is indicated by superscripts $n$, referring to time
 points $t_n$ so that $y(x_j,t_n) = y_j^n$. The time steps and the grid spacings are assumed to be uniform with time step called
 $\tau$ and grid spacing called $h$. The staggered leapfrog algorithm aims to find $y_j$ one time step into the future, denoted by $y_j^{n+1}$,
-from the current and previous values of $y_j$. To derive the algorithm put Eqs.\eqref{eq:55} into Eq. \eqref{eq:51} and solve for $y_j^{n+1}$ to find
+from the current and previous values of $y_j$. To derive the algorithm put Eqs.\ref{eq:55} into Eq. \ref{eq:51} and solve for $y_j^{n+1}$ to find
 \begin{equation}\label{eq:56}
 	y_j^{n+1} = 2y_j^n - y_j^{n-1} + \frac{c^2 \tau^2}{h^2}(y_{j+1}^n - 2y^n_j + y^n_{j-1})
 \end{equation}
 
-\begin{problem}\label{P5.1} Derive Eq. \eqref{eq:56} using the approximate second derivative formulas. This is
+\begin{problem}\label{P5.1} Derive Eq. \ref{eq:56} using the approximate second derivative formulas. This is
 really simple, so just do it on paper.\end{problem}
-Equation \eqref{eq:56} can only be used at interior spatial grid points because the
+Equation \ref{eq:56} can only be used at interior spatial grid points because the
 $ j + 1 {or} j-1$  indices reach beyond the grid at the first and last grid points. The
 behavior of the solution at these two end points is determined by the boundary
 conditions. Since we will want to use both fixed value and derivative boundary
@@ -79,10 +79,10 @@ If the derivatives are specified then we have
 \end{aligned}
 \end{equation}
 To use staggered leapfrog, we first advance the solution at all interior points to
-the next time step using Eq. \eqref{eq:56}, then we apply the boundary conditions using
-the appropriate equation from Eqs. \eqref{eq:57}-\eqref{eq:58} to find the values of y at the end
+the next time step using Eq. \ref{eq:56}, then we apply the boundary conditions using
+the appropriate equation from Eqs. \ref{eq:57}-\ref{eq:58} to find the values of y at the end
 points, and then we are ready to take another time step.
-The staggered leapfrog algorithm in Eq. \eqref{eq:56} requires not just y at the current
+The staggered leapfrog algorithm in Eq. \ref{eq:56} requires not just y at the current
 time level $ y_j^n$ but also $y$ at the previous time level $y^{n−1}_j$. This means that we\rq ll need
 to keep track of three arrays: an array y for the current values $ y_j^n$, an array yold
 for the values at the previous time step $ y_j^{n-1}$, and an array ynew for the values
@@ -92,23 +92,23 @@ use of the initial velocity condition to create an appropriate yold to get start
 To see how this works, let\rq s denote the initial values of y on the grid by $ y_j^0 $, the
 values after the first time step by $ y_j^{1} $, and the unknown previous values (yold) by
 $ y_j^{-1} $. A centered time derivative at $t = 0$ turns the initial velocity condition from
-Eq. \eqref{eq:54} into
+Eq. \ref{eq:54} into
 \begin{equation}\label{eq:59}
 \frac{y_j^1 - y_j^{-1}}{2 \tau} = v_0(x_j)
 \end{equation}
 This gives us an equation for the previous values $y_j^{-1}$ , but it is in terms of the
-still unknown future values $y_j^{1}$. However, we can use Eq. \eqref{eq:56} to obtain another
+still unknown future values $y_j^{1}$. However, we can use Eq. \ref{eq:56} to obtain another
 relation between $y_j^{1}$and $y_j^{-1}$. Leapfrog at the first step ($n = 0$) says that
 \begin{equation}\label{eq:510}
 y_j^1 = 2Y^0_j - y_j^{-1} + \frac{c^2 \tau^2}{h^2}(y^0_{j+1}-2y^0_j+y^0_{j-1})
 \end{equation}
-If we insert this expression for $y^1_j$ into Eq. \eqref{eq:59}, we can solve for $y^{-1}_j $ in terms of
+If we insert this expression for $y^1_j$ into Eq. \ref{eq:59}, we can solve for $y^{-1}_j $ in terms of
 known quantities:
 \begin{equation}\label{eq:511}
 y_j^{-1} = Y^0_j - v_0(x_j)\tau + \frac{c^2 \tau^2}{2h^2}(y^0_{j+1}-2y^0_j+y^0_{j-1})
 \end{equation}
 
-\begin{problem}\label{P5.2} Derive Eq. \eqref{eq:511} from Eqs. \eqref{eq:59} and \eqref{eq:510}. Again, just use paper and pencil.
+\begin{problem}\label{P5.2} Derive Eq. \ref{eq:511} from Eqs. \ref{eq:59} and \ref{eq:510}. Again, just use paper and pencil.
 OK; we are now ready to code the staggered leapfrog algorithm.\end{problem}
 \begin{problem}\label{P5.3} 
 
@@ -126,7 +126,7 @@ initial position just to make sure your grid is right and that your initial
 position array looks reasonable
 \item Assume that the wave speed on this string is $c = 2$ m/s, and pick
 the time step as $tau = 0.2*h/c$. (We\rq ll explore this choice more
-later.) Then create a variable yold using Eq. \eqref{eq:511}, and enforce the boundary conditions on yold. As you write this code, don\rq t write a
+later.) Then create a variable yold using Eq. \ref{eq:511}, and enforce the boundary conditions on yold. As you write this code, don\rq t write a
 bunch of for loops to iterate through all the points. Instead, assign all
 interior points at once using the NumPy array colon indexing method
 (e.g. $y[1:-1]$ accesses all the interior points of $y$) and then set the
@@ -176,7 +176,6 @@ will be trying to avoid it all semester. This limit is called the CourantFriedri
 
 
 sometimes (unfairly) just the Courant condition
-	\marginpar{\includegraphics[width=\marginparwidth]{fig53}\captionof{figure}{ Snapshots of the evolution of a wave on a string with fixed ends and no initial displacement but with an initial velocity. (See Problem \ref{P5.3}(f))}\label{fig:27}}
 \item Change the boundary conditions so that $ \frac{\partial y}{\partial x} = 0 $ at each end and watch
 how the reflection occurs in this case.
 \item Change the initial conditions from initial displacement with zero
@@ -190,27 +189,29 @@ does the physics right.
 \end{enumerate}
 \end{problem}
 \section*{The damped wave equation}
+
 \addcontentsline{toc}{section}{The damped wave equation} 
 We can modify the wave equation to include damping of the waves using a linear
 damping term, like this:
 \begin{equation}\label{eq:512}
-\frac{\partial^2 y}{\partial t^2} + \Upsilon \frac{\partial y}{\partial t} - c^2 \frac{\partial^2 y}{\partial x^2} = 0
+	\frac{\partial^2 y}{\partial t^2} + \Upsilon \frac{\partial y}{\partial t} - c^2 \frac{\partial^2 y}{\partial x^2} = 0
 \end{equation}
-with $c$ constant. The staggered leapfrog method can be used to solve Eq. \eqref{eq:512}
+\marginpar{\includegraphics[width=\marginparwidth]{fig53}\captionof{figure}{ Snapshots of the evolution of a wave on a string with fixed ends and no initial displacement but with an initial velocity. (See Problem \ref{P5.3}(f))}\label{fig:27}}
+with $c$ constant. The staggered leapfrog method can be used to solve Eq. \ref{eq:512}
 also. To do this, we use the approximate first derivative formula
 \begin{equation}\label{eq:513}
 \frac{\partial y}{\partial t } \approx = \frac{y_j^{n+1} - y_j^{n-1}}{2 \tau}
 \end{equation}
-along with the second derivative formulas in Eqs. \eqref{eq:55} and find an expression for
+along with the second derivative formulas in Eqs. \ref{eq:55} and find an expression for
 the values one step in the future:
 \begin{equation}\label{eq:514}
 y^{n+1}_j = \frac{1}{2+ \Upsilon \tau}(4y^n_j-2y^{n-1}_j+ \Upsilon \tau y^{n-1}_j + \frac{2c^2 \tau^2}{h^2}(y^n_{j+1} - 2y^n_j + y^n_{j-1}))
 \end{equation}
 \begin{problem}\label{P5.4} 
 \begin{enumerate}[label=(\alph*)]
-	\item Derive Eq. \eqref{eq:514}.
-	\item Find a new formula for the initial value of yold using Eqs.\eqref{eq:59} and
-\eqref{eq:514}. When you get the answer, ask your TA or instructor to check to
+	\item Derive Eq. \ref{eq:514}.
+	\item Find a new formula for the initial value of yold using Eqs.\ref{eq:59} and
+\ref{eq:514}. When you get the answer, ask your TA or instructor to check to
 see if you got it right.
 \item Modify your staggered leapfrog code to include damping with $ \Upsilon = 0.2$.
 Then run your animation with the initial conditions in Problem \ref{P5.3}(c)
@@ -250,7 +251,7 @@ system, let\rq s watch this behavior.
 
 \begin{enumerate}[label=(\alph*)]
 \item Re-derive the staggered leapfrog algorithm to include both driving
-and damping forces as in Eq. \eqref{eq:515}.
+and damping forces as in Eq. \ref{eq:515}.
 \item Modify your code from Problem \ref{P5.4} to use this new algorithm. We\rq ll
 have the string start from rest, so you don\rq t need to worry about finding
 yold. Just set $y = 0$ and $yold = 0$ and enter the time-stepping loop.
@@ -273,9 +274,9 @@ all. If this happens look at the vertical scale of your plot and remember
 that we are doing real physics here. If your vertical scale goes from −1
 to 1, you are expecting an oscillation amplitude of 1 meter on your
 guitar string. Compare the steady state mode to the shape found in
-Problem \ref{P3.2}(a) (see Fig. \ref{fig3.1}).
+Problem \ref{P3.2}(a) (see Fig. \ref{fig:31}).
 Then run again with $ \omega = 1080 $, which is close to a resonance, and again
 see the system come into steady oscillation at the driving frequency.
 \end{enumerate}
 \end{problem}
-	\marginpar{\includegraphics[width=\marginparwidth]{fig55 }\captionof{figure}{Snapshots of the evolution a driven and damped wave with $\omega=400$. As the transient behavior dies out, the oscillation goes to the resonant mode. To make the pictures more interesting, the string was not started from rest in these plots. (In Problem \ref{P5.5} you start from rest for easier coding.]}\label{fig:29}}
+	\marginpar{\includegraphics[width=\marginparwidth]{fig55}\captionof{figure}{Snapshots of the evolution a driven and damped wave with $\omega=400$. As the transient behavior dies out, the oscillation goes to the resonant mode. To make the pictures more interesting, the string was not started from rest in these plots. (In Problem \ref{P5.5} you start from rest for easier coding.]}\label{fig:29}}

@@ -30,7 +30,6 @@ There are many, many more ideas in machine learning. You can take many full cour
 
 \section*{Linear Regression}
 \addcontentsline{toc}{section}{Linear Regression}
-	\marginpar{\includegraphics[width=\marginparwidth]{tab1301}\captionof{table}{Table of exam scores vs. study time.}\label{fig:52}}
 
 A computational neural network can be thought of as an extension of linear regression. Linear regression finds a linear function which maps an input, $x$, onto an output, $y$. Circles are often used to represent the nodes (values) of a neural network. Using that notation, a linear regression mapping would be represented this way:
 
@@ -40,7 +39,8 @@ You could make a plot of the data and fit a line to it as shown in Fig. 13.1. Th
 
 Simple linear prediction is often insufficient. For example, this linear fit will predict a negative score for particularly low values of study time, which is nonsensical. So it would make sense to apply a nonlinear function after the linear fit, something like $y=\max (0, z)$ where we are now using the symbol $z$ to represent the value that is given from the linear fit, $z=w x+b$, so we can continue to use the symbol $y$ for the final output. (We are using the letter $w$ to represent the slope of the line for reasons made clear below.) Applying that particular nonlinear function is equivalent to saying, "Set $y$ to 0 if $z$ is negative, otherwise use $y=z$ ".
 In a neural network, a function applied after the linear fit is called an activation function, and that particular activation function is probably the most commonly used one. It is called the relu function, which stands for rectified linear unit. Other activation functions are also frequently used. For example, another common situation is when the output value must be between 0 and 1 ; in that case a nonlinear function called a sigmoid function, is used to map all the $z$ values (potentially ranging from $-\infty$ to $+\infty$ ) to real values of $y$ between 0 and 1 .
-	\marginpar{\includegraphics[width=\marginparwidth]{fig1301}\captionof{figure}{Simple linear fit of the test data shown in Table 13.1.}\label{fig:53}}
+\marginpar{\includegraphics[width=\marginparwidth]{tab1301}\captionof{table}{Table of exam scores vs. study time.}\label{fig:52}}
+\marginpar{\includegraphics[width=\marginparwidth]{fig1301}\captionof{figure}{Simple linear fit of the test data shown in Table 13.1.}\label{fig:53}}
 \section*{Multiple input linear regression}
 \addcontentsline{toc}{section}{Multiple input linear regression}
 Linear regression can also be done with multiple inputs. Continuing the exam score example, additional inputs could represent other known quantities such as how much sleep the student got the night before the exam, the student's class attendance, the student's grades on homework and past exams, etc. The situation might now look like this; we are using $z, y$ notation at the final node to indicate that the output node has both pre- and post-activation values.
@@ -50,12 +50,13 @@ The linear function which would now be fit is $z=w_{1} x_{1}+w_{2} x_{2}+w_{3} x
 \section*{Neural networks}
 \addcontentsline{toc}{section}{Neural networks}
 A neural network is this same idea as multiple regression, just expanded to multiple layers. The layers between input and output are called hidden layers. Each hidden layer could have its own activation function. Post-activation values of the nodes of the hidden layers are called the activations of the nodes and are represented by the letter $a$. Here's an example of a three layer neural network; by convention, the input layer of $x$ 's is not counted in the number of layers of the network.
-\includegraphics[width=\marginparwidth]{fig1302}\captionof{figure}{Example of a fully connected three-layer network.}
+\includegraphics{fig1302}\captionof{figure}{Example of a fully connected three-layer network.}
 Note that in this example, layer 1 is a collection of 15 parameters (4 $w$ \rq s and 1 $b$ for each of the three nodes in layer 1 ), an activation function, and 3 nodes. This nomenclature is not necessarily uniform; some people may just refer to the nodes themselves when discussing a layer. Also, sometimes the $a$ and $z$ values are counted as separate layers, in which case this example would be called a six-layer neural network. The structure of the network, meaning the number of layers, and the number of nodes in each layer, and their activation functions, is chosen with the goal of obtaining the best possible predictions. It is fairly common, however, to reduce the number of nodes in each layer as one moves from input to output as in this example here.
 
 \section*{More complicated layers}
 \addcontentsline{toc}{section}{More complicated layers}
 The layers shown in Fig. $13.2$ are termed fully connected layers, meaning each node of the previous layer is connected via an arrow (i.e. a $w$ ) to each node of the next layer. Incidentally, this type of network is called a multilayer perceptron. More complicated layers can also be used. One type of layer which is frequently used in image analysis is called a convolutional layer. A color image input is represented numerically by a 3 -dimensional array: 2 dimensions for horizontal and vertical values, plus a third dimension specifying whether the given numbers refer to the $\mathrm{R}, \mathrm{G}$, or $\mathrm{B}$ color channel. A convolutional layer takes a 3-dimensional array as an input, does an operation on it, and then passes a new 3 -d array to the next layer. One can have multiple convolutional layers in a network, but to convert from a convolutional layer to a fully connected layer at some point, the data must be "flattened" from a $3-d$ array to a $1-d$ set of values.
+\marginpar{\includegraphics[width=\marginparwidth]{fig1303}\captionof{figure}{Taking steps by adjusting the $w_{1}$ and $w_{2}$ parameters along the negative gradient direction to find the minimum of the cost function.}\label{fig:54}}
 
 \section*{Gradient descent}
 \addcontentsline{toc}{section}{Gradient descent}
@@ -68,7 +69,6 @@ At each step in the iteration, the cost function is computed based on the curren
 &w_{2, \text { next }}=w_{2}-\alpha \frac{d(\cos t)}{d w_{2}}
 \end{aligned}
 \end{equation*}
-\marginpar{\includegraphics[width=\marginparwidth]{fig1303}\captionof{figure}{Taking steps by adjusting the $w_{1}$ and $w_{2}$ parameters along the negative gradient direction to find the minimum of the cost function.}\label{fig:54}}
 For known activation functions and a known cost function, the gradients can be automatically computed by the machine learning software in an interesting backpropagation process that minimizes calculation time, but is beyond the scope of this lab.
 
 
@@ -346,7 +346,6 @@ We have just scratched the surface of machine learning and neural networks. Here
 
 \section*{Petals and Sepals}
 \addcontentsline{toc}{section}{Petals and Sepals}
-\marginpar{\includegraphics[width=\marginparwidth]{fig1304}\captionof{figure}{Petals and a sepals for Iris versicolor (top) and Iris virginica (bottom). (Photos from Wikipedia)}\label{fig:55}}
 Another classic data set used for testing/demonstrating machine learning algorithms is the Iris flower data set. This is a classification problem where four flower
 characteristics (petal length, petal width, sepal length, and sepal width) are used
 to determine whether an iris is of the Iris setosa, Iris virginica or Iris versicolor
@@ -354,6 +353,7 @@ varieties. Below is some code which loads the dataset and randomly splits it
 into the training and validation sets. Note the two sklearn commands; sklearn
 is the implementation of scikit-learn, another free software machine learning
 library for Python.
+\marginpar{\includegraphics[width=\marginparwidth]{fig1304}\captionof{figure}{Petals and a sepals for Iris versicolor (top) and Iris virginica (bottom). (Photos from Wikipedia)}\label{fig:55}}
 
 \begin{lstlisting}
 from sklearn.datasets import load_iris

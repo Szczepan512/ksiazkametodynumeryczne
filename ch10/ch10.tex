@@ -55,7 +55,7 @@ Substituting into our Taylor expansion then gives
 \rho(x, t+\tau)=\rho(x, t)-\tau \frac{\partial}{\partial x}(\rho v)+\frac{\tau^{2}}{2} \frac{\partial}{\partial t}\left(-\frac{\partial}{\partial x}(\rho v)\right)
 \end{equation}
 If we reverse the order of the derivatives in the last term and assume that $v$ is not
-a function of time, we can use Eq. \eqref{eq:107} again to obtain.
+a function of time, we can use Eq. \ref{eq:107} again to obtain.
 \begin{equation}\label{eq:109}
 \rho(x, t+\tau)=\rho(x, t)-\tau \frac{\partial \rho v}{\partial x}+\frac{\tau^{2}}{2} \frac{\partial}{\partial x}\left(v \frac{\partial \rho v}{\partial x}\right)
 \end{equation}
@@ -63,10 +63,11 @@ Finally, we subtract $ρ(x,t)$ from both sides and divide by $\tau$ to obtain
 \begin{equation}\label{eq:1010}
 \frac{\rho(x, t+\tau)-\rho(x, t)}{\tau}=-\frac{\partial \rho v}{\partial x}+\frac{\tau}{2} \frac{\partial}{\partial x}\left(v \frac{\partial \rho v}{\partial x}\right)
 \end{equation}
-If we interpret the left-hand side as a time derivative, the second term on the right looks essentially like the diffusion equation. Since the equation we are solving is pure convection, the appearance of diffusion is not good news, but at least this algorithm is better than the horrible one in 10.1. Notice also that the diffusion coefficient in Eq. \eqref{eq:101} is proportional to $\tau$ (stare at it until you can see that this is true), so if small time steps are being used diffusion won't hurt us too much.
+If we interpret the left-hand side as a time derivative, the second term on the right looks essentially like the diffusion equation. Since the equation we are solving is pure convection, the appearance of diffusion is not good news, but at least this algorithm is better than the horrible one in 10.1. Notice also that the diffusion coefficient in Eq. \ref{eq:101} is proportional to $\tau$ (stare at it until you can see that this is true), so if small time steps are being used diffusion won't hurt us too much.
 
+\marginpar{\includegraphics[width=\marginparwidth]{lax} \\ Peter Lax (b. 1926, American) Lax was the PhD advisor for Burton Wendroff.}
 \begin{problem}\label{P10.2}
- Finite difference the expression in Eq. \eqref{eq:1010} assuming that $v(x) = v0 =
+ Finite difference the expression in Eq. \ref{eq:1010} assuming that $v(x) = v0 =
 const$, to find the Lax-Wendroff algorithm:
 \begin{equation}\label{eq:1011}
 \rho_{j}^{n+1}=\rho_{j}^{n}-\frac{v_{0} \tau}{2 h}\left(\rho_{j+1}^{n}-\rho_{j-1}^{n}\right)+\frac{v_{0}^{2} \tau^{2}}{2 h^{2}}\left(\rho_{j+1}^{n}-2 \rho_{j}^{n}+\rho_{j-1}^{n}\right)
@@ -77,7 +78,6 @@ Warning: do not run with $\tau=h / v_{0}$. If you do you will conclude that this
 \end{problem}
 \section*{Crank-Nicolson Again}
 \addcontentsline{toc}{section}{Crank-Nicolson Again}
-\marginpar{\includegraphics[width=\marginparwidth]{lax} \\ Peter Lax (b. 1926, American) Lax was the PhD advisor for Burton Wendroff.}
 
 Finally, let\rq s try an implicit method, Crank-Nicolson in fact. As a reminder, the
 continuity equation is

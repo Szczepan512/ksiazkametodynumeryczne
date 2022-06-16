@@ -30,7 +30,7 @@ Meanwhile $g(x)$ must satisfy
 g^{\prime \prime}(x)+a^{2} g(x)=0
 \end{equation}
 If we specify edge-value boundary conditions so that $T(x = 0,t) = 0$ and $T(x =
-L,t) = 0$ then the solution to Eq. \eqref{eq:75} is simply
+L,t) = 0$ then the solution to Eq. \ref{eq:75} is simply
 \begin{equation}\label{eq:76}
 g(x) = \sin(ax)
 \end{equation}
@@ -39,7 +39,7 @@ and the separation constant can take on the values $a = n \pi /L$, where n is an
 Any initial distribution $T(x,t = 0)$ that satisfies these boundary conditions can be
 composed by summing these sine functions with different weights using Fourier
 series techniques. Notice that higher spatial frequencies (i.e. large $n$) damp faster,
-according to Eq. \eqref{eq:74}. We already studied how to use separation of variables
+according to Eq. \ref{eq:74}. We already studied how to use separation of variables
 computationally in the first several labs of this manual, so let\rq s move directly to
 time-stepping methods for solving the diffusion equation.
 
@@ -70,7 +70,7 @@ we don\rq t center the time derivative, but use instead a forward difference we 
 \begin{equation}\label{eq:79}
 \frac{T_{j}^{n+1}-T_{j}^{n}}{\tau}=\frac{D}{h^{2}}\left(T_{j+1}^{n}-2 T_{j}^{n}+T_{j-1}^{n}\right)
 \end{equation}
-This algorithm has problems since the left side of Eq. \eqref{eq:79} is centered at time $t_{n+/frac{1}{2}}$,while the right side is centered at time $t_n$. This makes the algorithm inaccurate, but it turns out that it is stable if $\tau$ is small enough. Solving for $T_j^{n+1}$ yields
+This algorithm has problems since the left side of Eq. \ref{eq:79} is centered at time $t_{n+/frac{1}{2}}$,while the right side is centered at time $t_n$. This makes the algorithm inaccurate, but it turns out that it is stable if $\tau$ is small enough. Solving for $T_j^{n+1}$ yields
 \begin{equation}\label{eq:710}
 T_{j}^{n+1}=T_{j}^{n}+\frac{D \tau}{h^{2}}\left(T_{j+1}^{n}-2 T_{j}^{n}+T_{j-1}^{n}\right)
 \end{equation}
@@ -79,7 +79,7 @@ T_{j}^{n+1}=T_{j}^{n}+\frac{D \tau}{h^{2}}\left(T_{j+1}^{n}-2 T_{j}^{n}+T_{j-1}^
 \begin{enumerate}[label=(\alph*)]
 \item 
 Modify one of your staggered leapfrog programs that uses a cell-center
-grid to implement Eq. \eqref{eq:710} to solve the diffusion equation on the
+grid to implement Eq. \ref{eq:710} to solve the diffusion equation on the
 interval $[0,L]$ with initial distribution
 \begin{equation}\label{eq:711}
 T(x, 0)=\sin (\pi x / L)
@@ -134,6 +134,7 @@ unstable, or have severe constraints on the size of the time step.\\
 $Implicit$ methods are generally harder to implement than explicit methods,
 but they have much better stability properties. The reason they are harder is that
 they assume that you already know the future. To give you a better feel for what\rq\rq implicit\lq\lq means, let\rq s study the simple first-order differential equation
+\marginpar{\includegraphics[width=\marginparwidth]{fig73}\captionof{figure}{Euler\rq s method is unstable for $\tau>2 .$ ( $\tau=2.1$ in this case.)}\label{fig:33}}
 
 \begin{equation}\label{eq:713}
 \frac{dy}{dt	} = -y
@@ -153,11 +154,12 @@ tmax = 20.
 t = np.arange(0,tmax,tau)
 y = np.zeros_like(t)
 \end{lstlisting}
-	\marginpar{\includegraphics[width=\marginparwidth]{fig73}\captionof{figure}{Euler\rq s method is unstable for $\tau>2 .$ ( $\tau=2.1$ in this case.)}\label{fig:33}}
+\marginpar{\includegraphics[width=\marginparwidth]{fig74}\captionof{figure}{Euler\rq s method is unstable for $\tau>2 .$ ( $\tau=2.1$ in this case.)}\label{fig:34}}
+
 Show by numerical experimentation that Euler\rq s method is unstable
 for large $\tau$ . You should find that the algorithm that is unstable if $\tau > 2$.
 Use $y(0) = 1$ as your initial condition. This is an example of an explicit
-\item Notice that the left side of Eq. \eqref{eq:714} is centered on time $t_{n+\frac{1}{2}}$ but the
+\item Notice that the left side of Eq. \ref{eq:714} is centered on time $t_{n+\frac{1}{2}}$ but the
 right side is centered on $t_n$. Fix this by centering the right-hand side at time $t_{n+\frac{1}{2}}$ by using an average of the advanced and current values of $y$, method.
 \begin{equation*}
 y_{n} \Rightarrow \frac{y_{n}+y_{n+1}}{2}
@@ -167,10 +169,10 @@ experimentation that when $\tau$ becomes large this method doesn\rq t blow
 up. It isn\rq t correct because $y_n$ bounces between positive and negative
 values, but at least it doesn\rq t blow up. The presence of $\tau$ in the denominator is the tip-off that this is an implicit method, and the improved
 stability is the point of using something implicit.
+\marginpar{\includegraphics[width=\marginparwidth]{fig75}\captionof{figure}{The fully implicit method in $7.2(\mathrm{c})$ with $\tau=2.1$.}\label{fig:35}}
 
-	\marginpar{\includegraphics[width=\marginparwidth]{fig74}\captionof{figure}{Euler\rq s method is unstable for $\tau>2 .$ ( $\tau=2.1$ in this case.)}\label{fig:34}}
 \item  Now Modify Euler\rq s method by making it fully implicit by using $y_{n+1}$
-in place of $y_n$ on the right side of Eq. \eqref{eq:714} (this makes both sides of
+in place of $y_n$ on the right side of Eq. \ref{eq:714} (this makes both sides of
 the equation reach into the future). This method is no more accurate
 than Euler\rq s method for small time steps, but it is much more stable
 and it doesn\rq t bounce between positive and negative values.
@@ -184,14 +186,12 @@ Methods like this are said to be \rq\rq absolutely stable\lq\lq. Of course, it m
 no sense to choose really large time steps, like $ \tau = 100$ when you only
 want to run the solution out to 10 seconds.
 
-	\marginpar{\includegraphics[width=\marginparwidth]{fig75}\captionof{figure}{The fully implicit method in $7.2(\mathrm{c})$ with $\tau=2.1$.}\label{fig:35}}
 \end{enumerate}
 \end{problem}
 \section*{The diffusion equation with Crank-Nicolson}
 \addcontentsline{toc}{section}{The diffusion equation with Crank-Nicolson} 
 	\marginpar{\includegraphics[width=\marginparwidth]{nicolson}\captionof{figure}{Phyllis Nicolson (1917-1968, English)}\label{fig:36}}
-		\marginpar{\includegraphics[width=\marginparwidth]{crank}\captionof{figure}{John Crank (1916-2006, English)}\label{fig:37}}
-
+		
 Now let\rq s look at the diffusion equation again and see how implicit methods can
 help us find a stable numerical algorithm. Here\rq s the equation again
 \begin{equation}\label{eq:715}
@@ -211,6 +211,7 @@ This puts the left side of the equation at time level $t_{n+\frac{1}{2}}$, while
 at tn. To put the right side at the same time level (so that the algorithm will be
 second-order accurate), we replace each occurrence of $T$ on the right-hand side
 by the average
+
 \begin{equation}\label{eq:718}
 T^{n+\frac{1}{2}}=\frac{T^{n+1}+T^{n}}{2}
 \end{equation}
@@ -225,6 +226,8 @@ solve in a simple way for $T^{n+1}_j$. This is an example of why implicit method
 harder than explicit methods. \\ 
 In the hope that something useful will turn up, let\rq s put all of the variables at
 time level $n +1$ on the left, and all of the ones at level n on the right.
+\marginpar{\includegraphics[width=\marginparwidth]{crank}\captionof{figure}{John Crank (1916-2006, English)}\label{fig:37}}
+
 \begin{equation}\label{eq:720}
 -T_{j-1}^{n+1}+\left(\frac{2 h^{2}}{\tau D}+2\right) T_{j}^{n+1}-T_{j+1}^{n+1}=T_{j-1}^{n}+\left(\frac{2 h^{2}}{\tau D}-2\right) T_{j}^{n}+T_{j+1}^{n}
 \end{equation}
@@ -233,7 +236,7 @@ solve a linear system, as we did in Lab 2 on two-point boundary value problems.
 When a system of equations must be solved to find the future values, we say
 that the method is implicit. This particular implicit method is called the CrankNicolson algorithm. \\ 
 To see more clearly what we are doing, and to make the algorithm a bit more
-efficient, let\rq s define a matrix A to describe the left side of Eq. \eqref{eq:720} and another
+efficient, let\rq s define a matrix A to describe the left side of Eq. \ref{eq:720} and another
 matrix B to describe the right side, like this:
 \begin{equation}\label{eq:721}
 \mathbf{A} T^{n+1}=\mathbf{B} T^{n}
@@ -252,7 +255,7 @@ B_{j, k}=0 except for :
 \begin{equation}\label{eq:723}
 B_{j, j-1}=-1 ; \quad B_{j, j}=\frac{2 h^{2}}{\tau D}-2 ; B_{j, j+1}=1
 \end{equation}
-Once the boundary conditions are added to these matrices, Eq. \eqref{eq:721} could be
+Once the boundary conditions are added to these matrices, Eq. \ref{eq:721} could be
 solved symbolically to find $T^{n+1}$
 \begin{equation}\label{eq:724}
 T^{n+1}=\mathbf{A}^{-1} \mathbf{B} T^{n}
@@ -261,7 +264,7 @@ However, since inverting a matrix is computationally expensive we will use Gauss
 elimination instead as we did in lab 2 (with SciPy\rq s linalg.solve function). Here
 is a sketch of how you would implement the Crank-Nicolson algorithm in Python.
 \begin{itemize}
-\item Load the matrices A and B as given in Eq. \eqref{eq:722} and Eq. \eqref{eq:723} for all of
+\item Load the matrices A and B as given in Eq. \ref{eq:722} and Eq. \ref{eq:723} for all of
 the rows except the first and last. Since the diffusion coefficient D doesn\rq t
 change with time you can load A and B just once before the time loop starts.
 \item The first and last rows involve the boundary conditions. Usually it is easier
@@ -321,12 +324,12 @@ for $t = 5$ s and find the maximum difference between the exact and
 numerical solutions. You should find that the time step $\tau$ matters less
 than $N$. The number of cells $N$ is the more important parameter for
 high accuracy in diffusion problems solved with Crank-Nicolson.
+\marginpar{\includegraphics[width=\marginparwidth]{fig76}\captionof{figure}{Solution to 7.3(c)}\label{fig:38}}
 
 \item Modify the Crank-Nicolson program to use boundary conditions
 $ \partial T /\partial x = 0$ at the ends. Run with the same initial condition as in
 part (a) (which does not satisfy these boundary conditions) and watch
 what happens. Zoom in on the plots early in time to see what happens
 in the first few grid points during the first few time steps.
-	\marginpar{\includegraphics[width=\marginparwidth]{fig76}\captionof{figure}{Solution to 7.3(c)}\label{fig:38}}
 \end{enumerate}
 \end{problem}
